@@ -75,21 +75,19 @@ Route::post('/analyze', function (Request $request) use ($platforms) {
     });
 
     // Match the Chrome extension: query cache and source, preferring cached direct links.
-    $pluginEndpoint = 'https://plugin.vidssave.com/api/plugin';
+    $pluginEndpoint = 'https://api.vidssave.com/api/contentsite_api/media/parse';
     $pluginToken = base64_encode('vidssave_brower_plugin_' . round(microtime(true) * 1000));
 
     try {
         $pluginData = [];
         foreach (['cache', 'source'] as $origin) {
             try {
-                $response = Http::asJson()->retry(2, 500)->timeout(45)->post($pluginEndpoint, [
-                    'url' => '/media/parse',
-                    'data' => [
-                        'origin' => $origin,
-                        'link' => $data['video_url'],
-                        'plugin_token' => $pluginToken,
-                    ],
-                    'token' => '',
+                $response = Http::asForm()->retry(1, 500)->timeout(15)->post($pluginEndpoint, [
+                    'auth' => '20250901majwlqo',
+                    'domain' => 'api-ak.vidssave.com',
+                    'origin' => $origin,
+                    'link' => $data['video_url'],
+                    'plugin_token' => $pluginToken,
                 ]);
                 $body = $response->json();
                 if ($response->successful() && ($body['status'] ?? null) === 1 && !empty($body['data'])) {
