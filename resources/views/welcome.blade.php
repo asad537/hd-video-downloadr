@@ -226,11 +226,65 @@
         .feature-card { padding:28px; }
         .feature-icon { width:46px; height:46px; display:grid; place-items:center; margin-bottom:18px; border-radius:50%; background:#edf9f6; color:var(--teal); font-size:21px; font-weight:800; }
         .steps-section { background:#f7f8fa; }
-        .steps { grid-template-columns:repeat(3,1fr); }
-        .step { position:relative; text-align:center; padding:22px; }
-        .step-number { width:48px; height:48px; display:grid; place-items:center; margin:0 auto 18px; border-radius:50%; color:#fff; background:var(--brand); font-weight:800; }
-        .step h3 { margin:0 0 8px; }
-        .step p { margin:0; color:var(--muted); line-height:1.65; font-size:14px; }
+        /* Steps layout — Screenshot 2 style: icon box + dashed connector */
+        .steps-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0;
+            margin-top: 48px;
+        }
+        .step {
+            flex: 1;
+            position: relative;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 24px;
+        }
+        /* Dashed connector between steps */
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 36px;
+            left: calc(50% + 52px);
+            width: calc(100% - 104px);
+            height: 0;
+            border-top: 2px dashed var(--line);
+            pointer-events: none;
+        }
+        /* Icon box — square with rounded corners */
+        .step-icon-box {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            background: rgba(23,184,151,.08);
+            border: 1.5px solid rgba(23,184,151,.22);
+            color: var(--teal);
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 2;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .step:hover .step-icon-box {
+            background: rgba(23,184,151,.14);
+            border-color: var(--teal);
+            transform: translateY(-4px);
+        }
+        .step-icon-box svg {
+            width: 26px;
+            height: 26px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .step h3 { margin:0 0 10px; font-size:18px; font-weight:800; }
+        .step p  { margin:0; color:var(--muted); line-height:1.65; font-size:14px; max-width:240px; }
         .faq { max-width:820px; margin:0 auto; }
         .faq details { border-bottom:1px solid var(--line); }
         .faq summary { padding:20px 4px; cursor:pointer; font-weight:700; list-style:none; }
@@ -240,7 +294,46 @@
         .faq p { margin:0; padding:0 34px 20px 4px; color:var(--muted); line-height:1.7; }
         .content-band { background:#fff; }
         footer { background:#172033; color:#c8cfdb; border:0; }
-        @media (max-width:860px) { .trust-grid, .steps { grid-template-columns:1fr; } .trust-item { border-right:0; border-bottom:1px solid var(--line); } .trust-item:last-child { border-bottom:0; } .result-layout{grid-template-columns:1fr;} .media-summary{border-right:0; border-bottom:1px solid var(--line);} }
+        /* ===== Bento Grid ===== */
+        .bento-grid     { display:grid; grid-template-columns:1.3fr 0.7fr; gap:20px; margin-top:32px; }
+        .bento-grid-r2  { display:grid; grid-template-columns:0.7fr 1.3fr; gap:20px; margin-top:20px; }
+        .bento-card {
+            position:relative; overflow:hidden;
+            background:#fff; border:1px solid var(--line); border-radius:20px;
+            padding:32px; display:flex; flex-direction:column; justify-content:space-between;
+            min-height:230px;
+            transition:transform .25s cubic-bezier(.34,1.56,.64,1),border-color .25s,box-shadow .25s;
+            box-shadow:var(--shadow);
+        }
+        .bento-card:hover { transform:translateY(-4px); box-shadow:0 20px 48px rgba(0,0,0,.09); }
+        .bento-card h3 { margin:0 0 10px; font-size:22px; font-weight:800; color:var(--ink); letter-spacing:-.3px; }
+        .bento-card p  { margin:0; font-size:14px; line-height:1.7; color:var(--muted); }
+        .bento-icon-box {
+            width:48px; height:48px; border-radius:13px; display:grid; place-items:center;
+            background:rgba(23,184,151,.1); border:1px solid rgba(23,184,151,.18);
+            color:var(--teal); margin-bottom:22px;
+        }
+        .bento-icon-box svg { width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+        /* Highlighted card */
+        .bento-card.hl  { background:linear-gradient(135deg,#17b897,#0da982); border-color:transparent; color:#fff; box-shadow:0 14px 36px rgba(23,184,151,.24); }
+        .bento-card.hl:hover { box-shadow:0 20px 44px rgba(23,184,151,.34); }
+        .bento-card.hl h3 { color:#fff; }
+        .bento-card.hl p  { color:rgba(255,255,255,.85); }
+        .bento-card.hl .bento-icon-box { background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.22); color:#fff; }
+        .bento-card.hl::after { content:'HD'; position:absolute; right:10px; bottom:-22px; font-size:110px; font-weight:900; color:rgba(255,255,255,.06); pointer-events:none; }
+        .bento-chips { display:flex; gap:8px; margin-top:22px; flex-wrap:wrap; }
+        .bento-chip  { padding:6px 14px; border-radius:99px; font-size:12px; font-weight:700; background:rgba(255,255,255,.18); color:#fff; }
+        /* Circle watermark */
+        .bento-circle { position:absolute; right:-50px; top:-50px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle,rgba(23,184,151,.06),transparent 70%); pointer-events:none; }
+        /* Globe watermark */
+        .bento-globe  { position:absolute; right:-20px; bottom:-20px; width:170px; height:170px; color:rgba(23,184,151,.06); pointer-events:none; }
+        .bento-globe svg { width:100%; height:100%; stroke:currentColor; fill:none; stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round; }
+        /* Device icons row */
+        .bento-devices { display:flex; gap:18px; margin-top:22px; }
+        .bento-devices svg { width:22px; height:22px; stroke:var(--muted); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+        @media (max-width:860px) { .bento-grid,.bento-grid-r2 { grid-template-columns:1fr; } .bento-grid-r2 { margin-top:0; } .bento-card { min-height:auto; } }
+        /* ===== /Bento Grid ===== */
+        @media (max-width:860px) { .trust-grid { grid-template-columns:1fr; } .steps-flow { flex-direction:column; align-items:center; gap:40px; } .step:not(:last-child)::after { display:none; } .trust-item { border-right:0; border-bottom:1px solid var(--line); } .trust-item:last-child { border-bottom:0; } .result-layout{grid-template-columns:1fr;} .media-summary{border-right:0; border-bottom:1px solid var(--line);} }
         @media (max-width:620px) { .hero{padding:48px 0 32px;} .nav{align-items:center; flex-direction:row;} .nav-links a:not(:first-child){display:none;} .brand{font-size:17px;} .download-panel{border-radius:12px;} .url-form{grid-template-columns:1fr;} .button{width:100%;} .platform-strip{gap:8px;} .platform-pill{padding:7px 10px;} .format-row{grid-template-columns:62px 1fr auto; gap:8px; padding:13px 14px;} .format-size{grid-column:2;} .download-link{grid-column:3; grid-row:1 / span 2; min-width:48px; width:48px; padding:0; font-size:0;} .download-arrow{font-size:22px;} .format-heading{padding:17px 14px;} }
     </style>
     <style>
@@ -507,7 +600,33 @@
         .article-aside a:last-child { color:#45ddb9; border:0; }
         .related-section { border-top:1px solid #252d38; background:#10151c; }
         .feature-icon { color:#40dcb5; background:rgba(34,211,167,.1); border:1px solid rgba(34,211,167,.16); }
-        .step-number { color:#fff; background:linear-gradient(145deg,#ff536c,#d91f45); box-shadow:0 10px 26px rgba(255,61,87,.2); }
+        /* Dark bento overrides */
+        .bento-card { background:#141a22; border-color:#29313d; box-shadow:inset 0 1px 0 rgba(255,255,255,.03), 0 16px 40px rgba(0,0,0,.18); }
+        .bento-card:hover { border-color:#3a4656; box-shadow:0 22px 50px rgba(0,0,0,.32); }
+        .bento-card h3 { color:#f0f4f8; }
+        .bento-icon-box { background:rgba(34,211,167,.07); border-color:rgba(34,211,167,.18); color:#22d3a7; }
+        .bento-card.hl { background:linear-gradient(135deg,#39e1b6,#13b98f); border-color:transparent; box-shadow:0 14px 36px rgba(19,185,143,.28); }
+        .bento-card.hl h3 { color:#04130f; }
+        .bento-card.hl p  { color:rgba(4,19,15,.82); }
+        .bento-card.hl .bento-icon-box { background:rgba(4,19,15,.08); border-color:rgba(4,19,15,.12); color:#04130f; }
+        .bento-card.hl .bento-chip { background:rgba(4,19,15,.08); color:#04130f; }
+        .bento-card.hl::after { color:rgba(4,19,15,.06); }
+        .bento-circle { background:radial-gradient(circle,rgba(57,225,182,.05),transparent 70%); }
+        .bento-globe  { color:rgba(255,255,255,.035); }
+        .bento-devices svg { stroke:rgba(255,255,255,.3); }
+        .step-icon-box {
+            background: rgba(34,211,167,.07);
+            border-color: rgba(34,211,167,.2);
+            color: #22d3a7;
+        }
+        .step:hover .step-icon-box {
+            background: rgba(34,211,167,.13);
+            border-color: #22d3a7;
+            box-shadow: 0 0 22px rgba(34,211,167,.15);
+        }
+        .step:not(:last-child)::after {
+            border-top-color: rgba(255,255,255,.08);
+        }
         .faq details { border-color:#28313e; }
         .faq summary { color:#e9edf3; }
         .page-hero { background:linear-gradient(135deg,#101720,#0a0e13); border-color:#252d38; }
@@ -604,7 +723,10 @@
                             <form class="url-form" method="POST" action="{{ route('analyze') }}" id="analyze-form">
                                 @csrf
                                 <input id="video-url-input" name="video_url" type="url" value="{{ old('video_url') }}" placeholder="Paste a video URL here" aria-label="Video URL" required>
-                                <button id="analyze-btn" class="button" type="submit">↓&nbsp; Download</button>
+                                <button id="analyze-btn" class="button" type="submit">
+                                    <svg style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    <span>Download</span>
+                                </button>
                             </form>
                             @error('video_url')<div class="error" id="error-container">{{ $message }}</div>@else<div id="error-container" class="error" style="display:none;"></div>@enderror
                             <div id="result-container">
@@ -632,20 +754,108 @@
             <section>
                 <div class="wrap">
                     <div class="section-head"><h2>Why choose HDVideoDownloader?</h2><p>A simple, fast, and private way to save public videos across mobile, tablet, and desktop browsers.</p></div>
-                    <div class="grid features">
-                        <div class="feature-card"><div class="feature-icon">01</div><h3>Instant analysis</h3><p>Paste a link and quickly see the available video and audio formats.</p></div>
-                        <div class="feature-card"><div class="feature-icon">02</div><h3>Flexible quality</h3><p>Choose from SD, HD, Full HD, and audio options when the source supports them.</p></div>
-                        <div class="feature-card"><div class="feature-icon">03</div><h3>Works everywhere</h3><p>Use the same smooth experience on phones, tablets, laptops, and desktops.</p></div>
+
+                    <!-- Row 1 -->
+                    <div class="bento-grid">
+
+                        <!-- Card 1: Ultra-Fast Speeds (wide) -->
+                        <div class="bento-card">
+                            <div class="bento-circle" aria-hidden="true"></div>
+                            <div>
+                                <div class="bento-icon-box" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                </div>
+                                <h3>Ultra-Fast Speeds</h3>
+                                <p>Our high-performance servers process video extraction in milliseconds, ensuring you get your files without the wait. Powered by distributed cloud technology.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: High Quality (narrow, highlighted) -->
+                        <div class="bento-card hl">
+                            <div>
+                                <div class="bento-icon-box" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                                </div>
+                                <h3>High Quality</h3>
+                                <p>Get full resolution support up to 4K UHD with lossless audio extraction features.</p>
+                            </div>
+                            <div class="bento-chips">
+                                <span class="bento-chip">1080p</span>
+                                <span class="bento-chip">4K UHD</span>
+                                <span class="bento-chip">8K</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="bento-grid-r2">
+
+                        <!-- Card 3: Safe & Private (narrow) -->
+                        <div class="bento-card">
+                            <div>
+                                <div class="bento-icon-box" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                </div>
+                                <h3>Safe &amp; Private</h3>
+                                <p>We value your privacy. No registration required, and all processed files are purged from our servers after 24 hours. SSL encrypted transfers.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Universal Compatibility (wide) -->
+                        <div class="bento-card">
+                            <div class="bento-globe" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            </div>
+                            <div>
+                                <div class="bento-icon-box" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                </div>
+                                <h3>Universal Compatibility</h3>
+                                <p>Works on any modern browser across Windows, macOS, Android, and iOS. No apps or extensions needed.</p>
+                            </div>
+                            <div class="bento-devices" aria-label="Supported devices">
+                                <svg viewBox="0 0 24 24" title="Desktop"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                <svg viewBox="0 0 24 24" title="Mobile"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                <svg viewBox="0 0 24 24" title="Tablet"><rect x="2" y="4" width="20" height="12" rx="2" ry="2"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
             <section class="steps-section">
                 <div class="wrap">
                     <div class="section-head"><h2>Download in 3 simple steps</h2><p>No account, complicated settings, or software installation required.</p></div>
-                    <div class="grid steps">
-                        <div class="step"><span class="step-number">1</span><h3>Copy the link</h3><p>Open the video and copy its public share URL.</p></div>
-                        <div class="step"><span class="step-number">2</span><h3>Paste the URL</h3><p>Place the copied link in the downloader box above.</p></div>
-                        <div class="step"><span class="step-number">3</span><h3>Choose quality</h3><p>Select your preferred format and save it to your device.</p></div>
+                    <div class="steps-flow">
+
+                        <!-- Step 1: Copy Link -->
+                        <div class="step">
+                            <div class="step-icon-box" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                            </div>
+                            <h3>1. Copy Link</h3>
+                            <p>Find the video you want to download and copy its URL from the browser's address bar.</p>
+                        </div>
+
+                        <!-- Step 2: Paste URL -->
+                        <div class="step">
+                            <div class="step-icon-box" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                            </div>
+                            <h3>2. Paste URL</h3>
+                            <p>Paste the link into the URL input field above and our engine will analyze the content immediately.</p>
+                        </div>
+
+                        <!-- Step 3: Download -->
+                        <div class="step">
+                            <div class="step-icon-box" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            </div>
+                            <h3>3. Download</h3>
+                            <p>Choose your preferred resolution and format, then click download to save it to your device.</p>
+                        </div>
+
                     </div>
                 </div>
             </section>
@@ -801,7 +1011,7 @@
             if (!url || !/^https?:\/\//i.test(url)) return;
             if (analyzeBtn) {
                 analyzeBtn.disabled = true;
-                analyzeBtn.innerHTML = 'Analyzing...';
+                analyzeBtn.innerHTML = '<svg style="display:inline-block;vertical-align:middle;margin-right:8px;animation:spin 1s linear infinite" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg><span>Analyzing...</span>';
             }
             if (errorContainer) {
                 errorContainer.style.display = 'none';
@@ -853,7 +1063,7 @@
             } finally {
                 if (analyzeBtn) {
                     analyzeBtn.disabled = false;
-                    analyzeBtn.innerHTML = '↓&nbsp; Download';
+                    analyzeBtn.innerHTML = '<svg style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Download</span>';
                 }
             }
         }
