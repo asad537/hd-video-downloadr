@@ -1,5 +1,2 @@
 User-agent: *
-Disallow: /admin
-Disallow: /admin/login
-
-Sitemap: https://hdvideodownloader.com/sitemap.xml
+Disallow: /
