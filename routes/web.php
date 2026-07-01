@@ -99,7 +99,7 @@ Route::post('/analyze', function (Request $request) use ($platforms) {
         }
 
         $videoData = $pluginData['source'] ?? $pluginData['cache'] ?? null;
-        $allowPreparedFormats = true;
+        $allowPreparedFormats = !($platform && $platform['domain'] === 'youtube.com');
         $rawResources = array_merge(
             $pluginData['cache']['resources'] ?? [],
             $pluginData['source']['resources'] ?? []
@@ -360,15 +360,19 @@ Route::get('/privacy', function () use ($platforms, $loadPosts) {
 
 Route::get('/sitemap.xml', function () use ($loadPosts) {
     $posts = $loadPosts();
+    $latestPostDate = collect($posts)->pluck('published')->filter()->map(function ($date) {
+        return date('Y-m-d', strtotime($date));
+    })->sortDesc()->first() ?: now()->toDateString();
     $urls = collect([
-        ['loc' => route('home'), 'priority' => '1.0'],
-        ['loc' => route('platforms'), 'priority' => '0.8'],
-        ['loc' => route('blog'), 'priority' => '0.9'],
-        ['loc' => route('privacy'), 'priority' => '0.4'],
+        ['loc' => route('home'), 'lastmod' => $latestPostDate, 'changefreq' => 'daily', 'priority' => '1.0'],
+        ['loc' => route('platforms'), 'lastmod' => $latestPostDate, 'changefreq' => 'weekly', 'priority' => '0.8'],
+        ['loc' => route('blog'), 'lastmod' => $latestPostDate, 'changefreq' => 'daily', 'priority' => '0.9'],
+        ['loc' => route('privacy'), 'lastmod' => $latestPostDate, 'changefreq' => 'yearly', 'priority' => '0.4'],
     ])->merge(collect($posts)->map(function ($post) {
         return [
             'loc' => route('blog.show', $post['slug']),
             'lastmod' => date('Y-m-d', strtotime($post['published'])),
+            'changefreq' => 'monthly',
             'priority' => '0.7',
         ];
     }));

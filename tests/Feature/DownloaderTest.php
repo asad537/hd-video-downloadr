@@ -13,21 +13,21 @@ class DownloaderTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_blog_has_thirty_indexable_articles_with_metadata()
+    public function test_blog_has_one_hundred_indexable_articles_with_metadata()
     {
         $this->seed();
         $this->get('/blog')
             ->assertOk()
-            ->assertSee('How to Download Videos in HD Without Losing Quality')
-            ->assertSee('/images/blog/', false);
+            ->assertSee('YouTube Video Downloader: Safe HD MP4 Guide')
+            ->assertSee('/images/blog/generated/', false);
 
-        $this->assertCount(30, config('blog'));
+        $this->assertCount(100, config('blog'));
 
-        $this->get('/blog/mp4-vs-webm-video-format')
+        $this->get('/blog/youtube-video-downloader-safe-hd-mp4-guide')
             ->assertOk()
             ->assertSee('<link rel="canonical"', false)
             ->assertSee('application/ld+json', false)
-            ->assertSee('MP4 vs WEBM: Which Video Format Should You Choose?');
+            ->assertSee('YouTube Video Downloader: Safe HD MP4 Guide');
 
         $this->get('/sitemap.xml')
             ->assertOk()
@@ -49,7 +49,7 @@ class DownloaderTest extends TestCase
     public function test_it_merges_extension_cache_and_source_but_only_shows_direct_formats()
     {
         Http::fake(function (Request $request) {
-            $origin = $request->data()['data']['origin'] ?? null;
+            $origin = $request->data()['origin'] ?? ($request->data()['data']['origin'] ?? null);
 
             if ($origin === 'cache') {
                 return Http::response([
@@ -105,7 +105,7 @@ class DownloaderTest extends TestCase
         $response->assertOk();
         $response->assertSee('720P');
         $response->assertSee('360P');
-        $response->assertDontSee('1080P');
+        $response->assertDontSee('conversion-only');
         $response->assertDontSee('class="download-link prepare-download"', false);
 
         Http::assertSentCount(2);
@@ -114,7 +114,7 @@ class DownloaderTest extends TestCase
     public function test_it_shows_preparable_formats_for_tiktok()
     {
         Http::fake(function (Request $request) {
-            $origin = $request->data()['data']['origin'] ?? null;
+            $origin = $request->data()['origin'] ?? ($request->data()['data']['origin'] ?? null);
             if ($origin === 'cache') {
                 return Http::response(['status' => 0]);
             }
