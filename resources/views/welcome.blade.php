@@ -917,6 +917,18 @@
             .nav-links a:hover { background:rgba(255,255,255,0.05); color:#fff; }
             .nav-links a.active::after { display:none; }
             .nav-links a.active { color:#04130f; background:linear-gradient(135deg,#39e1b6,#13b98f); border-color:transparent; box-shadow:0 8px 24px rgba(57,225,182,0.25); }
+            .nav-dropdown-wrap, .lang-selector { display:flex; flex-direction:column; width:100%; }
+            .nav-dropdown-wrap .dropdown-trigger { width:100%; justify-content:center; }
+            .lang-btn { width:100%; justify-content:center; min-height:48px; border-radius:12px; border:1px solid rgba(255,255,255,0.03); background:rgba(255,255,255,0.02); color:#cfd6df; font-size:14px; font-weight:700; padding:10px 16px; transition:all 0.2s ease; }
+            .lang-btn:hover { background:rgba(255,255,255,0.05); color:#fff; }
+            .lang-dropdown { position:static; width:100%; min-width:0; margin-top:8px; border-radius:12px; background:rgba(0,0,0,0.2); box-shadow:none; border:1px solid rgba(255,255,255,0.05); opacity:1 !important; visibility:visible !important; transform:none !important; display:none; pointer-events:auto !important; }
+            .lang-selector.open .lang-dropdown { display:block; }
+            .mega-menu { position:static; width:100%; margin-top:8px; border-radius:12px; background:rgba(0,0,0,0.2); box-shadow:none; border:1px solid rgba(255,255,255,0.05); padding:10px; display:none; backdrop-filter:none; }
+            .nav-dropdown-wrap.open .mega-menu, .nav-dropdown-wrap:hover .mega-menu { display:block; }
+            .mega-menu::before { display:none; }
+            .nav-links .mega-item { justify-content:flex-start; text-align:left; }
+            .mega-child-menu { position:static; width:100%; margin-top:6px; border-radius:8px; background:rgba(255,255,255,0.03); box-shadow:none; border:none; padding:6px; backdrop-filter:none; display:none; }
+            .mega-parent-wrap.has-kids:hover .mega-child-menu { display:block; }
             .hero { padding:40px 0 30px; }
             .hero h1 { font-size:clamp(34px, 13vw, 48px); line-height:1.04; }
             .hero-copy { font-size:15px; line-height:1.65; }
