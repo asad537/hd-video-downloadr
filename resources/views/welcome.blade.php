@@ -1,23 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <style>iframe.goog-te-banner-frame{display:none!important}body{top:0!important;position:static!important}.goog-te-banner-frame{display:none!important}.skiptranslate{display:none!important}#google_translate_element{display:none!important}.goog-tooltip{display:none!important}.goog-tooltip:hover{display:none!important}.goog-text-highlight{background:none!important;box-shadow:none!important}</style>
     @php
         $siteName = $siteSettings['site_name'] ?? 'HDVideoDownloader';
         $pageTitle = $page === 'blog-post'
             ? (($post['title'] ?? 'Guide') . ' | ' . $siteName)
             : ($page === 'home'
-                ? 'HD Video Downloader - All in One Video Saver'
+                ? (!empty($homeSeo->meta_title) ? $homeSeo->meta_title : 'HD Video Downloader - All in One Video Saver')
                 : ucwords(str_replace('-', ' ', $page)) . ' - HD Video Downloader');
         $pageDescription = $page === 'blog-post'
             ? ($post['description'] ?? $post['excerpt'] ?? '')
-            : ($siteSettings['default_meta_description'] ?? 'HDVideoDownloader is an all-in-one video downloader interface for public video links, HD formats, and supported platforms.');
+            : ($page === 'home'
+                ? (!empty($homeSeo->meta_description) ? $homeSeo->meta_description : ($siteSettings['default_meta_description'] ?? 'HDVideoDownloader is an all-in-one video downloader interface.'))
+                : ($siteSettings['default_meta_description'] ?? 'HDVideoDownloader is an all-in-one video downloader interface for public video links, HD formats, and supported platforms.'));
         $pageUrl = $page === 'blog-post' ? route('blog.show', $post['slug']) : url()->current();
         $pageImage = $page === 'blog-post' ? asset($post['image']) : asset('/images/blog/generated/001-youtube-video-downloader-safe-hd-mp4-guide.svg');
     @endphp
     <meta charset="utf-8">
+    <link rel="icon" type="image/svg+xml" href="/images/home/Favicon.svg">
+    <link rel="apple-touch-icon" href="/images/home/Favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ $pageDescription }}">
-    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    @if($page === 'home' && !empty($homeSeo->meta_keywords))
+    <meta name="keywords" content="{{ $homeSeo->meta_keywords }}">
+    @endif
+    <meta name="robots" content="{{ $page === 'home' && !empty($homeSeo->meta_robots) ? $homeSeo->meta_robots : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }}">
     <title>{{ $pageTitle }}</title>
     <link rel="canonical" href="{{ $pageUrl }}">
     <meta property="og:site_name" content="{{ $siteName }}">
@@ -325,7 +333,7 @@
         .faq details { border-bottom:1px solid var(--line); }
         .faq summary { padding:20px 4px; cursor:pointer; font-weight:700; list-style:none; }
         .faq summary::-webkit-details-marker { display:none; }
-        .faq summary::after { content:'+'; float:right; color:var(--brand); font-size:22px; }
+        .faq summary::after { content:'+'; float:right; color:var(--teal); font-size:22px; }
         .faq details[open] summary::after { content:'−'; }
         .faq p { margin:0; padding:0 34px 20px 4px; color:var(--muted); line-height:1.7; }
         .content-band { background:#fff; }
@@ -371,6 +379,18 @@
         /* ===== /Bento Grid ===== */
         @media (max-width:860px) { .trust-grid { grid-template-columns:1fr; } .steps-flow { flex-direction:column; align-items:center; gap:40px; } .step:not(:last-child)::after { display:none; } .trust-item { border-right:0; border-bottom:1px solid var(--line); } .trust-item:last-child { border-bottom:0; } .result-layout{grid-template-columns:1fr;} .media-summary{border-right:0; border-bottom:1px solid var(--line);} }
         @media (max-width:620px) { .hero{padding:48px 0 32px;} .nav{align-items:center; flex-direction:row;} .nav-links a:not(:first-child){display:none;} .brand{font-size:17px;} .download-panel{border-radius:12px;} .url-form{grid-template-columns:1fr;} .button{width:100%;} .platform-strip{gap:8px;} .platform-pill{padding:7px 10px;} .format-row{grid-template-columns:62px 1fr auto; gap:8px; padding:13px 14px;} .format-size{grid-column:2;} .download-link{grid-column:3; grid-row:1 / span 2; min-width:48px; width:48px; padding:0; font-size:0;} .download-arrow{font-size:22px;} .format-heading{padding:17px 14px;} }
+
+        /* SEO Content Section */
+        .seo-content-section { padding:80px 0; background:transparent; color:#a0aaba; border-top:1px solid rgba(255,255,255,0.05); }
+        .seo-content-wrap { max-width:930px; margin:0 auto; padding:0 20px; text-align:left; }
+        .seo-heading { font-size:clamp(26px, 4vw, 36px); font-weight:900; color:#fff; margin-bottom:24px; line-height:1.3; }
+        .seo-text-container { position:relative; color:#a0aaba; line-height:1.85; font-size:16px; }
+        .seo-text-content p { margin-bottom:18px; }
+        .seo-text-content p:last-child { margin-bottom:0; }
+        .seo-text-content:not(.expanded) > *:nth-child(n+3) { display:none; }
+        .seo-read-more { background:linear-gradient(135deg,#39e1b6,#13b98f); color:#04130f; border:none; padding:10px 24px; border-radius:30px; font-weight:800; font-size:14px; cursor:pointer; margin-top:20px; transition:transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(57,225,182,0.25); display:none; }
+        .seo-read-more.visible { display:inline-block; }
+        .seo-read-more:hover { transform:translateY(-2px); box-shadow: 0 12px 30px rgba(57,225,182,0.35); }
     </style>
     <style>
         :root {
@@ -407,6 +427,144 @@
         .nav-links a { color:#a0aaba; font-size:15px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; transition:color .2s; }
         .nav-links a.active, .nav-links a:hover { color:#fff; }
         .nav-links a.active::after { background:#39e1b6; box-shadow:0 0 10px rgba(57,225,182,.5); bottom:-5px; }
+        /* Mega Menu */
+        .nav-dropdown-wrap { position:relative; display:inline-flex; align-items:center; }
+        .dropdown-trigger { color:#a0aaba; font-size:15px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; transition:color .2s; display:inline-flex; align-items:center; gap:4px; }
+        .nav-dropdown-wrap:hover .dropdown-trigger, .dropdown-trigger.active { color:#fff; }
+        .mega-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 16px);
+            right: -20px;
+            left: auto;
+            transform: none;
+            background: rgba(15, 20, 28, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(57,225,182,0.15);
+            border-radius: 20px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+            padding: 20px;
+            min-width: 380px;
+            z-index: 99999;
+        }
+        .mega-menu::before {
+            content: '';
+            position: absolute;
+            top: -16px;
+            left: 0;
+            width: 100%;
+            height: 16px;
+            background: transparent;
+        }
+        .nav-dropdown-wrap:hover .mega-menu { display: block; }
+        .mega-menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .mega-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #c3cad5;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.18s ease;
+            border: 1px solid transparent;
+        }
+        .mega-item:hover {
+            background: rgba(57,225,182,0.08);
+            border-color: rgba(57,225,182,0.2);
+            color: #fff;
+            transform: translateX(3px);
+        }
+        .mega-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(57,225,182,0.08);
+            border: 1px solid rgba(57,225,182,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #39e1b6;
+            font-size: 15px;
+            flex-shrink: 0;
+            transition: background 0.18s, border-color 0.18s;
+        }
+        .mega-item:hover .mega-icon {
+            background: rgba(57,225,182,0.16);
+            border-color: rgba(57,225,182,0.35);
+        }
+        .mega-footer {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 12px;
+            text-align: center;
+        }
+        .mega-all-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #39e1b6;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: gap 0.2s;
+        }
+        .mega-all-link:hover { gap: 10px; }
+        /* Sub-Platform Child Menu */
+        .mega-parent-wrap { position: relative; }
+        .mega-child-menu {
+            display: none;
+            position: absolute;
+            left: calc(100% + 8px);
+            right: auto;
+            top: 0;
+            min-width: 240px;
+            background: rgba(15, 20, 28, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(57,225,182,0.15);
+            border-radius: 16px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+            padding: 8px;
+            z-index: 999999;
+        }
+        .mega-parent-wrap.has-kids:hover .mega-child-menu { display: block; }
+        .mega-child-item {
+            padding: 9px 12px;
+            border-radius: 9px;
+            font-size: 12px;
+        }
+        .mega-child-item .mega-icon {
+            width: 28px;
+            height: 28px;
+            font-size: 12px;
+            border-radius: 8px;
+        }
+        /* Language Selector */
+        .lang-selector { position:relative; display:inline-flex; align-items:center; }
+        .lang-btn { display:inline-flex; align-items:center; gap:7px; padding:9px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.06); color:#c3cad5; font-size:13px; font-weight:700; cursor:pointer; transition:all .2s ease; white-space:nowrap; letter-spacing:0.3px; }
+        .lang-btn:hover { border-color:rgba(57,225,182,.35); color:#fff; background:rgba(57,225,182,.08); }
+        .lang-btn svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; transition:transform .2s; }
+        .lang-selector.open .lang-btn svg { transform:rotate(180deg); }
+        .lang-globe { width:16px; height:16px; stroke:var(--teal); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+        .lang-dropdown { position:absolute; top:calc(100% + 10px); right:0; min-width:190px; background:#111823; border:1px solid rgba(255,255,255,.1); border-radius:14px; box-shadow:0 20px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05); overflow:hidden; opacity:0; pointer-events:none; transform:translateY(-8px); transition:opacity .2s ease,transform .2s ease; z-index:99; }
+        .lang-selector.open .lang-dropdown { opacity:1; pointer-events:all; transform:translateY(0); }
+        .lang-dropdown-inner { max-height:320px; overflow-y:auto; padding:6px; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.1) transparent; }
+        .lang-option { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; font-size:13px; font-weight:600; color:#c3cad5; cursor:pointer; transition:background .15s,color .15s; }
+        .lang-option:hover { background:rgba(57,225,182,.1); color:#fff; }
+        .lang-option.active { color:#39e1b6; background:rgba(57,225,182,.08); }
+        .lang-option .lang-flag { font-size:18px; line-height:1; flex-shrink:0; }
+        /* Hide Google Translate toolbar */
+        .goog-te-banner-frame, .goog-te-banner-frame.skiptranslate { display:none !important; }
+        body { top:0 !important; }
+        .goog-te-gadget { display:none !important; }
+        #goog-gt-tt, .goog-te-balloon-frame { display:none !important; }
+        .goog-tooltip, .goog-tooltip:hover { display:none !important; }
         .hero {
             background:
                 radial-gradient(circle at 16% 5%,rgba(34,211,167,.14),transparent 30%),
@@ -489,7 +647,7 @@
         .read-time { margin:18px 0 0 auto; color:#788394; font-size:12px; }
         .home-blog { padding:80px 0 86px; background:#0b0e13; border-top:1px solid #202832; }
         .home-blog-head { max-width:680px; margin:0 auto 42px; text-align:center; }
-        .home-blog-label { display:inline-flex; margin-bottom:13px; padding:7px 16px; border:1px solid rgba(255,77,103,.45); border-radius:999px; color:var(--brand); font-size:11px; font-weight:800; }
+        .home-blog-label { display:inline-flex; margin-bottom:13px; padding:7px 16px; border:1px solid rgba(34,211,167,.45); border-radius:999px; color:var(--teal); font-size:11px; font-weight:800; }
         .home-blog-head h2 { margin:0 0 12px; font-size:34px; }
         .home-blog-head p { margin:0; color:#929cab; font-size:14px; }
         .editorial-blog-grid { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:56px; align-items:start; }
@@ -505,8 +663,8 @@
         .side-post-image { width:132px; aspect-ratio:1.15/1; }
         .side-post h3 { margin:9px 0 5px; font-size:15px; line-height:1.4; }
         .side-post p { display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; font-size:11px; }
-        .view-all-posts { justify-self:end; display:inline-flex; gap:7px; margin-top:10px; color:var(--brand); font-size:13px; font-weight:800; }
-        .view-all-posts:hover { color:#ff8294; }
+        .view-all-posts { justify-self:start; margin-top:10px; display:inline-flex; align-items:center; gap:7px; background:linear-gradient(135deg,#39e1b6,#13b98f); color:#04130f; padding:12px 28px; border-radius:30px; font-weight:800; font-size:14px; text-decoration:none; transition:transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(57,225,182,0.25); }
+        .view-all-posts:hover { transform:translateY(-2px); box-shadow: 0 12px 30px rgba(57,225,182,0.35); color:#04130f; }
         
         @media (max-width: 900px) {
             .dark-top-grid, .dark-bottom-grid { grid-template-columns: 1fr; }
@@ -842,13 +1000,103 @@
 <body>
     <header class="topbar">
         <nav class="wrap nav">
-            <a class="brand" href="{{ route('home') }}" aria-label="HDVideoDownloader home">@include('partials.logo-mark')<span class="brand-name">HDVideo<span>Downloader</span></span></a>
+            <a class="brand" href="{{ route('home') }}" aria-label="HDVideoDownloader home">
+                <img src="/images/home/hd-video-download.png" alt="HD Video Downloader Logo" style="height: 60px; width: auto; object-fit: contain;">
+            </a>
             <button class="menu-toggle" aria-label="Toggle menu"><span></span></button>
             <div class="nav-links">
-                <a class="{{ $page === 'home' ? 'active' : '' }}" href="{{ route('home') }}">Downloader</a>
-                <a class="{{ $page === 'platforms' ? 'active' : '' }}" href="{{ route('platforms') }}">Supported Platforms</a>
+                <a class="{{ $page === 'home' ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
+                @php
+                    $menuPlatforms = \App\Models\Platform::whereNull('parent_id')
+                        ->where('status', 'active')
+                        ->with('children')
+                        ->orderBy('name')
+                        ->get();
+                @endphp
+                <div class="nav-dropdown-wrap {{ $page === 'platforms' ? 'active' : '' }}">
+                    <a class="dropdown-trigger {{ $page === 'platforms' ? 'active' : '' }}" style="cursor:pointer;">Supported Platforms <svg style="display:inline-block;width:12px;height:12px;margin-left:3px;vertical-align:middle;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-grid">
+                            @foreach($menuPlatforms as $mp)
+                            @php
+                                $icoName = strtolower($mp->name);
+                                if($icoName == 'twitter' || $icoName == 'x') $icoName = 'x';
+                                
+                                if(!empty($mp->icon) && strpos($mp->icon, 'fa-') !== false) {
+                                    $mpIconHtml = '<i class="'.$mp->icon.'"></i>';
+                                } else {
+                                    $iconSlug = (!empty($mp->icon) && strpos($mp->icon, 'fa-') === false) ? strtolower($mp->icon) : $icoName;
+                                    $mpIconHtml = '<img src="https://cdn.simpleicons.org/'.$iconSlug.'/39e1b6" alt="" width="18" height="18" style="display:block;">';
+                                }
+                                $hasKids = $mp->children->isNotEmpty();
+                            @endphp
+                            <div style="position:relative;" class="mega-parent-wrap {{ $hasKids ? 'has-kids' : '' }}">
+                                <a href="{{ route('platforms.show', $mp->slug) }}/" class="mega-item">
+                                    <div class="mega-icon">{!! $mpIconHtml !!}</div>
+                                    <span style="text-transform:uppercase;">{{ $mp->name }}</span>
+                                    @if($hasKids)
+                                    <i class="fas fa-chevron-right" style="margin-left:auto;font-size:0.65rem;color:#39e1b6;flex-shrink:0;"></i>
+                                    @endif
+                                </a>
+                                @if($hasKids)
+                                <div class="mega-child-menu">
+                                    @foreach($mp->children as $child)
+                                    @php
+                                        $cIconSource = !empty($child->icon) ? $child->icon : $mp->icon;
+                                        $cIcoNameFallback = !empty($child->icon) ? strtolower($child->name) : strtolower($mp->name);
+                                        if($cIcoNameFallback == 'twitter' || $cIcoNameFallback == 'x') $cIcoNameFallback = 'x';
+
+                                        if(!empty($cIconSource) && strpos($cIconSource, 'fa-') !== false) {
+                                            $cIconHtml = '<i class="'.$cIconSource.'"></i>';
+                                        } else {
+                                            $cIconSlug = (!empty($cIconSource) && strpos($cIconSource, 'fa-') === false) ? strtolower($cIconSource) : $cIcoNameFallback;
+                                            $cIconHtml = '<img src="https://cdn.simpleicons.org/'.$cIconSlug.'/39e1b6" alt="" width="14" height="14" style="display:block;">';
+                                        }
+                                    @endphp
+                                    <a href="{{ route('platforms.show', $child->slug) }}/" class="mega-item mega-child-item">
+                                        <div class="mega-icon" style="width:28px;height:28px;">{!! $cIconHtml !!}</div>
+                                        <span style="text-transform:uppercase;font-size:0.78rem;">{{ $child->name }}</span>
+                                    </a>
+                                    @endforeach
+                                </div>
+                                @endif
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="mega-footer">
+                            <a href="{{ route('platforms') }}" class="mega-all-link">View all platforms <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
                 <a class="{{ in_array($page, ['blog', 'blog-post']) ? 'active' : '' }}" href="{{ route('blog') }}">Blog</a>
                 <a class="{{ $page === 'privacy' ? 'active' : '' }}" href="{{ route('privacy') }}">Privacy</a>
+                <!-- Language Selector -->
+                <div class="lang-selector notranslate" id="langSelector" translate="no">
+                    <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Select language">
+                        <svg class="lang-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <span id="langLabel">English</span>
+                        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="lang-dropdown notranslate" id="langDropdown" role="listbox" aria-label="Languages" translate="no">
+                        <div class="lang-dropdown-inner">
+                            <div class="lang-option active" data-lang="en"    data-label="English"    role="option">English</div>
+                            <div class="lang-option"        data-lang="ar"    data-label="العربية"    role="option">العربية</div>
+                            <div class="lang-option"        data-lang="ur"    data-label="اردو"       role="option">اردو</div>
+                            <div class="lang-option"        data-lang="hi"    data-label="हिंदी"      role="option">हिंदी</div>
+                            <div class="lang-option"        data-lang="es"    data-label="Español"    role="option">Español</div>
+                            <div class="lang-option"        data-lang="fr"    data-label="Français"   role="option">Français</div>
+                            <div class="lang-option"        data-lang="pt"    data-label="Português"  role="option">Português</div>
+                            <div class="lang-option"        data-lang="ko"    data-label="한국어"      role="option">한국어</div>
+                            <div class="lang-option"        data-lang="tr"    data-label="Türkçe"     role="option">Türkçe</div>
+                            <div class="lang-option"        data-lang="vi"    data-label="Tiếng Việt" role="option">Tiếng Việt</div>
+                            <div class="lang-option"        data-lang="ru"    data-label="Русский"    role="option">Русский</div>
+                            <div class="lang-option"        data-lang="it"    data-label="Italiano"   role="option">Italiano</div>
+                            <div class="lang-option"        data-lang="de"    data-label="Deutsch"    role="option">Deutsch</div>
+                            <div class="lang-option"        data-lang="zh-CN" data-label="中文"        role="option">中文</div>
+                            <div class="lang-option"        data-lang="ja"    data-label="日本語"      role="option">日本語</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
@@ -858,16 +1106,45 @@
             <div class="hero">
                 <div class="wrap hero-center">
                         <span class="eyebrow">Free online tool</span>
-                        @php $heroTitle = $siteSettings['hero_title'] ?? 'Free All Video Downloader'; @endphp
-                        <h1>{{ \Illuminate\Support\Str::beforeLast($heroTitle, ' ') }} <span>{{ \Illuminate\Support\Str::afterLast($heroTitle, ' ') }}</span></h1>
-                        <p class="hero-copy">{{ $siteSettings['hero_subtitle'] ?? 'Download videos, reels, shorts, and audio from your favorite platforms. Paste a public video link below to get started.' }}</p>
+                        @php 
+                            $heroTitle = !empty($homeSettings->hero_heading) ? $homeSettings->hero_heading : ($siteSettings['hero_title'] ?? 'Free All Video Downloader'); 
+                            $lastSpace = strrpos($heroTitle, ' ');
+                            if ($lastSpace !== false) {
+                                $titleFirst = substr($heroTitle, 0, $lastSpace);
+                                $titleLast = substr($heroTitle, $lastSpace + 1);
+                            } else {
+                                $titleFirst = $heroTitle;
+                                $titleLast = '';
+                            }
+                            
+                            $heroDesc = !empty($homeSettings->hero_description) ? $homeSettings->hero_description : ($siteSettings['hero_subtitle'] ?? 'Download videos, reels, shorts, and audio from your favorite platforms. Paste a public video link below to get started.');
+                            $parsedDesc = $heroDesc;
+                            if (strpos(trim($heroDesc), '{') === 0 && strpos($heroDesc, '"blocks"') !== false) {
+                                $descData = json_decode($heroDesc, true);
+                                if (isset($descData['blocks']) && is_array($descData['blocks'])) {
+                                    $html = '';
+                                    foreach ($descData['blocks'] as $block) {
+                                        if ($block['type'] === 'paragraph' && !empty($block['data']['text'])) {
+                                            $html .= $block['data']['text'] . '<br>';
+                                        } elseif ($block['type'] === 'header' && !empty($block['data']['text'])) {
+                                            $html .= '<strong>' . $block['data']['text'] . '</strong><br>';
+                                        }
+                                    }
+                                    if ($html !== '') {
+                                        $parsedDesc = $html;
+                                    }
+                                }
+                            }
+                        @endphp
+                        <h1>{{ $titleFirst }} @if($titleLast)<span>{{ $titleLast }}</span>@endif</h1>
+                        <div class="hero-copy">{!! $parsedDesc !!}</div>
                         <div class="download-panel {{ $result ? 'has-result' : '' }}">
                             <form class="url-form" method="POST" action="{{ route('analyze') }}" id="analyze-form">
                                 @csrf
                                 <input id="video-url-input" name="video_url" type="url" value="{{ old('video_url') }}" placeholder="Paste a video URL here" aria-label="Video URL" required>
                                 <button id="analyze-btn" class="button" type="submit">
                                     <svg style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                    <span>Download</span>
+                                    <span>{{ !empty($homeSettings->hero_button_text) ? $homeSettings->hero_button_text : 'Download' }}</span>
                                 </button>
                             </form>
                             @error('video_url')<div class="error" id="error-container">{{ $message }}</div>@else<div id="error-container" class="error" style="display:none;"></div>@enderror
@@ -1002,14 +1279,57 @@
                 </div>
             </section>
             @include('partials.platforms')
+            
+            @if(isset($homeSettings) && (!empty($homeSettings->sites_heading) || !empty($homeSettings->sites_description)))
+            <section class="seo-content-section">
+                <div class="seo-content-wrap">
+                    @if(!empty($homeSettings->sites_heading))
+                        <h2 class="seo-heading">{{ $homeSettings->sites_heading }}</h2>
+                    @endif
+                    
+                    @if(!empty($homeSettings->sites_description))
+                        <div class="seo-text-container" id="seoTextContainer">
+                            <div class="seo-text-content">
+                                @php
+                                    $descData = json_decode($homeSettings->sites_description, true);
+                                    if (json_last_error() === JSON_ERROR_NONE && isset($descData['blocks'])) {
+                                        foreach ($descData['blocks'] as $block) {
+                                            if ($block['type'] === 'paragraph' && !empty($block['data']['text'])) {
+                                                echo '<p>' . $block['data']['text'] . '</p>';
+                                            } elseif ($block['type'] === 'header' && !empty($block['data']['text'])) {
+                                                echo '<h3>' . $block['data']['text'] . '</h3>';
+                                            }
+                                        }
+                                    } else {
+                                        // Fallback for plain text
+                                        $lines = explode("\n", str_replace("\r", "", $homeSettings->sites_description));
+                                        foreach($lines as $line) {
+                                            if(trim($line) !== '') echo '<p>' . e($line) . '</p>';
+                                        }
+                                    }
+                                @endphp
+                            </div>
+                        </div>
+                        <button class="seo-read-more" id="seoReadMoreBtn">Read More</button>
+                    @endif
+                </div>
+            </section>
+            @endif
+
             <section>
                 <div class="wrap">
-                    <div class="section-head"><h2>Frequently asked questions</h2><p>Quick answers about using HDVideoDownloader.</p></div>
+                    <div class="section-head"><h2>{{ $homeSettings->faq_h1 ?? 'Frequently asked questions' }}</h2><p>{{ $homeSettings->faq_description ?? 'Quick answers about using HDVideoDownloader.' }}</p></div>
                     <div class="faq">
-                        <details><summary>Do I need to install an app?</summary><p>No. The downloader runs in your browser on mobile and desktop devices.</p></details>
-                        <details><summary>Which video qualities are available?</summary><p>Available formats depend on the source and may include SD, 720p, 1080p, and audio-only options.</p></details>
-                        <details><summary>Is HDVideoDownloader free?</summary><p>Yes, the basic public-link downloader experience is free to use.</p></details>
-                        <details><summary>Can I download any video?</summary><p>Only download content you own or have permission to save, and follow the source platform's terms.</p></details>
+                        @if(isset($faqs) && $faqs->count() > 0)
+                            @foreach($faqs as $faq)
+                                <details name="faq_accordion"><summary>{{ $faq->question }}</summary><p>{!! nl2br(e($faq->answer)) !!}</p></details>
+                            @endforeach
+                        @else
+                            <details name="faq_accordion"><summary>Do I need to install an app?</summary><p>No. The downloader runs in your browser on mobile and desktop devices.</p></details>
+                            <details name="faq_accordion"><summary>Which video qualities are available?</summary><p>Available formats depend on the source and may include SD, 720p, 1080p, and audio-only options.</p></details>
+                            <details name="faq_accordion"><summary>Is HDVideoDownloader free?</summary><p>Yes, the basic public-link downloader experience is free to use.</p></details>
+                            <details name="faq_accordion"><summary>Can I download any video?</summary><p>Only download content you own or have permission to save, and follow the source platform's terms.</p></details>
+                        @endif
                     </div>
                 </div>
             </section>
@@ -1079,7 +1399,7 @@
             </article>
             <section class="related-section"><div class="wrap"><div class="section-head"><h2>Related guides</h2><p>Continue learning about video formats, quality, and safer downloads.</p></div><div class="grid blog-grid">@foreach($relatedPosts as $related)<article class="post-card"><a class="post-cover" href="{{ route('blog.show', $related['slug']) }}"><img src="{{ asset($related['image']) }}" alt="{{ $related['title'] }}" loading="lazy"></a><div class="post-content"><div class="post-meta"><span>{{ $related['category'] }}</span><span>{{ $related['read'] }}</span></div><h3>{{ $related['title'] }}</h3><p>{{ $related['excerpt'] }}</p><a class="read" href="{{ route('blog.show', $related['slug']) }}">Read guide →</a></div></article>@endforeach</div></div></section>
         </main>
-    @else
+    @elseif ($page === 'privacy')
         <main>
             <div class="privacy-hero">
                 <div class="wrap">
@@ -1110,9 +1430,65 @@
                 </div>
             </section>
         </main>
+    @elseif ($page === 'terms')
+        <main>
+            <div class="privacy-hero">
+                <div class="wrap">
+                    <nav class="breadcrumb" aria-label="Breadcrumb">
+                        <a href="{{ route('home') }}">Home</a><span class="breadcrumb-separator">/</span><span>Terms</span>
+                    </nav>
+                    <span class="blog-badge">Legal</span>
+                    <h1>Terms of <span>Service</span></h1>
+                    <p>Please read these terms carefully before using HDVideoDownloader.</p>
+                </div>
+            </div>
+            <section class="privacy-content-wrap">
+                <div class="privacy-box">
+                    <h2>Acceptance of Terms</h2>
+                    <p>By accessing and using HDVideoDownloader, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use our service.</p>
+                    
+                    <h2>Use of Service</h2>
+                    <p>Our service is provided "as is" and allows you to download videos for personal, non-commercial use only. You are solely responsible for the media you download and how it is used.</p>
+                    <ul>
+                        <li>You may not use our service for any illegal or unauthorized purpose.</li>
+                        <li>You must not transmit any worms, viruses, or any code of a destructive nature.</li>
+                        <li>We reserve the right to modify or terminate the service for any reason, without notice at any time.</li>
+                    </ul>
+                    
+                    <h2>Intellectual Property Rights</h2>
+                    <p>We do not host any of the media downloaded through our service. All rights to the videos, music, and images belong to their respective owners. Users must obtain permission from the copyright holder before downloading or distributing copyrighted material.</p>
+                </div>
+            </section>
+        </main>
+    @elseif ($page === 'disclaimer')
+        <main>
+            <div class="privacy-hero">
+                <div class="wrap">
+                    <nav class="breadcrumb" aria-label="Breadcrumb">
+                        <a href="{{ route('home') }}">Home</a><span class="breadcrumb-separator">/</span><span>Disclaimer</span>
+                    </nav>
+                    <span class="blog-badge">Legal</span>
+                    <h1>Legal <span>Disclaimer</span></h1>
+                    <p>Important legal information regarding the use of HDVideoDownloader.</p>
+                </div>
+            </div>
+            <section class="privacy-content-wrap">
+                <div class="privacy-box">
+                    <h2>General Disclaimer</h2>
+                    <p>HDVideoDownloader is a utility tool designed to help users download publicly available media. We do not host, store, or distribute any copyrighted material on our servers.</p>
+                    
+                    <h2>No Affiliation</h2>
+                    <p>HDVideoDownloader is an independent service and is not affiliated, associated, authorized, endorsed by, or in any way officially connected with any of the social media platforms (such as YouTube, Facebook, Instagram, TikTok, etc.) whose links are processed by our tool.</p>
+                    
+                    <h2>Limitation of Liability</h2>
+                    <p>Under no circumstances shall HDVideoDownloader be liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising out of or in connection with your access or use of or inability to access or use the application and any third-party content and services.</p>
+                    <p>Use this service at your own risk. It is the user's responsibility to ensure that downloading content does not violate any local laws or the terms of service of the host platform.</p>
+                </div>
+            </section>
+        </main>
     @endif
 
-    <footer><div class="wrap footer-row"><span>© {{ date('Y') }} HDVideoDownloader. All rights reserved.</span><span>Domain-ready brand: hdvideodownloader</span></div></footer>
+    @include('partials.footer')
     <script>
         function startFileDownload(url) {
             var a = document.createElement('a');
@@ -1258,7 +1634,140 @@
                     navLinks.classList.toggle('is-open');
                 });
             }
+
+            // FAQ Accordion logic
+            const faqs = document.querySelectorAll('.faq details');
+            faqs.forEach(faq => {
+                faq.addEventListener('toggle', function(e) {
+                    if (this.open) {
+                        faqs.forEach(otherFaq => {
+                            if (otherFaq !== this) {
+                                otherFaq.removeAttribute('open');
+                            }
+                        });
+                    }
+                });
+            });
         });
+
+        // ===== Language Selector =====
+        (function() {
+            var selector = document.getElementById('langSelector');
+            var btn      = document.getElementById('langBtn');
+            var label    = document.getElementById('langLabel');
+            var options  = document.querySelectorAll('.lang-option');
+            if (!selector || !btn) return;
+
+            // Toggle dropdown
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var isOpen = selector.classList.toggle('open');
+                btn.setAttribute('aria-expanded', isOpen);
+            });
+
+            // Close on outside click
+            document.addEventListener('click', function(e) {
+                if (!selector.contains(e.target)) {
+                    selector.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Language option click
+            options.forEach(function(opt) {
+                opt.addEventListener('click', function() {
+                    var lang     = this.getAttribute('data-lang');
+                    var langName = this.getAttribute('data-label');
+
+                    // Update active state
+                    options.forEach(function(o) { o.classList.remove('active'); });
+                    this.classList.add('active');
+
+                    // Update button label
+                    label.textContent = langName;
+
+                    // Save to localStorage
+                    localStorage.setItem('hd_lang', lang);
+                    localStorage.setItem('hd_lang_label', langName);
+
+                    // Close dropdown
+                    selector.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+
+                    // Apply translation via Google Translate
+                    applyGoogleTranslate(lang);
+                });
+            });
+
+            // Restore saved language on page load
+            var savedLang  = localStorage.getItem('hd_lang');
+            var savedLabel = localStorage.getItem('hd_lang_label');
+            if (savedLang && savedLang !== 'en') {
+                label.textContent = savedLabel || savedLang;
+                options.forEach(function(o) {
+                    o.classList.toggle('active', o.getAttribute('data-lang') === savedLang);
+                });
+                applyGoogleTranslate(savedLang);
+            }
+
+            function applyGoogleTranslate(lang) {
+                if (lang === 'en') {
+                    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + location.hostname + ';';
+                    location.reload();
+                    return;
+                }
+                var val = '/en/' + lang;
+                document.cookie = 'googtrans=' + val + '; path=/';
+                document.cookie = 'googtrans=' + val + '; path=/; domain=' + location.hostname;
+
+                if (!window._gtLoaded) {
+                    window._gtLoaded = true;
+                    window.googleTranslateElementInit = function() {
+                        new google.translate.TranslateElement({ pageLanguage:'en', autoDisplay:false }, 'gt-root');
+                    };
+                    var s = document.createElement('script');
+                    s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+                    document.head.appendChild(s);
+                    var el = document.createElement('div');
+                    el.id = 'gt-root';
+                    el.style.display = 'none';
+                    document.body.appendChild(el);
+                } else {
+                    location.reload();
+                }
+            }
+
+            // Aggressively kill Google Translate bar every 50ms
+            setInterval(function() {
+                var f = document.querySelector('iframe.goog-te-banner-frame');
+                if (f) f.style.setProperty('display','none','important');
+                if (document.body.style.top && document.body.style.top !== '0px') {
+                    document.body.style.setProperty('top','0','important');
+                }
+            }, 50);
+        })();
+        // ===== /Language Selector =====
+
+        // ===== SEO Read More Toggle =====
+        var readMoreBtn = document.getElementById('seoReadMoreBtn');
+        var textContent = document.querySelector('.seo-text-content');
+        if (readMoreBtn && textContent) {
+            if (textContent.children.length > 2) {
+                readMoreBtn.classList.add('visible');
+                readMoreBtn.addEventListener('click', function() {
+                    textContent.classList.toggle('expanded');
+                    if (textContent.classList.contains('expanded')) {
+                        readMoreBtn.textContent = 'Read Less';
+                    } else {
+                        readMoreBtn.textContent = 'Read More';
+                        // Scroll back to top of the content smoothly
+                        const y = textContent.getBoundingClientRect().top + window.pageYOffset - 100;
+                        window.scrollTo({top: y, behavior: 'smooth'});
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>

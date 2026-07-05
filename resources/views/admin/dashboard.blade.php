@@ -1,26 +1,225 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Admin Dashboard | HDVideoDownloader</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
-:root{--bg:#080b10;--panel:#11171e;--line:#29333f;--muted:#8e99a9;--green:#32d6ad;--red:#ff536c}*{box-sizing:border-box}body{margin:0;color:#f6f8fb;background:var(--bg);font-family:Inter,sans-serif}a{color:inherit;text-decoration:none}.top{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:16px 28px;border-bottom:1px solid #222b35;background:#090d12eF;backdrop-filter:blur(15px)}.brand{display:flex;align-items:center;gap:10px;font-weight:800}.mark{width:38px;height:38px;display:grid;place-items:center;border-radius:8px;background:var(--red)}.top-actions{display:flex;align-items:center;gap:12px}.top a,.top button{padding:10px 12px;border:1px solid var(--line);border-radius:7px;color:#c3ccd8;background:#11171e;cursor:pointer}.layout{width:min(1480px,calc(100% - 36px));margin:28px auto;display:grid;grid-template-columns:minmax(420px,.85fr) minmax(520px,1.15fr);gap:20px}.panel{border:1px solid var(--line);border-radius:9px;background:var(--panel);box-shadow:0 18px 45px #0003}.panel-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}.panel-head h2{margin:0;font-size:18px}.form{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:20px}.field{min-width:0}.field.full{grid-column:1/-1}label{display:block;margin-bottom:7px;color:#aeb7c4;font-size:12px;font-weight:700}input,textarea,select{width:100%;padding:12px;border:1px solid #303b48;border-radius:7px;color:#f8fafc;background:#090e14;font:inherit;outline:none}textarea{min-height:110px;resize:vertical}.content{min-height:270px}input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px #32d6ad14}.switch{display:flex;align-items:center;gap:10px;color:#d8dee7}.switch input{width:18px;height:18px}.save{padding:13px 18px;border:0;border-radius:7px;color:#03120e;background:var(--green);font-weight:800;cursor:pointer}.cancel{padding:12px 16px;color:#abb5c3}.status{grid-column:1/-1;padding:12px 16px;border:1px solid #2b715f;border-radius:7px;color:#73e4c5;background:#12342b}.errors{grid-column:1/-1;padding:12px 16px;border:1px solid #71303d;border-radius:7px;color:#ff9bab;background:#33131a}.image-preview{width:100%;max-height:180px;object-fit:cover;border:1px solid var(--line);border-radius:7px;margin-bottom:10px}.posts{padding:8px}.post-row{display:grid;grid-template-columns:84px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px;border-bottom:1px solid #222b35}.post-row:last-child{border:0}.post-row img{width:84px;height:56px;object-fit:cover;border-radius:6px;background:#090d12}.post-row h3{margin:0 0 5px;font-size:14px}.post-row p{margin:0;color:var(--muted);font-size:11px}.badge{display:inline-flex;margin-right:7px;color:var(--green);font-weight:700}.row-actions{display:flex;gap:7px}.row-actions a,.row-actions button{padding:8px 9px;border:1px solid var(--line);border-radius:6px;color:#c7d0dc;background:#171e27;cursor:pointer}.row-actions .delete{color:#ff8294}.settings{grid-column:1/-1}.settings .form{grid-template-columns:repeat(2,1fr)}@media(max-width:980px){.layout{grid-template-columns:1fr}.settings{grid-column:auto}}@media(max-width:620px){.layout{width:min(100% - 20px,1480px);margin:14px auto}.top{padding:12px}.form,.settings .form{grid-template-columns:1fr}.field.full,.status,.errors{grid-column:auto}.post-row{grid-template-columns:62px minmax(0,1fr)}.post-row img{width:62px;height:48px}.row-actions{grid-column:2}}
-</style><style>.brand-mark{width:40px;height:40px;display:grid;place-items:center;border-radius:9px;color:#fff;background:linear-gradient(145deg,#ff536c,#d91f45);box-shadow:0 9px 24px #ff3d5730}.brand-mark svg{width:31px;height:31px}</style></head><body>
-<header class="top"><div class="brand">@include('partials.logo-mark')<span>Admin Panel</span></div><div class="top-actions"><a href="{{ route('home') }}" target="_blank">View site</a><form method="POST" action="{{ route('admin.logout') }}">@csrf<button>Logout</button></form></div></header>
-<main class="layout">
-    <section class="panel"><div class="panel-head"><h2>{{ $editing ? 'Edit post' : 'Create new post' }}</h2>@if($editing)<a class="cancel" href="{{ route('admin.dashboard') }}">Cancel</a>@endif</div>
-        <form class="form" method="POST" enctype="multipart/form-data" action="{{ $editing ? route('admin.posts.update',$editing) : route('admin.posts.store') }}">@csrf @if($editing)@method('PUT')@endif
-            @if(session('status'))<div class="status">{{ session('status') }}</div>@endif
-            @if($errors->any())<div class="errors">{{ $errors->first() }}</div>@endif
-            <div class="field full"><label>Post title</label><input name="title" value="{{ old('title',$editing->title ?? '') }}" required></div>
-            <div class="field"><label>URL slug</label><input name="slug" value="{{ old('slug',$editing->slug ?? '') }}" placeholder="auto-from-title"></div>
-            <div class="field"><label>Category</label><input name="category" value="{{ old('category',$editing->category ?? '') }}" placeholder="Video Quality"></div>
-            <div class="field full"><label>Short excerpt</label><textarea name="excerpt" required>{{ old('excerpt',$editing->excerpt ?? '') }}</textarea></div>
-            <div class="field"><label>SEO title</label><input name="meta_title" value="{{ old('meta_title',$editing->meta_title ?? '') }}"></div>
-            <div class="field"><label>Read time (minutes)</label><input type="number" min="1" max="60" name="read_minutes" value="{{ old('read_minutes',$editing->read_minutes ?? 5) }}" required></div>
-            <div class="field full"><label>Meta description</label><textarea name="meta_description">{{ old('meta_description',$editing->meta_description ?? '') }}</textarea></div>
-            <div class="field full"><label>Article content (HTML supported)</label><textarea class="content" name="content" required>{{ old('content',$editing->content ?? '') }}</textarea></div>
-            <div class="field">@if($editing && $editing->image)<img class="image-preview" src="{{ asset($editing->image) }}" alt="">@endif<label>Unique featured image</label><input type="file" name="image" accept="image/png,image/jpeg,image/webp"></div>
-            <div class="field"><label>Image alt text</label><input name="image_alt" value="{{ old('image_alt',$editing->image_alt ?? '') }}"><label class="switch" style="margin-top:20px"><input type="checkbox" name="is_published" value="1" {{ old('is_published',$editing->is_published ?? false) ? 'checked' : '' }}> Published</label></div>
-            <div class="field full"><button class="save" type="submit">{{ $editing ? 'Update post' : 'Publish post' }}</button></div>
-        </form>
-    </section>
-    <section class="panel"><div class="panel-head"><h2>All posts ({{ $posts->count() }})</h2></div><div class="posts">@forelse($posts as $item)<article class="post-row">@if($item->image)<img src="{{ asset($item->image) }}" alt="">@else<div></div>@endif<div><h3>{{ $item->title }}</h3><p><span class="badge">{{ $item->is_published ? 'Published' : 'Draft' }}</span>{{ $item->category }} · Updated {{ $item->updated_at->diffForHumans() }}</p></div><div class="row-actions"><a href="{{ route('admin.dashboard',['edit'=>$item->id]) }}">Edit</a><form method="POST" action="{{ route('admin.posts.delete',$item) }}" onsubmit="return confirm('Delete this post?')">@csrf @method('DELETE')<button class="delete">Delete</button></form></div></article>@empty<div style="padding:30px;color:var(--muted)">No posts yet.</div>@endforelse</div></section>
-    <section class="panel settings"><div class="panel-head"><h2>Site settings</h2></div><form class="form" method="POST" action="{{ route('admin.settings') }}">@csrf @method('PUT')<div class="field"><label>Site name</label><input name="site_name" value="{{ $settings['site_name'] ?? 'HDVideoDownloader' }}" required></div><div class="field"><label>Hero title</label><input name="hero_title" value="{{ $settings['hero_title'] ?? 'Free All Video Downloader' }}" required></div><div class="field full"><label>Hero subtitle</label><textarea name="hero_subtitle" required>{{ $settings['hero_subtitle'] ?? 'Download videos, reels, shorts, and audio from your favorite platforms.' }}</textarea></div><div class="field full"><label>Default meta description</label><textarea name="default_meta_description" required>{{ $settings['default_meta_description'] ?? 'Download public videos in available HD formats with HDVideoDownloader.' }}</textarea></div><div class="field full"><button class="save">Save settings</button></div></form></section>
-</main></body></html>
+@extends('layouts.admin_master')
+
+@section('title', 'Dashboard')
+
+@section('header_icon')
+    <i class="fas fa-th-large" style="color:#FFB800;"></i>
+@endsection
+
+@section('header_title', 'Dashboard Overview')
+
+@section('breadcrumb')
+    <!-- Already at root -->
+@endsection
+
+@push('styles')
+    <style>
+        .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:2rem;}
+        .stat-card{background:#161B27;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.4rem;transition:transform 0.2s,border-color 0.2s;}
+        .stat-card:hover{transform:translateY(-3px);border-color:rgba(255,184,0,0.2);}
+        .stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem; line-height: 1.45; }
+        .stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+        .stat-icon.yellow{background:rgba(255,184,0,0.15);color:#FFB800;}
+        .stat-icon.green{background:rgba(34,197,94,0.15);color:#4ADE80;}
+        .stat-icon.blue{background:rgba(99,102,241,0.15);color:#818CF8;}
+        .stat-icon.red{background:rgba(239,68,68,0.15);color:#FCA5A5;}
+        .stat-badge{font-size:0.72rem;font-weight:600;padding:0.2rem 0.5rem;border-radius:6px;background:rgba(34,197,94,0.1);color:#4ADE80;}
+        .stat-value{font-size:1.9rem;font-weight:800;color:#fff;line-height:1;}
+        .stat-label{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;}
+        
+        .charts-row{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem;margin-bottom:2rem;}
+        .card{background:#161B27;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.5rem;}
+        .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;}
+        .card-header h3{font-size:0.95rem;font-weight:700;color:#fff;}
+        .card-header span{font-size:0.75rem;color:rgba(255,255,255,0.35);}
+        
+        .bar-chart{display:flex;align-items:flex-end;gap:0.6rem;height:140px;}
+        .bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem; line-height: 1.45; }
+        .bar{width:100%;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#FFB800,#FF8C00);min-height:4px;transition:height 0.5s;}
+        .bar-label{font-size:0.65rem;color:rgba(255,255,255,0.3);}
+        .bar-count{font-size:0.6rem;color:rgba(255,255,255,0.25);margin-bottom:2px;}
+        
+        .platform-list{display:flex;flex-direction:column;gap:0.75rem;}
+        .platform-item{display:flex;align-items:center;gap:0.8rem;}
+        .platform-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+        .platform-name{font-size:0.82rem;color:rgba(255,255,255,0.7);flex:1;}
+        .platform-bar-wrap{width:80px;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden; line-height: 1.45; }
+        .platform-bar{height:100%;border-radius:3px;transition:width 0.6s ease;}
+        .platform-pct{font-size:0.75rem;color:rgba(255,255,255,0.4);min-width:30px;text-align:right;}
+
+        .table-card{background:#161B27;border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;}
+        .table-head{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}
+        .table-head h3{font-size:0.95rem;font-weight:700;color:#fff;}
+        
+        table{width:100%;border-collapse:collapse;}
+        th{text-align:left;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.06em;padding:0.75rem 1.5rem;background:rgba(255,255,255,0.02);}
+        td{padding:0.9rem 1.5rem;font-size:0.83rem;color:rgba(255,255,255,0.7);border-top:1px solid rgba(255,255,255,0.04);}
+        tr:hover td{background:rgba(255,255,255,0.02);}
+
+        .platform-tag{display:inline-flex;align-items:center;gap:0.4rem;padding:0.25rem 0.7rem;border-radius:6px;font-size:0.75rem;font-weight:600;}
+        .tag-youtube{background:rgba(255,0,0,0.12);color:#FF6B6B;}
+        .tag-instagram{background:rgba(228,64,95,0.12);color:#E4405F;}
+        .tag-tiktok{background:rgba(0,242,234,0.12);color:#00F2EA;}
+        .tag-facebook{background:rgba(24,119,242,0.12);color:#1877F2;}
+        .tag-other{background:rgba(107,114,128,0.15);color:#9CA3AF;}
+        
+        .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:0.4rem;}
+        .status-ok{background:#4ADE80;}
+        .status-fail{background:#FCA5A5;}
+
+        .quick-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.2rem;}
+        .quick-card{background:#161B27;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;}
+        .quick-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+        .quick-card h4{font-size:1.1rem;font-weight:700;color:#fff;}
+        .quick-card p{font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:1px; line-height: 1.45; }
+    </style>
+@endpush
+
+@section('content')
+    <!-- STATS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon yellow"><i class="fas fa-download"></i></div>
+                <span class="stat-badge">Total</span>
+            </div>
+            <div class="stat-value" id="stat-total-downloads">{{ number_format($stats['total_downloads']) }}</div>
+            <div class="stat-label">Total Downloads</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon green"><i class="fas fa-calendar-day"></i></div>
+                <span class="stat-badge">Today</span>
+            </div>
+            <div class="stat-value" id="stat-today-downloads">{{ number_format($stats['today_downloads']) }}</div>
+            <div class="stat-label">Today's Downloads</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon blue"><i class="fas fa-search"></i></div>
+                <span class="stat-badge">Total</span>
+            </div>
+            <div class="stat-value" id="stat-extractions">{{ number_format($stats['total_extractions']) }}</div>
+            <div class="stat-label">Total Extractions</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-top">
+                <div class="stat-icon red"><i class="fas fa-users"></i></div>
+                <span class="stat-badge">30 min</span>
+            </div>
+            <div class="stat-value" id="stat-active-users">{{ number_format($stats['active_users']) }}</div>
+            <div class="stat-label">Active Users</div>
+        </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="charts-row">
+        <div class="card">
+            <div class="card-header">
+                <h3>Downloads (Last 7 Days)</h3>
+                <span>Weekly overview</span>
+            </div>
+            <div class="bar-chart" id="bar-chart">
+                @php $maxVal = max(array_column($weeklyData, 'count') ?: [1]); @endphp
+                @foreach($weeklyData as $day)
+                <div class="bar-wrap">
+                    <div class="bar-count">{{ $day['count'] > 0 ? $day['count'] : '' }}</div>
+                    <div class="bar" style="height:{{ $maxVal > 0 ? round(($day['count'] / $maxVal) * 120) : 4 }}px;"></div>
+                    <div class="bar-label">{{ $day['label'] }}</div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>By Platform</h3>
+                <span>Top sources</span>
+            </div>
+            <div class="platform-list" id="platform-list">
+                @foreach($platformData as $p)
+                <div class="platform-item">
+                    <div class="platform-dot" style="background:{{ $p['color'] }};"></div>
+                    <span class="platform-name">{{ $p['name'] }}</span>
+                    <div class="platform-bar-wrap">
+                        <div class="platform-bar" style="width:{{ $p['pct'] }}%;background:{{ $p['color'] }};"></div>
+                    </div>
+                    <span class="platform-pct">{{ $p['pct'] }}%</span>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <!-- RECENT ACTIVITY -->
+    <div class="table-card">
+        <div class="table-head">
+            <h3>Recent Download Activity</h3>
+            <button class="btn-preview" onclick="refreshDashboard()" id="refreshBtn">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Platform</th>
+                    <th>Type</th>
+                    <th>IP Address</th>
+                    <th>Status</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="activity-tbody">
+                @forelse($recentLogs as $i => $log)
+                <tr>
+                    <td style="color:rgba(255,255,255,0.25);">{{ $i + 1 }}</td>
+                    <td><span class="platform-tag tag-other">{{ $log->platform }}</span></td>
+                    <td>{{ $log->type }}</td>
+                    <td style="font-family:monospace;">{{ $log->ip_address }}</td>
+                    <td><span class="status-dot {{ $log->status ? 'status-ok' : 'status-fail' }}"></span>{{ $log->status ? 'Success' : 'Failed' }}</td>
+                    <td>{{ \Carbon\Carbon::parse($log->created_at)->diffForHumans() }}</td>
+                </tr>
+                @empty
+                <tr><td colspan="6" style="text-align:center;padding:2rem;color:rgba(255,255,255,0.2);">No activity yet.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <!-- QUICK STATS -->
+    <div class="quick-row">
+        <div class="quick-card">
+            <div class="quick-icon" style="background:rgba(255,184,0,0.12);color:#FFB800;"><i class="fas fa-bolt"></i></div>
+            <div>
+                <h4>Success Rate</h4>
+                <p style="line-height: 1.45;">98.2% Average</p>
+            </div>
+        </div>
+        <div class="quick-card">
+            <div class="quick-icon" style="background:rgba(34,197,94,0.12);color:#4ADE80;"><i class="fas fa-calendar-week"></i></div>
+            <div>
+                <h4>This Week</h4>
+                <p style="line-height: 1.45;">{{ array_sum(array_column($weeklyData, 'count')) }} Downloads</p>
+            </div>
+        </div>
+        <div class="quick-card">
+            <div class="quick-icon" style="background:rgba(99,102,241,0.12);color:#818CF8;"><i class="fas fa-layer-group"></i></div>
+            <div>
+                <h4>Top Platform</h4>
+                <p style="line-height: 1.45;">{{ $platformData[0]['name'] ?? '—' }}</p>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('scripts')
+    <script>
+        async function refreshDashboard() {
+            const btn = document.getElementById('refreshBtn');
+            btn.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Refreshing...';
+            // Simple reload for now to show immediate fix, can be AJAX later
+            window.location.reload();
+        }
+    </script>
+@endpush

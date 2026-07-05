@@ -5,8 +5,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\URL;
-use App\Models\BlogPost;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\GuideController;
+use App\Http\Controllers\PlatformController;
+use App\Models\BlogPost;
 
 $platforms = [
     ['name' => 'YouTube', 'domain' => 'youtube.com', 'accent' => '#ff3b30', 'icon' => 'youtube'],
@@ -23,16 +27,16 @@ $loadPosts = function () {
     try {
         return BlogPost::published()->latest('published_at')->get()->map(function ($post) {
             return [
-        'id' => $post->id,
-        'title' => $post->title,
-        'slug' => $post->slug,
-        'category' => $post->category,
-        'excerpt' => $post->excerpt,
-        'description' => $post->meta_description ?: $post->excerpt,
-        'read' => $post->read_minutes . ' min read',
-        'published' => optional($post->published_at)->format('M j, Y'),
-        'image' => $post->image,
-        'image_alt' => $post->image_alt ?: $post->title,
+                'id' => $post->id,
+                'title' => $post->title,
+                'slug' => $post->slug,
+                'category' => $post->category,
+                'excerpt' => $post->excerpt,
+                'description' => $post->meta_description ?: $post->excerpt,
+                'read' => $post->read_minutes . ' min read',
+                'published' => optional($post->published_at)->format('M j, Y'),
+                'image' => $post->image,
+                'image_alt' => $post->image_alt ?: $post->title,
                 'content' => $post->content,
             ];
         })->all();
@@ -41,40 +45,205 @@ $loadPosts = function () {
     }
 };
 
-Route::middleware('guest')->group(function () {
-    Route::get('/admin/login', [AdminController::class, 'loginForm'])->name('admin.login');
-    Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
-});
-Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
-    Route::post('/posts', [AdminController::class, 'savePost'])->name('admin.posts.store');
-    Route::put('/posts/{post}', [AdminController::class, 'savePost'])->name('admin.posts.update');
-    Route::delete('/posts/{post}', [AdminController::class, 'deletePost'])->name('admin.posts.delete');
-    Route::put('/settings', [AdminController::class, 'saveSettings'])->name('admin.settings');
-});
+// ── Admin Routes ──────────────────────────────────────────────────────────────
+Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'doLogin'])->name('admin.login.post');
+Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/dashboard-data', [AdminController::class, 'dashboardData'])->name('admin.dashboard.data');
+Route::get('/admin/homepage', [AdminController::class, 'homepageEdit'])->name('admin.homepage');
+Route::post('/admin/homepage', [AdminController::class, 'homepageSave'])->name('admin.homepage.save');
+
+// SEO Admin Routes
+Route::get('/admin/seo-settings', [AdminController::class, 'seoSettings'])->name('admin.seo_settings');
+Route::post('/admin/seo-settings', [AdminController::class, 'seoSettingsUpdate'])->name('admin.seo_settings.update');
+
+// FAQ Admin Routes
+Route::get('/admin/faqs', [AdminController::class, 'faqIndex'])->name('admin.faqs');
+Route::post('/admin/faqs', [AdminController::class, 'faqStore'])->name('admin.faqs.store');
+Route::get('/admin/faqs/{id}/edit', [AdminController::class, 'faqEdit'])->name('admin.faqs.edit');
+Route::post('/admin/faqs/{id}/edit', [AdminController::class, 'faqUpdate'])->name('admin.faqs.update');
+Route::delete('/admin/faqs/{id}', [AdminController::class, 'faqDelete'])->name('admin.faqs.delete');
+
+// FAQ Page (Dedicated)
+Route::get('/admin/faq-page', [AdminController::class, 'faqPageSettings'])->name('admin.faq_page');
+Route::post('/admin/faq-page', [AdminController::class, 'faqPageStore'])->name('admin.faq_page.store');
+Route::post('/admin/faq-page/seo', [AdminController::class, 'faqPageSeoSave'])->name('admin.faq_page.seo.save');
+Route::delete('/admin/faq-page/{id}', [AdminController::class, 'faqPageDelete'])->name('admin.faq_page.delete');
+
+// Download Page (Dedicated)
+Route::get('/admin/download-page', [AdminController::class, 'downloadPage'])->name('admin.download_page');
+Route::post('/admin/download-page', [AdminController::class, 'downloadPageSave'])->name('admin.download_page.save');
+
+// Footer Settings
+Route::get('/admin/footer-settings', [AdminController::class, 'footerSettings'])->name('admin.footer_settings');
+Route::post('/admin/footer-settings', [AdminController::class, 'footerSettingsSave'])->name('admin.footer_settings.save');
+
+// Blog Admin Routes
+Route::get('/admin/blogs', [BlogController::class, 'index'])->name('admin.blogs.index');
+Route::get('/admin/blogs/create', [BlogController::class, 'create'])->name('admin.blogs.create');
+Route::post('/admin/blogs', [BlogController::class, 'store'])->name('admin.blogs.store');
+Route::get('/admin/blogs/{id}/edit', [BlogController::class, 'edit'])->name('admin.blogs.edit');
+Route::post('/admin/blogs/{id}', [BlogController::class, 'update'])->name('admin.blogs.update');
+Route::delete('/admin/blogs/{id}', [BlogController::class, 'destroy'])->name('admin.blogs.delete');
+
+// Legacy BlogPost edit routes
+Route::get('/admin/legacy-blogs/{id}/edit', [BlogController::class, 'legacyEdit'])->name('admin.legacy_blogs.edit');
+Route::post('/admin/legacy-blogs/{id}', [BlogController::class, 'legacyUpdate'])->name('admin.legacy_blogs.update');
+
+
+// Guide Admin Routes
+Route::get('/admin/guides', [GuideController::class, 'index'])->name('admin.guides.index');
+Route::get('/admin/guides/create', [GuideController::class, 'create'])->name('admin.guides.create');
+Route::post('/admin/guides', [GuideController::class, 'store'])->name('admin.guides.store');
+Route::get('/admin/guides/{id}/edit', [GuideController::class, 'edit'])->name('admin.guides.edit');
+Route::post('/admin/guides/{id}', [GuideController::class, 'update'])->name('admin.guides.update');
+Route::delete('/admin/guides/{id}', [GuideController::class, 'destroy'])->name('admin.guides.delete');
+Route::get('/guide/{slug}/', [GuideController::class, 'publicShow'])->name('guide.show');
+
+// Platform Admin Routes
+Route::get('/admin/platforms', [PlatformController::class, 'index'])->name('admin.platforms.index');
+Route::get('/admin/platforms/create', [PlatformController::class, 'create'])->name('admin.platforms.create');
+Route::post('/admin/platforms', [PlatformController::class, 'store'])->name('admin.platforms.store');
+Route::get('/admin/platforms/{id}/edit', [PlatformController::class, 'edit'])->name('admin.platforms.edit');
+Route::post('/admin/platforms/{id}', [PlatformController::class, 'update'])->name('admin.platforms.update');
+Route::delete('/admin/platforms/{id}', [PlatformController::class, 'destroy'])->name('admin.platforms.delete');
+Route::post('/admin/platforms/{id}/faqs', [PlatformController::class, 'faqStore'])->name('admin.platforms.faqs.store');
+Route::delete('/admin/platforms/faqs/{faq_id}', [PlatformController::class, 'faqDelete'])->name('admin.platforms.faqs.delete');
+
+// Public FAQs
+Route::get('/faqs/', [AdminController::class, 'publicFaqs'])->name('public.faqs');
+
+// CKEditor image upload
+Route::post('/admin/cms/upload-editor-image', [AdminController::class, 'uploadEditorImage'])->name('admin.cms.upload-editor-image');
+
+// ── Original Frontend Routes ──────────────────────────────────────────────────
 
 Route::get('/', function () use ($platforms, $loadPosts) {
+    $homeSettings = DB::table('homepage_settings')->first();
+    $homeSeo = \App\Models\PageSeo::where('page_name', 'home')->first();
+    $faqs = DB::table('faqs')->where('page', 'home')->where('is_active', true)->orderBy('sort_order')->get();
+
     return view('welcome', [
-        'page' => 'home',
-        'platforms' => $platforms,
-        'posts' => $loadPosts(),
-        'result' => session('result'),
+        'page'         => 'home',
+        'platforms'    => $platforms,
+        'posts'        => $loadPosts(),
+        'result'       => session('result'),
+        'homeSettings' => $homeSettings,
+        'homeSeo'      => $homeSeo,
+        'faqs'         => $faqs,
     ]);
 })->name('home');
 
-Route::post('/analyze', function (Request $request) use ($platforms) {
+Route::get('/supported-platforms', function () use ($platforms, $loadPosts) {
+    return view('welcome', [
+        'page'      => 'platforms',
+        'platforms' => $platforms,
+        'posts'     => $loadPosts(),
+        'result'    => null,
+    ]);
+})->name('platforms');
+
+Route::get('/blog', function () use ($platforms, $loadPosts) {
+    return view('welcome', [
+        'page'      => 'blog',
+        'platforms' => $platforms,
+        'posts'     => $loadPosts(),
+        'result'    => null,
+    ]);
+})->name('blog');
+
+// Replaced blog slug route to work with both models on the original welcome view
+Route::get('/blog/{slug}', function ($slug) use ($platforms, $loadPosts) {
+    $posts = $loadPosts();
+    
+    // Also include new blogs in the view if they want to access them
+    $newBlog = \App\Models\Blog::where('slug', $slug)->first();
+    
+    if ($newBlog) {
+        $post = [
+            'id'          => 'new_' . $newBlog->id,
+            'title'       => $newBlog->title,
+            'slug'        => $newBlog->slug,
+            'category'    => $newBlog->tags ?? 'General',
+            'excerpt'     => $newBlog->meta_description ?? '',
+            'description' => $newBlog->meta_description ?? '',
+            'read'        => '5 min read',
+            'published'   => $newBlog->created_at->format('M j, Y'),
+            'image'       => $newBlog->featured_image,
+            'image_alt'   => $newBlog->title,
+            'content'     => $newBlog->renderContent(),
+        ];
+    } else {
+        $post = collect($posts)->firstWhere('slug', $slug);
+        abort_unless($post, 404);
+    }
+
+    return view('welcome', [
+        'page'         => 'blog-post',
+        'platforms'    => $platforms,
+        'posts'        => $posts,
+        'post'         => $post,
+        'relatedPosts' => collect($posts)
+            ->where('slug', '!=', $slug)
+            ->sortByDesc(function ($item) use ($post) {
+                return $item['category'] === $post['category'];
+            })
+            ->take(3),
+        'result'       => null,
+    ]);
+})->name('blog.show');
+
+Route::get('/privacy', function () use ($platforms, $loadPosts) {
+    return view('welcome', [
+        'page'      => 'privacy',
+        'platforms' => $platforms,
+        'posts'     => $loadPosts(),
+        'result'    => null,
+    ]);
+})->name('privacy');
+
+Route::get('/terms', function () use ($platforms, $loadPosts) {
+    return view('welcome', [
+        'page'      => 'terms',
+        'platforms' => $platforms,
+        'posts'     => $loadPosts(),
+        'result'    => null,
+    ]);
+})->name('terms');
+
+Route::get('/disclaimer', function () use ($platforms, $loadPosts) {
+    return view('welcome', [
+        'page'      => 'disclaimer',
+        'platforms' => $platforms,
+        'posts'     => $loadPosts(),
+        'result'    => null,
+    ]);
+})->name('disclaimer');
+
+// ── Analyze / Download (existing hd-video-downloadr logic) ───────────────────
+Route::post('/analyze', function (Request $request) {
+    $platformsList = [
+        ['name' => 'YouTube', 'domain' => 'youtube.com'],
+        ['name' => 'Facebook', 'domain' => 'facebook.com'],
+        ['name' => 'Instagram', 'domain' => 'instagram.com'],
+        ['name' => 'TikTok', 'domain' => 'tiktok.com'],
+        ['name' => 'Twitter / X', 'domain' => 'x.com'],
+        ['name' => 'Vimeo', 'domain' => 'vimeo.com'],
+        ['name' => 'Dailymotion', 'domain' => 'dailymotion.com'],
+        ['name' => 'Pinterest', 'domain' => 'pinterest.com'],
+    ];
+
     $data = $request->validate([
         'video_url' => ['required', 'url', 'max:2048'],
     ]);
 
     $host = parse_url($data['video_url'], PHP_URL_HOST) ?: 'public video link';
     $cleanHost = preg_replace('/^www\./', '', strtolower($host));
-    $platform = collect($platforms)->first(function ($item) use ($cleanHost) {
+    $platform = collect($platformsList)->first(function ($item) use ($cleanHost) {
         return strpos($cleanHost, $item['domain']) !== false;
     });
 
-    // Match the Chrome extension: query cache and source, preferring cached direct links.
     $pluginEndpoint = 'https://api.vidssave.com/api/contentsite_api/media/parse';
     $pluginToken = base64_encode('vidssave_brower_plugin_' . round(microtime(true) * 1000));
 
@@ -106,97 +275,97 @@ Route::post('/analyze', function (Request $request) use ($platforms) {
         );
 
         if ($videoData) {
-                $resources = collect($rawResources)->filter(function ($resource) {
-                    return is_array($resource);
-                })->filter(function ($resource) use ($allowPreparedFormats) {
-                    return !empty($resource['download_url'])
-                        || ($allowPreparedFormats && !empty($resource['resource_content']));
-                })->unique(function ($resource) {
-                    return strtolower(implode('|', [
-                        $resource['type'] ?? '',
-                        $resource['quality'] ?? '',
-                        $resource['format'] ?? '',
-                    ]));
-                })->map(function ($resource) use ($allowPreparedFormats) {
-                    $rawType = strtolower((string) ($resource['type'] ?? ''));
-                    $rawFormat = $resource['format'] ?? $resource['ext'] ?? null;
-                    if (!$rawFormat && in_array($rawType, ['audio', 'music'], true)) {
-                        $rawFormat = 'MP3';
-                    } elseif (!$rawFormat && in_array($rawType, ['video', 'media'], true)) {
-                        $rawFormat = 'MP4';
-                    }
-                    $format = strtoupper((string) ($rawFormat ?? $resource['type'] ?? 'MP4'));
-                    $quality = (string) ($resource['quality'] ?? $resource['resolution'] ?? $resource['label'] ?? $resource['bitrate'] ?? 'Original');
-                    $typeText = strtolower(implode(' ', [
-                        $resource['type'] ?? '',
-                        $format,
-                        $quality,
-                    ]));
-                    $isAudio = strpos($typeText, 'audio') !== false
-                        || strpos($typeText, 'mp3') !== false
-                        || strpos($typeText, 'm4a') !== false
-                        || strpos($typeText, 'kbps') !== false;
+            $resources = collect($rawResources)->filter(function ($resource) {
+                return is_array($resource);
+            })->filter(function ($resource) use ($allowPreparedFormats) {
+                return !empty($resource['download_url'])
+                    || ($allowPreparedFormats && !empty($resource['resource_content']));
+            })->unique(function ($resource) {
+                return strtolower(implode('|', [
+                    $resource['type'] ?? '',
+                    $resource['quality'] ?? '',
+                    $resource['format'] ?? '',
+                ]));
+            })->map(function ($resource) use ($allowPreparedFormats) {
+                $rawType = strtolower((string) ($resource['type'] ?? ''));
+                $rawFormat = $resource['format'] ?? $resource['ext'] ?? null;
+                if (!$rawFormat && in_array($rawType, ['audio', 'music'], true)) {
+                    $rawFormat = 'MP3';
+                } elseif (!$rawFormat && in_array($rawType, ['video', 'media'], true)) {
+                    $rawFormat = 'MP4';
+                }
+                $format = strtoupper((string) ($rawFormat ?? $resource['type'] ?? 'MP4'));
+                $quality = (string) ($resource['quality'] ?? $resource['resolution'] ?? $resource['label'] ?? $resource['bitrate'] ?? 'Original');
+                $typeText = strtolower(implode(' ', [
+                    $resource['type'] ?? '',
+                    $format,
+                    $quality,
+                ]));
+                $isAudio = strpos($typeText, 'audio') !== false
+                    || strpos($typeText, 'mp3') !== false
+                    || strpos($typeText, 'm4a') !== false
+                    || strpos($typeText, 'kbps') !== false;
 
-                    $rawSize = $resource['size'] ?? $resource['filesize'] ?? $resource['file_size'] ?? null;
-                    if (is_numeric($rawSize)) {
-                        $bytes = (float) $rawSize;
-                        if ($bytes >= 1073741824) {
-                            $size = number_format($bytes / 1073741824, 2) . ' GB';
-                        } elseif ($bytes >= 1048576) {
-                            $size = number_format($bytes / 1048576, 2) . ' MB';
-                        } elseif ($bytes >= 1024) {
-                            $size = number_format($bytes / 1024, 2) . ' KB';
-                        } else {
-                            $size = number_format($bytes, 0) . ' B';
-                        }
+                $rawSize = $resource['size'] ?? $resource['filesize'] ?? $resource['file_size'] ?? null;
+                if (is_numeric($rawSize)) {
+                    $bytes = (float) $rawSize;
+                    if ($bytes >= 1073741824) {
+                        $size = number_format($bytes / 1073741824, 2) . ' GB';
+                    } elseif ($bytes >= 1048576) {
+                        $size = number_format($bytes / 1048576, 2) . ' MB';
+                    } elseif ($bytes >= 1024) {
+                        $size = number_format($bytes / 1024, 2) . ' KB';
                     } else {
-                        $size = $rawSize ?: 'Size varies';
+                        $size = number_format($bytes, 0) . ' B';
                     }
-
-                    $downloadUrl = $resource['download_url']
-                        ?? $resource['downloadUrl']
-                        ?? $resource['download']
-                        ?? $resource['url']
-                        ?? $resource['link']
-                        ?? $resource['src']
-                        ?? null;
-
-                    $prepareToken = null;
-                    if ($allowPreparedFormats && !$downloadUrl && !empty($resource['resource_content'])) {
-                        $prepareToken = \Illuminate\Support\Str::random(48);
-                        Cache::put('plugin_prepare:' . $prepareToken, [
-                            'request' => $resource['resource_content'],
-                        ], now()->addMinutes(30));
-                    }
-                        
-                    return [
-                        'category' => $isAudio ? 'audio' : 'video',
-                        'format' => $isAudio && $format === 'AUDIO' ? 'MP3' : $format,
-                        'quality' => $quality,
-                        'size' => $size,
-                        'download_url' => $downloadUrl,
-                        'prepare_token' => $prepareToken,
-                    ];
-                })->values()->all();
-
-                $resultData = [
-                    'url' => $data['video_url'],
-                    'host' => $cleanHost,
-                    'platform' => $platform['name'] ?? 'Supported public source',
-                    'title' => $videoData['title'] ?? 'Unknown Title',
-                    'thumbnail' => $videoData['thumbnail'] ?? null,
-                    'duration' => $videoData['duration'] ?? 0,
-                    'resources' => $resources,
-                ];
-
-                if ($request->ajax() || $request->wantsJson()) {
-                    return response()->json([
-                        'success' => true,
-                        'html' => view('partials.result', ['result' => $resultData])->render(),
-                    ]);
+                } else {
+                    $size = $rawSize ?: 'Size varies';
                 }
 
-                return redirect()->route('home')->with('result', $resultData);
+                $downloadUrl = $resource['download_url']
+                    ?? $resource['downloadUrl']
+                    ?? $resource['download']
+                    ?? $resource['url']
+                    ?? $resource['link']
+                    ?? $resource['src']
+                    ?? null;
+
+                $prepareToken = null;
+                if ($allowPreparedFormats && !$downloadUrl && !empty($resource['resource_content'])) {
+                    $prepareToken = \Illuminate\Support\Str::random(48);
+                    Cache::put('plugin_prepare:' . $prepareToken, [
+                        'request' => $resource['resource_content'],
+                    ], now()->addMinutes(30));
+                }
+
+                return [
+                    'category' => $isAudio ? 'audio' : 'video',
+                    'format' => $isAudio && $format === 'AUDIO' ? 'MP3' : $format,
+                    'quality' => $quality,
+                    'size' => $size,
+                    'download_url' => $downloadUrl,
+                    'prepare_token' => $prepareToken,
+                ];
+            })->values()->all();
+
+            $resultData = [
+                'url' => $data['video_url'],
+                'host' => $cleanHost,
+                'platform' => $platform['name'] ?? 'Supported public source',
+                'title' => $videoData['title'] ?? 'Unknown Title',
+                'thumbnail' => $videoData['thumbnail'] ?? null,
+                'duration' => $videoData['duration'] ?? 0,
+                'resources' => $resources,
+            ];
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'html' => view('partials.result', ['result' => $resultData])->render(),
+                ]);
+            }
+
+            return redirect()->route('home')->with('result', $resultData);
         }
     } catch (\Exception $e) {
         // Log or handle exception
@@ -311,73 +480,18 @@ Route::get('/download-file', function (Request $request) {
     }, $filename, $headers);
 })->name('media.download')->middleware('signed');
 
-Route::get('/supported-platforms', function () use ($platforms, $loadPosts) {
-    return view('welcome', [
-        'page' => 'platforms',
+// ── Sitemap ───────────────────────────────────────────────────────────────────
+Route::get('/sitemap.xml', function () {
+    $platforms = \App\Models\Platform::all();
+    $blogs = \App\Models\Blog::where('status', 1)->get();
+    $guides = \App\Models\Guide::all();
+
+    return response()->view('sitemap', [
         'platforms' => $platforms,
-        'posts' => $loadPosts(),
-        'result' => null,
-    ]);
-})->name('platforms');
+        'blogs' => $blogs,
+        'guides' => $guides,
+    ])->header('Content-Type', 'text/xml');
+});
 
-Route::get('/blog', function () use ($platforms, $loadPosts) {
-    return view('welcome', [
-        'page' => 'blog',
-        'platforms' => $platforms,
-        'posts' => $loadPosts(),
-        'result' => null,
-    ]);
-})->name('blog');
-
-Route::get('/blog/{slug}', function ($slug) use ($platforms, $loadPosts) {
-    $posts = $loadPosts();
-    $post = collect($posts)->firstWhere('slug', $slug);
-    abort_unless($post, 404);
-
-    return view('welcome', [
-        'page' => 'blog-post',
-        'platforms' => $platforms,
-        'posts' => $posts,
-        'post' => $post,
-        'relatedPosts' => collect($posts)
-            ->where('slug', '!=', $slug)
-            ->sortByDesc(function ($item) use ($post) {
-                return $item['category'] === $post['category'];
-            })
-            ->take(3),
-        'result' => null,
-    ]);
-})->name('blog.show');
-
-Route::get('/privacy', function () use ($platforms, $loadPosts) {
-    return view('welcome', [
-        'page' => 'privacy',
-        'platforms' => $platforms,
-        'posts' => $loadPosts(),
-        'result' => null,
-    ]);
-})->name('privacy');
-
-Route::get('/sitemap.xml', function () use ($loadPosts) {
-    $posts = $loadPosts();
-    $latestPostDate = collect($posts)->pluck('published')->filter()->map(function ($date) {
-        return date('Y-m-d', strtotime($date));
-    })->sortDesc()->first() ?: now()->toDateString();
-    $urls = collect([
-        ['loc' => route('home'), 'lastmod' => $latestPostDate, 'changefreq' => 'daily', 'priority' => '1.0'],
-        ['loc' => route('platforms'), 'lastmod' => $latestPostDate, 'changefreq' => 'weekly', 'priority' => '0.8'],
-        ['loc' => route('blog'), 'lastmod' => $latestPostDate, 'changefreq' => 'daily', 'priority' => '0.9'],
-        ['loc' => route('privacy'), 'lastmod' => $latestPostDate, 'changefreq' => 'yearly', 'priority' => '0.4'],
-    ])->merge(collect($posts)->map(function ($post) {
-        return [
-            'loc' => route('blog.show', $post['slug']),
-            'lastmod' => date('Y-m-d', strtotime($post['published'])),
-            'changefreq' => 'monthly',
-            'priority' => '0.7',
-        ];
-    }));
-
-    return response()
-        ->view('sitemap', ['urls' => $urls])
-        ->header('Content-Type', 'application/xml');
-})->name('sitemap');
+// ── Catch-all Public Platform Route (Must be last) ────────────────────────────
+Route::get('/{slug}/', [PlatformController::class, 'show'])->name('platforms.show');
