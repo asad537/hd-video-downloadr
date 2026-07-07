@@ -3,7 +3,7 @@
 @section('title', 'Static Pages')
 
 @section('header_icon')
-    <i class="fas fa-file-alt" style="color:#FFB800;"></i>
+    <i class="fas fa-file-alt" style="color:#36DEB3;"></i>
 @endsection
 
 @section('header_title', 'Static Pages SEO')
@@ -49,9 +49,9 @@
     }
     
     .tab-btn.active {
-        background: rgba(255,184,0,0.15);
-        color: #FFB800;
-        border-color: rgba(255,184,0,0.3);
+        background: rgba(54,222,179,0.15);
+        color: #36DEB3;
+        border-color: rgba(54,222,179,0.3);
     }
     
     .tab-content {
@@ -84,7 +84,7 @@
     }
     .form-group input:focus, .form-group textarea:focus {
         outline: none;
-        border-color: #FFB800;
+        border-color: #36DEB3;
         background: rgba(0,0,0,0.3);
     }
     .form-group textarea {
@@ -93,7 +93,7 @@
     }
     
     .btn-submit {
-        background: linear-gradient(135deg, #FFB800, #FF8C00);
+        background: linear-gradient(135deg, #36DEB3, #36DEB3);
         color: #fff;
         border: none;
         padding: 0.8rem 1.5rem;
@@ -108,7 +108,7 @@
     }
     .btn-submit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(255,184,0,0.3);
+        box-shadow: 0 4px 15px rgba(54,222,179,0.3);
     }
 </style>
 @endpush
@@ -131,12 +131,12 @@
                 <input type="hidden" name="page_name" value="{{ $seo->page_name }}">
                 
                 <h3 style="margin-bottom: 1.5rem; color: #fff; font-size: 1.1rem;">
-                    SEO Settings for: <span style="color: #FFB800; text-transform: capitalize;">{{ str_replace('-', ' ', $seo->page_name) }}</span>
+                    SEO Settings for: <span style="color: #36DEB3; text-transform: capitalize;">{{ str_replace('-', ' ', $seo->page_name) }}</span>
                 </h3>
 
                 <div class="form-group">
                     <label>Meta Title</label>
-                    <input type="text" name="meta_title" value="{{ $seo->meta_title }}" placeholder="e.g. Download HD Videos Free - Video Saver">
+                    <input type="text" name="meta_title" value="{{ $seo->meta_title }}" placeholder="e.g. Download HD Videos Free - HD Video Downloader">
                 </div>
 
                 <div class="form-group">
@@ -146,7 +146,7 @@
 
                 <div class="form-group">
                     <label>Meta Keywords</label>
-                    <textarea name="meta_keywords" placeholder="e.g. video downloader, free video saver, download mp4...">{{ $seo->meta_keywords }}</textarea>
+                    <textarea name="meta_keywords" placeholder="e.g. video downloader, free HD Video Downloader, download mp4...">{{ $seo->meta_keywords }}</textarea>
                     <small style="color: rgba(255,255,255,0.4); display: block; margin-top: 0.4rem;">Separate keywords with commas.</small>
                 </div>
 
@@ -182,3 +182,5 @@
     }
 </script>
 @endpush
+
+

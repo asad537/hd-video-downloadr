@@ -525,89 +525,11 @@
         }
         .platform-faq-answer p { margin: 0; }
     </style>
+    <style>h1{font-size:3rem !important;}h2{font-size:2rem !important;}h3{font-size:1.5rem !important;}p{font-size:1.2rem !important;}</style>
 </head>
 
 <body>
-    <header class="platform-header">
-        <nav class="platform-nav">
-            <a class="platform-brand" href="{{ route('home') }}" aria-label="Home">
-                <img src="/images/home/hd-video-download.png" alt="HD Video Downloader Logo" style="height: 36px; width: auto; object-fit: contain;">
-            </a>
-            <div class="platform-nav-links">
-                <a href="{{ route('home') }}">Home</a>
-                
-                @php
-                    $navPlatforms = \App\Models\Platform::whereNull('parent_id')
-                        ->where('status', 'active')
-                        ->with('children')
-                        ->orderBy('name')
-                        ->get();
-                @endphp
-                <div class="nav-dropdown-wrap">
-                    <a style="cursor: pointer;" class="dropdown-trigger">Supported Platforms <svg style="display:inline-block;width:12px;height:12px;margin-left:3px;vertical-align:middle;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
-                    <div class="mega-menu">
-                        <div class="mega-menu-grid">
-                            @foreach($navPlatforms as $np)
-                            @php
-                                $icoName = strtolower($np->name);
-                                if($icoName == 'twitter' || $icoName == 'x') $icoName = 'x';
-                                $hasKids = $np->children->isNotEmpty();
-                            @endphp
-                            <div style="position:relative;" class="mega-parent-wrap {{ $hasKids ? 'has-kids' : '' }}">
-                                <a href="{{ route('platforms.show', $np->slug) }}/" class="mega-item">
-                                    <div class="item-icon">
-                                        @php
-                                            if(!empty($np->icon) && strpos($np->icon, 'fa-') !== false) {
-                                                echo '<i class="'.$np->icon.'"></i>';
-                                            } else {
-                                                $iconSlug = (!empty($np->icon) && strpos($np->icon, 'fa-') === false) ? strtolower($np->icon) : $icoName;
-                                                echo '<img src="https://cdn.simpleicons.org/'.$iconSlug.'/c3cad5" alt="" width="16" height="16" style="display:block;">';
-                                            }
-                                        @endphp
-                                    </div>
-                                    <span style="text-transform:uppercase;">{{ $np->name }}</span>
-                                    @if($hasKids)
-                                    <i class="fas fa-chevron-right" style="margin-left:auto;font-size:0.6rem;color:#39e1b6;flex-shrink:0;"></i>
-                                    @endif
-                                </a>
-                                @if($hasKids)
-                                <div class="mega-child-menu">
-                                    @foreach($np->children as $child)
-                                    <a href="{{ route('platforms.show', $child->slug) }}/" class="mega-item mega-child-item">
-                                        <div class="item-icon" style="width:28px;height:28px;">
-                                            @php
-                                                $cIconSource = !empty($child->icon) ? $child->icon : $np->icon;
-                                                $cIcoNameFallback = !empty($child->icon) ? strtolower($child->name) : strtolower($np->name);
-                                                if($cIcoNameFallback == 'twitter' || $cIcoNameFallback == 'x') $cIcoNameFallback = 'x';
-
-                                                if(!empty($cIconSource) && strpos($cIconSource, 'fa-') !== false) {
-                                                    echo '<i class="'.$cIconSource.'"></i>';
-                                                } else {
-                                                    $cSlug = (!empty($cIconSource) && strpos($cIconSource, 'fa-') === false) ? strtolower($cIconSource) : $cIcoNameFallback;
-                                                    echo '<img src="https://cdn.simpleicons.org/'.$cSlug.'/c3cad5" alt="" width="13" height="13" style="display:block;">';
-                                                }
-                                            @endphp
-                                        </div>
-                                        <span style="text-transform:uppercase;font-size:0.78rem;">{{ $child->name }}</span>
-                                    </a>
-                                    @endforeach
-                                </div>
-                                @endif
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="{{ route('blog') }}">Blog</a>
-                <a href="{{ route('privacy') }}">Privacy</a>
-            </div>
-            
-            <button class="hamburger" aria-label="Menu" onclick="alert('Menu clicked!')">
-                <span></span><span></span><span></span>
-            </button>
-        </nav>
-    </header>
+    @include('partials.navbar')
 
     <section class="platform-hero" style="margin-bottom: 2rem;">
         <div class="platform-hero-wrap">

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Dashboard') — Video Saver</title>
+    <title>@yield('title', 'Admin Dashboard') — HD Video Downloader</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
         .sidebar{width:240px;background:#161B27;border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;flex-shrink:0;position:fixed;height:100vh;z-index:100;}
         .sidebar-logo{padding:1.5rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.06);}
         .logo-wrap{display:flex;align-items:center;gap:0.7rem; line-height: 1.45; }
-        .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,#FFB800,#FF8C00);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;box-shadow:0 6px 20px rgba(255,184,0,0.3);}
+        .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,#36DEB3,#36DEB3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;box-shadow:0 6px 20px rgba(54,222,179,0.3);}
         .logo-wrap h2{font-size:1rem;font-weight: 700;color:#fff;letter-spacing:-0.02em;}
         .logo-sub{font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:1px;}
         
@@ -29,12 +29,12 @@
         .nav-item:hover{background:rgba(255,255,255,0.04);color:#fff;}
         .nav-item i{width:18px;text-align:center;font-size:0.95rem;transition:transform 0.2s;}
         .nav-item:hover i{transform:scale(1.1);}
-        .nav-item.active{background:linear-gradient(135deg,rgba(255,184,0,0.15),rgba(255,140,0,0.08));color:#FFB800;font-weight:600;box-shadow:inset 0 0 0 1px rgba(255,184,0,0.15);}
-        .nav-item.active i{color:#FFB800;}
+        .nav-item.active{background:linear-gradient(135deg,rgba(54,222,179,0.15),rgba(54,222,179,0.08));color:#36DEB3;font-weight:600;box-shadow:inset 0 0 0 1px rgba(54,222,179,0.15);}
+        .nav-item.active i{color:#36DEB3;}
         
         .sidebar-footer{padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.1);}
         .admin-badge{display:flex;align-items:center;gap:0.8rem;}
-        .admin-avatar{width:36px;height:36px;background:linear-gradient(135deg,#FFB800,#FF8C00);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#fff;font-weight:800;}
+        .admin-avatar{width:36px;height:36px;background:linear-gradient(135deg,#36DEB3,#36DEB3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#fff;font-weight:800;}
         .admin-info p{font-size:0.82rem;font-weight:600;color:#fff; line-height: 1.45; }
         .admin-info span{font-size:0.7rem;color:rgba(255,255,255,0.3);}
         .logout-btn{margin-left:auto;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.15);color:#FCA5A5;border-radius:8px;text-decoration:none;transition:all 0.2s;}
@@ -46,7 +46,7 @@
         .topbar-left h1{font-size:1.3rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:0.6rem;}
         .breadcrumb{font-size:0.8rem;color:rgba(255,255,255,0.3);margin-top:2px;}
         .breadcrumb a{color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s;}
-        .breadcrumb a:hover{color:#FFB800;}
+        .breadcrumb a:hover{color:#36DEB3;}
         
         .content{padding:2.5rem;flex:1;}
         
@@ -76,7 +76,7 @@
         <div class="logo-wrap">
             <div class="logo-icon"><i class="fas fa-bolt"></i></div>
             <div>
-                <h2>Video Saver</h2>
+                <h2>HD Video Downloader</h2>
                 <p class="logo-sub" style="line-height: 1.45;">Admin Dashboard</p>
             </div>
         </div>
@@ -139,3 +139,6 @@
 @stack('scripts')
 </body>
 </html>
+
+
+

@@ -49,9 +49,11 @@
             .legal-hero p { font-size: 0.9rem; line-height: 1.45; }
         }
     </style>
+<style>h1{font-size:3rem !important;}h2{font-size:2rem !important;}h3{font-size:1.5rem !important;}p{font-size:1.2rem !important;}</style>
 </head>
 
 <body class="has-fixed-header">
+    @include('partials.navbar')
     @include('partials.header', ['headerClass' => 'header-white'])
 
     <main class="legal-wrap">
@@ -104,3 +106,9 @@
 </body>
 
 </html>
+
+
+
+
+
+

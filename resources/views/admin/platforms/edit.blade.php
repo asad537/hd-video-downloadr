@@ -40,18 +40,18 @@
         .sidebar{width:220px;background:#161B27;border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;flex-shrink:0;position:fixed;height:100vh;z-index:100;}
         .sidebar-logo{padding:1.5rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.06);}
         .logo-wrap{display:flex;align-items:center;gap:0.6rem; line-height: 1.45; }
-        .logo-icon{width:38px;height:38px;background:linear-gradient(135deg,#FFB800,#FF8C00);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff;box-shadow:0 6px 20px rgba(255,184,0,0.35);}
+        .logo-icon{width:38px;height:38px;background:linear-gradient(135deg,#36DEB3,#36DEB3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff;box-shadow:0 6px 20px rgba(54,222,179,0.35);}
         .logo-wrap h2{font-size:0.95rem;font-weight: 700;color:#fff;}
         .logo-sub{font-size:0.68rem;color:rgba(255,255,255,0.35);}
         .sidebar-nav{padding:1rem 0.6rem;flex:1;overflow-y:auto;}
         .nav-label{font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:0.1em;padding:0.5rem 0.7rem;margin-top:0.5rem;}
         .nav-item{display:flex;align-items:center;gap:0.7rem;padding:0.6rem 0.8rem;border-radius:8px;color:rgba(255,255,255,0.45);font-size:0.82rem;font-weight:500;transition:all 0.2s;text-decoration:none;margin-bottom:2px;}
         .nav-item:hover{background:rgba(255,255,255,0.04);color:#fff;}
-        .nav-item.active{background:linear-gradient(135deg,rgba(255,184,0,0.12),rgba(255,140,0,0.08));color:#FFB800;border:1px solid rgba(255,184,0,0.1);}
+        .nav-item.active{background:linear-gradient(135deg,rgba(54,222,179,0.12),rgba(54,222,179,0.08));color:#36DEB3;border:1px solid rgba(54,222,179,0.1);}
         .nav-item i{width:16px;text-align:center;font-size:0.85rem;}
         .sidebar-footer{padding:0.8rem 1rem;border-top:1px solid rgba(255,255,255,0.06);}
         .admin-badge{display:flex;align-items:center;gap:0.6rem;}
-        .admin-avatar{width:32px;height:32px;background:linear-gradient(135deg,#FFB800,#FF8C00);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:#fff;font-weight:700;}
+        .admin-avatar{width:32px;height:32px;background:linear-gradient(135deg,#36DEB3,#36DEB3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:#fff;font-weight:700;}
         .admin-info p{font-size:0.78rem;font-weight:600;color:#fff; line-height: 1.45; }
         .admin-info span{font-size:0.68rem;color:rgba(255,255,255,0.25);}
         .logout-btn{margin-left:auto;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#FCA5A5;padding:0.3rem 0.6rem;border-radius:6px;font-size:0.7rem;text-decoration:none;transition:all 0.2s;}
@@ -62,19 +62,19 @@
         .topbar-left h1{font-size:1.2rem;font-weight:700;color:#fff;}
         .breadcrumb{font-size:0.78rem;color:rgba(255,255,255,0.3);}
         .breadcrumb a{color:rgba(255,255,255,0.35);text-decoration:none;}
-        .breadcrumb a:hover{color:#FFB800;}
+        .breadcrumb a:hover{color:#36DEB3;}
         .content{padding:2rem;flex:1;}
 
         .form-card{background:#161B27;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:1.8rem;margin-bottom:1.5rem;}
         .form-card-header{display:flex;align-items:center;gap:0.7rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.06);}
-        .hicon{width:36px;height:36px;border-radius:10px;background:rgba(255,184,0,0.12);color:#FFB800;display:flex;align-items:center;justify-content:center;font-size:0.95rem;}
+        .hicon{width:36px;height:36px;border-radius:10px;background:rgba(54,222,179,0.12);color:#36DEB3;display:flex;align-items:center;justify-content:center;font-size:0.95rem;}
         .form-card-header h3{font-size:0.95rem;font-weight:700;color:#fff;}
         
         .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
         .form-group{margin-bottom:1.5rem; line-height: 1.45; }
         .form-group label{display:block;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.6rem;}
         .form-group input, .form-group textarea, .form-group select{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.8rem 1rem;font-size:0.88rem;color:#fff;font-family:'Inter',sans-serif;outline:none;transition:border 0.2s;}
-        .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#FFB800;background:rgba(255,184,0,0.06);}
+        .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#36DEB3;background:rgba(54,222,179,0.06);}
         
         #editor {
             background: #ffffff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 3rem 2rem; min-height: 500px; color: #1E293B; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
@@ -101,7 +101,7 @@
             color: #1E293B !important;
         }
 
-        .btn-save{background:linear-gradient(135deg,#FFB800,#FF8C00);color:#fff;border:none;border-radius:12px;padding:0.85rem 2.5rem;font-size:0.95rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;box-shadow:0 8px 25px rgba(255,184,0,0.3);transition:transform 0.2s;}
+        .btn-save{background:linear-gradient(135deg,#36DEB3,#36DEB3);color:#fff;border:none;border-radius:12px;padding:0.85rem 2.5rem;font-size:0.95rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;box-shadow:0 8px 25px rgba(54,222,179,0.3);transition:transform 0.2s;}
         .btn-back{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.6rem 1rem;font-size:0.82rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;}
 
         /* FAQ Table */
@@ -121,8 +121,8 @@
             align-items: center;
             gap: 1rem;
             padding: 1rem 1.2rem;
-            background: rgba(255,184,0,0.04);
-            border: 1px solid rgba(255,184,0,0.12);
+            background: rgba(54,222,179,0.04);
+            border: 1px solid rgba(54,222,179,0.12);
             border-radius: 12px;
             cursor: pointer;
             user-select: none;
@@ -131,7 +131,7 @@
         .sub-toggle-wrap input[type="checkbox"] {
             width: 20px;
             height: 20px;
-            accent-color: #FFB800;
+            accent-color: #36DEB3;
             cursor: pointer;
             flex-shrink: 0;
         }
@@ -176,11 +176,11 @@
         }
         .parent-option:last-child { border-bottom: 0; }
         .parent-option:hover { background: rgba(255,255,255,0.04); }
-        .parent-option.selected { background: rgba(255,184,0,0.08); }
+        .parent-option.selected { background: rgba(54,222,179,0.08); }
         .parent-option input[type="radio"] {
             width: 16px;
             height: 16px;
-            accent-color: #FFB800;
+            accent-color: #36DEB3;
             cursor: pointer;
             flex-shrink: 0;
         }
@@ -210,7 +210,7 @@
 <div class="main">
     <div class="topbar">
         <div class="topbar-left">
-            <h1><i class="fas fa-edit" style="color:#FFB800;margin-right:0.5rem;"></i> Edit Platform: {{ $platform->name }}</h1>
+            <h1><i class="fas fa-edit" style="color:#36DEB3;margin-right:0.5rem;"></i> Edit Platform: {{ $platform->name }}</h1>
             <div class="breadcrumb">
                 @section('breadcrumb')
                     <a href="{{ route('admin.dashboard') }}">Dashboard</a> / <a href="{{ route('admin.platforms.index') }}">Platforms</a> / Edit
@@ -220,7 +220,7 @@
             </div>
         </div>
         <div style="display:flex;gap:1rem;">
-            <a href="@yield('view_site_url')" target="_blank" class="btn-back" style="background:rgba(255,184,0,0.1);color:#FFB800;border-color:rgba(255,184,0,0.2);"><i class="fas fa-eye"></i> View Live Page</a>
+            <a href="@yield('view_site_url')" target="_blank" class="btn-back" style="background:rgba(54,222,179,0.1);color:#36DEB3;border-color:rgba(54,222,179,0.2);"><i class="fas fa-eye"></i> View Live Page</a>
             <a href="{{ route('admin.platforms.index') }}" class="btn-back"><i class="fas fa-arrow-left"></i> Back to List</a>
         </div>
     </div>
@@ -464,5 +464,6 @@
 
 </body>
 </html>
+
 
 

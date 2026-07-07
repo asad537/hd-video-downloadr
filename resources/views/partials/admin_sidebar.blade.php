@@ -3,7 +3,7 @@
         <div class="logo-wrap">
             <div class="logo-icon"><i class="fas fa-download"></i></div>
             <div>
-                <h2>Video Saver</h2>
+                <h2>HD Video Downloader</h2>
                 <p class="logo-sub" style="line-height: 1.45;">Admin Dashboard</p>
             </div>
         </div>
@@ -32,3 +32,4 @@
         </div>
     </div>
 </aside>
+

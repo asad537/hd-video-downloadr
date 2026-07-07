@@ -115,7 +115,7 @@
         width: 28px;
         height: 28px;
         border-radius: 50%;
-        background: #FFB800;
+        background: #36DEB3;
         color: #111827;
         font-weight: 800;
         font-size: 1rem;
@@ -199,7 +199,7 @@
         top: 0;
         width: 42px;
         height: 100%;
-        background: #FFB800;
+        background: #36DEB3;
         color: #fff;
         font-size: 12px;
         display: flex;
@@ -715,12 +715,12 @@
             
             <!-- Progress Bar -->
             <div style="background:rgba(255,255,255,0.05); height:8px; border-radius:4px; overflow:hidden; margin-bottom:1.5rem; position:relative;">
-                <div id="modalProgressBar" style="width:0%; height:100%; background:linear-gradient(135deg,#FFB800,#FF8C00); border-radius:4px; transition:width 0.3s ease;"></div>
+                <div id="modalProgressBar" style="width:0%; height:100%; background:linear-gradient(135deg,#36DEB3,#36DEB3); border-radius:4px; transition:width 0.3s ease;"></div>
             </div>
 
             <div style="display:flex; justify-content:center; gap:10px;">
                 <button id="modalCloseBtn" style="display:none; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(255,255,255,0.1); padding:0.6rem 1.2rem; border-radius:8px; font-weight:600; cursor:pointer;" onclick="closeModal()">Close</button>
-                <a id="modalDlBtn" style="display:none; background:linear-gradient(135deg,#FFB800,#FF8C00); color:#fff; padding:0.6rem 1.2rem; border-radius:8px; font-weight:600; text-decoration:none; box-shadow:0 4px 15px rgba(255,184,0,0.25);" href="#">Download Now</a>
+                <a id="modalDlBtn" style="display:none; background:linear-gradient(135deg,#36DEB3,#36DEB3); color:#fff; padding:0.6rem 1.2rem; border-radius:8px; font-weight:600; text-decoration:none; box-shadow:0 4px 15px rgba(54,222,179,0.25);" href="#">Download Now</a>
             </div>
         </div>
     </div>
@@ -839,7 +839,7 @@
             modalProgressBar.style.width = '0%';
             modalCloseBtn.style.display = 'none';
             modalDlBtn.style.display = 'none';
-            modalProgressBar.style.background = 'linear-gradient(135deg,#FFB800,#FF8C00)';
+            modalProgressBar.style.background = 'linear-gradient(135deg,#36DEB3,#36DEB3)';
 
             try {
                 const res = await fetch(url);

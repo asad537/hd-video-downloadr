@@ -28,7 +28,7 @@
     }
 
     .footer-logo-link img {
-        height: 40px;
+        height: 60px;
         width: auto;
         margin-top: 0;
     }
@@ -153,8 +153,7 @@
             <!-- Brand -->
             <div>
                 <a href="/" class="footer-logo-link">
-                    @include('partials.logo-mark')
-                    <div class="footer-logo-text">HDVideo<span>Downloader</span></div>
+                    <img src="/images/Logo_Website.png" alt="HD Video Downloader">
                 </a>
                 <p class="footer-desc" style="line-height: 1.6;">
                     {{ $footerDescription }}
@@ -168,6 +167,7 @@
                     <li><a href="/">Home</a></li>
                     <!-- <li><a href="#supported">Supported Platforms</a></li> -->
                     <li><a href="/download/">Download</a></li>
+                    <li><a href="/faqs/">FAQs</a></li>
                 </ul>
             </div>
 
@@ -200,8 +200,8 @@
             <div>
                 <h4 class="footer-col-title">Legal</h4>
                 <ul class="footer-links">
-                    <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
-                    <li><a href="/terms/">Term of Service</a></li>
+                    <li><a href="/privacy-policy/">Privacy Policy</a></li>
+                    <li><a href="/terms-of-service/">Term of Service</a></li>
                     <li><a href="/disclaimer/">Disclaimer</a></li>
                 </ul>
             </div>
@@ -212,7 +212,7 @@
     <!-- Copyright -->
     <div class="footer-copyright">
         <div class="footer-inner">
-            <p style="line-height: 1.45;">© {{ date('Y') }} Video Saver. All rights reserved.</p>
+            <p style="line-height: 1.45;">© {{ date('Y') }} HD Video Downloader. All rights reserved.</p>
         </div>
     </div>
 </footer>

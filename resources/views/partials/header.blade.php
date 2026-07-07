@@ -7,6 +7,10 @@
     body {
         opacity: 0;
     }
+    h1 { font-size: 3rem !important; }
+    h2 { font-size: 2rem !important; }
+    h3 { font-size: 1.5rem !important; }
+    p { font-size: 1.2rem !important; }
 </style>
 <script>
     (function() {
@@ -38,7 +42,7 @@
 
         <!-- Logo (CENTER on mobile, LEFT on desktop) -->
         <a href="/" class="logo">
-            <img src="/images/hdvideosaver.png" alt="Video Saver">
+            <img src="/images/Logo_Website.png" alt="HD Video Downloader">
         </a>
 
         <!-- Desktop Nav -->
@@ -158,7 +162,7 @@
     <div class="mobile-nav" id="mobile-nav" style="display:none;">
         <!-- Logo at top of sidebar -->
         <div style="text-align: center; padding: 2.5rem 0 1.5rem;">
-            <img src="/images/logofinal.png" alt="Video Saver" style="height: 60px; width: auto;">
+            <img src="/images/Logo_Website.png" alt="HD Video Downloader" style="height: 60px; width: auto;">
         </div>
         <ul>
             <li><a href="/" onclick="toggleMobileMenu()">Home</a></li>
@@ -182,7 +186,7 @@
                                 elseif(stripos($np->name, 'tiktok') !== false) $iconClass = 'fab fa-tiktok';
                             }
                         @endphp
-                        <i class="{{ $iconClass }}" style="color:#FFB800;"></i>
+                        <i class="{{ $iconClass }}" style="color:#36DEB3;"></i>
                         {{ $np->name }}
                     </a>
                     @endforeach
@@ -333,7 +337,7 @@
 
     .lang-menu div:hover {
         background: #F9FAFB;
-        color: #FFB800;
+        color: #36DEB3;
     }
 
     .hamburger {
@@ -613,7 +617,7 @@
 
         .lang-menu div:hover {
             background: #F9FAFB;
-            color: #FFB800;
+            color: #36DEB3;
         }
     }
 
@@ -685,7 +689,7 @@
         width: 42px;
         height: 42px;
         background: #FEF3C7;
-        color: #FFB800;
+        color: #36DEB3;
         border-radius: 12px;
         display: flex;
         justify-content: center;
@@ -708,7 +712,7 @@
         flex-shrink: 0;
     }
     .dropdown-item-wrap:hover .item-arrow {
-        color: #FFB800;
+        color: #36DEB3;
         transform: translateX(2px);
     }
     .child-dropdown {
@@ -934,3 +938,4 @@
         document.body.style.top = '0px';
     }, 500);
 </script>
+

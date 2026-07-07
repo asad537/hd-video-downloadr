@@ -13,18 +13,18 @@
         .sidebar{width:220px;background:#161B27;border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;flex-shrink:0;position:fixed;height:100vh;z-index:100;}
         .sidebar-logo{padding:1.5rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.06);}
         .logo-wrap{display:flex;align-items:center;gap:0.6rem; line-height: 1.45; }
-        .logo-icon{width:38px;height:38px;background:linear-gradient(135deg,#FFB800,#FF8C00);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff;box-shadow:0 6px 20px rgba(255,184,0,0.35);}
+        .logo-icon{width:38px;height:38px;background:linear-gradient(135deg,#36DEB3,#36DEB3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff;box-shadow:0 6px 20px rgba(54,222,179,0.35);}
         .logo-wrap h2{font-size:0.95rem;font-weight: 700;color:#fff;}
         .logo-sub{font-size:0.68rem;color:rgba(255,255,255,0.35);}
         .sidebar-nav{padding:1rem 0.6rem;flex:1;overflow-y:auto;}
         .nav-label{font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:0.1em;padding:0.5rem 0.7rem;margin-top:0.5rem;}
         .nav-item{display:flex;align-items:center;gap:0.7rem;padding:0.6rem 0.8rem;border-radius:8px;color:rgba(255,255,255,0.45);font-size:0.82rem;font-weight:500;transition:all 0.2s;text-decoration:none;margin-bottom:2px;}
         .nav-item:hover{background:rgba(255,255,255,0.04);color:#fff;}
-        .nav-item.active{background:linear-gradient(135deg,rgba(255,184,0,0.12),rgba(255,140,0,0.08));color:#FFB800;border:1px solid rgba(255,184,0,0.1);}
+        .nav-item.active{background:linear-gradient(135deg,rgba(54,222,179,0.12),rgba(54,222,179,0.08));color:#36DEB3;border:1px solid rgba(54,222,179,0.1);}
         .nav-item i{width:16px;text-align:center;font-size:0.85rem;}
         .sidebar-footer{padding:0.8rem 1rem;border-top:1px solid rgba(255,255,255,0.06);}
         .admin-badge{display:flex;align-items:center;gap:0.6rem;}
-        .admin-avatar{width:32px;height:32px;background:linear-gradient(135deg,#FFB800,#FF8C00);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:#fff;font-weight:700;}
+        .admin-avatar{width:32px;height:32px;background:linear-gradient(135deg,#36DEB3,#36DEB3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:#fff;font-weight:700;}
         .admin-info p{font-size:0.78rem;font-weight:600;color:#fff; line-height: 1.45; }
         .admin-info span{font-size:0.68rem;color:rgba(255,255,255,0.25);}
         .logout-btn{margin-left:auto;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#FCA5A5;padding:0.3rem 0.6rem;border-radius:6px;font-size:0.7rem;text-decoration:none;transition:all 0.2s;}
@@ -35,10 +35,10 @@
         .topbar-left h1{font-size:1.2rem;font-weight:700;color:#fff;}
         .breadcrumb{font-size:0.78rem;color:rgba(255,255,255,0.3);}
         .breadcrumb a{color:rgba(255,255,255,0.35);text-decoration:none;}
-        .breadcrumb a:hover{color:#FFB800;}
+        .breadcrumb a:hover{color:#36DEB3;}
         .content{padding:2rem;flex:1;}
 
-        .btn-add{background:linear-gradient(135deg,#FFB800,#FF8C00);color:#fff;border:none;border-radius:12px;padding:0.6rem 1.2rem;font-size:0.88rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 4px 15px rgba(255,184,0,0.25);transition:transform 0.2s;}
+        .btn-add{background:linear-gradient(135deg,#36DEB3,#36DEB3);color:#fff;border:none;border-radius:12px;padding:0.6rem 1.2rem;font-size:0.88rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 4px 15px rgba(54,222,179,0.25);transition:transform 0.2s;}
         .btn-add:hover{transform:translateY(-2px);}
         .btn-preview{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.6rem 1rem;font-size:0.82rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;transition:all 0.2s;}
         .btn-preview:hover{background:rgba(255,255,255,0.1);color:#fff;}
@@ -55,8 +55,8 @@
         
         .actions{display:flex;align-items:center;gap:0.5rem;}
         .btn-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;}
-        .btn-edit{background:rgba(255,184,0,0.12);color:#FFB800;}
-        .btn-edit:hover{background:rgba(255,184,0,0.2);}
+        .btn-edit{background:rgba(54,222,179,0.12);color:#36DEB3;}
+        .btn-edit:hover{background:rgba(54,222,179,0.2);}
         .btn-del{background:rgba(239,68,68,0.12);color:#FCA5A5;}
         .btn-del:hover{background:rgba(239,68,68,0.2);}
 
@@ -70,7 +70,7 @@
 <div class="main">
     <div class="topbar">
         <div class="topbar-left">
-            <h1><i class="fas fa-globe" style="color:#FFB800;margin-right:0.5rem;"></i> Platforms Management</h1>
+            <h1><i class="fas fa-globe" style="color:#36DEB3;margin-right:0.5rem;"></i> Platforms Management</h1>
             <div class="breadcrumb"><a href="{{ route('admin.dashboard') }}">Dashboard</a> / Platforms</div>
         </div>
         <div style="display:flex;gap:1rem;">
@@ -123,7 +123,7 @@
                     @empty
                     <tr>
                         <td colspan="6" style="text-align:center;padding:4rem;color:rgba(255,255,255,0.2);">
-                            No platforms found. <a href="{{ route('admin.platforms.create') }}" style="color:#FFB800;">Add your first platform!</a>
+                            No platforms found. <a href="{{ route('admin.platforms.create') }}" style="color:#36DEB3;">Add your first platform!</a>
                         </td>
                     </tr>
                     @endforelse
@@ -135,3 +135,4 @@
 
 </body>
 </html>
+

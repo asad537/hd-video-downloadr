@@ -4,7 +4,7 @@
     <link rel="icon" type="image/png" href="/images/logofinal.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login — Video Saver</title>
+    <title>Admin Login — HD Video Downloader</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -29,9 +29,9 @@
             opacity: 0.15;
             pointer-events: none;
         }
-        .bg-orb-1 { width: 500px; height: 500px; background: #FFB800; top: -150px; right: -150px; }
+        .bg-orb-1 { width: 500px; height: 500px; background: #36DEB3; top: -150px; right: -150px; }
         .bg-orb-2 { width: 400px; height: 400px; background: #6C63FF; bottom: -100px; left: -100px; }
-        .bg-orb-3 { width: 250px; height: 250px; background: #FFB800; top: 50%; left: 30%; }
+        .bg-orb-3 { width: 250px; height: 250px; background: #36DEB3; top: 50%; left: 30%; }
 
         .login-card {
             background: rgba(255,255,255,0.05);
@@ -53,7 +53,7 @@
         .login-logo .icon-wrap {
             width: 70px;
             height: 70px;
-            background: linear-gradient(135deg, #FFB800, #FF8C00);
+            background: linear-gradient(135deg, #36DEB3, #36DEB3);
             border-radius: 18px;
             display: flex;
             align-items: center;
@@ -61,7 +61,7 @@
             margin: 0 auto 1rem;
             font-size: 1.8rem;
             color: white;
-            box-shadow: 0 10px 30px rgba(255,184,0,0.4); line-height: 1.45; }
+            box-shadow: 0 10px 30px rgba(54,222,179,0.4); line-height: 1.45; }
 
         .login-logo h1 {
             font-size: 1.5rem;
@@ -113,8 +113,8 @@
         }
 
         .form-group input:focus {
-            border-color: #FFB800;
-            background: rgba(255,184,0,0.08);
+            border-color: #36DEB3;
+            background: rgba(54,222,179,0.08);
         }
 
         .error-msg {
@@ -132,7 +132,7 @@
 
         .btn-login {
             width: 100%;
-            background: linear-gradient(135deg, #FFB800, #FF8C00);
+            background: linear-gradient(135deg, #36DEB3, #36DEB3);
             color: #fff;
             border: none;
             border-radius: 12px;
@@ -142,13 +142,13 @@
             font-family: 'Inter', sans-serif;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 8px 25px rgba(255,184,0,0.35);
+            box-shadow: 0 8px 25px rgba(54,222,179,0.35);
             margin-top: 0.5rem;
         }
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(255,184,0,0.5);
+            box-shadow: 0 12px 30px rgba(54,222,179,0.5);
         }
 
         .back-link {
@@ -163,7 +163,7 @@
             transition: color 0.2s;
         }
 
-        .back-link a:hover { color: #FFB800; }
+        .back-link a:hover { color: #36DEB3; }
     </style>
 </head>
 <body>
@@ -175,7 +175,7 @@
         <div class="login-logo">
             <div class="icon-wrap"><i class="fas fa-shield-alt"></i></div>
             <h1>Admin Panel</h1>
-            <p style="line-height: 1.45;">Video Saver — Secure Access</p>
+            <p style="line-height: 1.45;">HD Video Downloader — Secure Access</p>
         </div>
 
         @if($errors->any())
@@ -205,3 +205,5 @@
     </div>
 </body>
 </html>
+
+

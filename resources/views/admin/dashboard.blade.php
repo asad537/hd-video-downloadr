@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('header_icon')
-    <i class="fas fa-th-large" style="color:#FFB800;"></i>
+    <i class="fas fa-th-large" style="color:#36DEB3;"></i>
 @endsection
 
 @section('header_title', 'Dashboard Overview')
@@ -16,10 +16,10 @@
     <style>
         .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:2rem;}
         .stat-card{background:#161B27;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.4rem;transition:transform 0.2s,border-color 0.2s;}
-        .stat-card:hover{transform:translateY(-3px);border-color:rgba(255,184,0,0.2);}
+        .stat-card:hover{transform:translateY(-3px);border-color:rgba(54,222,179,0.2);}
         .stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem; line-height: 1.45; }
         .stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
-        .stat-icon.yellow{background:rgba(255,184,0,0.15);color:#FFB800;}
+        .stat-icon.yellow{background:rgba(54,222,179,0.15);color:#36DEB3;}
         .stat-icon.green{background:rgba(34,197,94,0.15);color:#4ADE80;}
         .stat-icon.blue{background:rgba(99,102,241,0.15);color:#818CF8;}
         .stat-icon.red{background:rgba(239,68,68,0.15);color:#FCA5A5;}
@@ -35,7 +35,7 @@
         
         .bar-chart{display:flex;align-items:flex-end;gap:0.6rem;height:140px;}
         .bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem; line-height: 1.45; }
-        .bar{width:100%;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#FFB800,#FF8C00);min-height:4px;transition:height 0.5s;}
+        .bar{width:100%;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#36DEB3,#36DEB3);min-height:4px;transition:height 0.5s;}
         .bar-label{font-size:0.65rem;color:rgba(255,255,255,0.3);}
         .bar-count{font-size:0.6rem;color:rgba(255,255,255,0.25);margin-bottom:2px;}
         
@@ -190,7 +190,7 @@
     <!-- QUICK STATS -->
     <div class="quick-row">
         <div class="quick-card">
-            <div class="quick-icon" style="background:rgba(255,184,0,0.12);color:#FFB800;"><i class="fas fa-bolt"></i></div>
+            <div class="quick-icon" style="background:rgba(54,222,179,0.12);color:#36DEB3;"><i class="fas fa-bolt"></i></div>
             <div>
                 <h4>Success Rate</h4>
                 <p style="line-height: 1.45;">98.2% Average</p>
@@ -223,3 +223,4 @@
         }
     </script>
 @endpush
+

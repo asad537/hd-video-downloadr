@@ -3,7 +3,7 @@
 @section('title', 'Blogs Management')
 
 @section('header_icon')
-    <i class="fas fa-blog" style="color:#FFB800;"></i>
+    <i class="fas fa-blog" style="color:#36DEB3;"></i>
 @endsection
 
 @section('header_title', 'Blog Management')
@@ -21,7 +21,7 @@
 
 @push('styles')
     <style>
-        .btn-add{background:linear-gradient(135deg,#FFB800,#FF8C00);color:#fff;border:none;border-radius:12px;padding:0.6rem 1.2rem;font-size:0.88rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 4px 15px rgba(255,184,0,0.25);transition:transform 0.2s;}
+        .btn-add{background:linear-gradient(135deg,#36DEB3,#36DEB3);color:#fff;border:none;border-radius:12px;padding:0.6rem 1.2rem;font-size:0.88rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 4px 15px rgba(54,222,179,0.25);transition:transform 0.2s;}
         .btn-add:hover{transform:translateY(-2px);}
         .btn-preview{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.6rem 1rem;font-size:0.82rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;transition:all 0.2s;}
         
@@ -43,7 +43,7 @@
         
         .actions{display:flex;align-items:center;gap:0.5rem;}
         .btn-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;}
-        .btn-edit{background:rgba(255,184,0,0.12);color:#FFB800;}
+        .btn-edit{background:rgba(54,222,179,0.12);color:#36DEB3;}
         .btn-del{background:rgba(239,68,68,0.12);color:#FCA5A5;}
     </style>
 @endpush
@@ -56,7 +56,7 @@
     @endif
 
     <div class="table-card" style="margin-bottom: 2rem; padding: 1.5rem;">
-        <h3 style="color:#fff; font-size:1rem; margin-bottom:1rem;"><i class="fas fa-search" style="color:#FFB800;"></i> Blog Index SEO Settings</h3>
+        <h3 style="color:#fff; font-size:1rem; margin-bottom:1rem;"><i class="fas fa-search" style="color:#36DEB3;"></i> Blog Index SEO Settings</h3>
         <form method="POST" action="{{ route('admin.seo_settings.update') }}">
             @csrf
             <input type="hidden" name="page_name" value="blogs">
@@ -144,7 +144,7 @@
                 @empty
                 <tr>
                     <td colspan="6" style="text-align:center;padding:4rem;color:rgba(255,255,255,0.2);">
-                        No blog posts found. <a href="{{ route('admin.blogs.create') }}" style="color:#FFB800;">Create your first post!</a>
+                        No blog posts found. <a href="{{ route('admin.blogs.create') }}" style="color:#36DEB3;">Create your first post!</a>
                     </td>
                 </tr>
                 @endforelse
@@ -152,3 +152,4 @@
         </table>
     </div>
 @endsection
+

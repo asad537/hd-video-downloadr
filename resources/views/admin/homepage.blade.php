@@ -3,7 +3,7 @@
 @section('title', 'Home Page Settings')
 
 @section('header_icon')
-    <i class="fas fa-home" style="color:#FFB800;"></i>
+    <i class="fas fa-home" style="color:#36DEB3;"></i>
 @endsection
 
 @section('header_title', 'Home Page Settings')
@@ -21,14 +21,14 @@
     <style>
         .form-card{background:#161B27;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:1.8rem;margin-bottom:1.5rem;}
         .form-card-header{display:flex;align-items:center;gap:0.7rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.06);}
-        .hicon{width:36px;height:36px;border-radius:10px;background:rgba(255,184,0,0.12);color:#FFB800;display:flex;align-items:center;justify-content:center;font-size:0.95rem;}
+        .hicon{width:36px;height:36px;border-radius:10px;background:rgba(54,222,179,0.12);color:#36DEB3;display:flex;align-items:center;justify-content:center;font-size:0.95rem;}
         .form-card-header h3{font-size:0.95rem;font-weight:700;color:#fff;}
         .form-card-header p{font-size:0.75rem;color:rgba(255,255,255,0.35); line-height: 1.45; }
         .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem;}
         .form-row.full{grid-template-columns:1fr;margin-bottom:1.2rem;}
         .form-group label{display:block;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;}
         .form-group input, .form-group textarea{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.8rem 1rem;font-size:0.88rem;color:#fff;font-family:'Inter',sans-serif;outline:none;transition:all 0.2s;}
-        .form-group input:focus, .form-group textarea:focus{border-color:#FFB800;background:rgba(255,184,0,0.06);box-shadow:0 0 0 4px rgba(255,184,0,0.05);}
+        .form-group input:focus, .form-group textarea:focus{border-color:#36DEB3;background:rgba(54,222,179,0.06);box-shadow:0 0 0 4px rgba(54,222,179,0.05);}
         .hint{font-size:0.72rem;color:rgba(255,255,255,0.25);margin-top:0.4rem;}
 
         /* Editor.js Styling */
@@ -63,11 +63,11 @@
         .preview-label{font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;}
         .preview-mockup{background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:12px;padding:2.5rem 1.5rem;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.2); line-height: 1.45; }
         .preview-h1{font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:1.2rem;line-height:1.3;}
-        .preview-btn-el{display:inline-block;background:linear-gradient(135deg,#FFB800,#FF8C00);color:#fff;padding:0.7rem 1.8rem;border-radius:30px;font-size:0.9rem;font-weight:700;text-decoration:none;box-shadow:0 6px 20px rgba(255,184,0,0.3);}
+        .preview-btn-el{display:inline-block;background:linear-gradient(135deg,#36DEB3,#36DEB3);color:#fff;padding:0.7rem 1.8rem;border-radius:30px;font-size:0.9rem;font-weight:700;text-decoration:none;box-shadow:0 6px 20px rgba(54,222,179,0.3);}
 
         .btn-row{display:flex;align-items:center;gap:1rem;margin-top:2rem;}
-        .btn-save{background:linear-gradient(135deg,#FFB800,#FF8C00);color:#fff;border:none;border-radius:12px;padding:0.9rem 3rem;font-size:1rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;box-shadow:0 8px 25px rgba(255,184,0,0.35);transition:all 0.2s;}
-        .btn-save:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,184,0,0.5);}
+        .btn-save{background:linear-gradient(135deg,#36DEB3,#36DEB3);color:#fff;border:none;border-radius:12px;padding:0.9rem 3rem;font-size:1rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;box-shadow:0 8px 25px rgba(54,222,179,0.35);transition:all 0.2s;}
+        .btn-save:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(54,222,179,0.5);}
     </style>
 @endpush
 
@@ -130,7 +130,7 @@
             <div class="form-row full">
                 <div class="form-group">
                     <label>Meta Title</label>
-                    <input type="text" name="meta_title" value="{{ optional($seo)->meta_title ?? '' }}" placeholder="e.g. Download HD Videos Free - Video Saver">
+                    <input type="text" name="meta_title" value="{{ optional($seo)->meta_title ?? '' }}" placeholder="e.g. Download HD Videos Free - HD Video Downloader">
                 </div>
             </div>
 
@@ -144,7 +144,7 @@
             <div class="form-row full">
                 <div class="form-group">
                     <label>Meta Keywords</label>
-                    <textarea name="meta_keywords" rows="2" placeholder="e.g. video downloader, free video saver...">{{ optional($seo)->meta_keywords ?? '' }}</textarea>
+                    <textarea name="meta_keywords" rows="2" placeholder="e.g. video downloader, free HD Video Downloader...">{{ optional($seo)->meta_keywords ?? '' }}</textarea>
                     <p class="hint">Separate keywords with commas.</p>
                 </div>
             </div>
@@ -178,7 +178,7 @@
                     <input type="hidden" name="platforms_data" id="platformsJson">
                     <div id="platformRepeater" style="display:flex;flex-direction:column;gap:0.8rem;"></div>
                     <button type="button" onclick="addPlatform()"
-                        style="margin-top:0.8rem;background:rgba(255,184,0,0.1);border:1px dashed rgba(255,184,0,0.4);color:#FFB800;padding:0.7rem;border-radius:12px;font-size:0.85rem;font-weight:600;cursor:pointer;width:100%;">
+                        style="margin-top:0.8rem;background:rgba(54,222,179,0.1);border:1px dashed rgba(54,222,179,0.4);color:#36DEB3;padding:0.7rem;border-radius:12px;font-size:0.85rem;font-weight:600;cursor:pointer;width:100%;">
                         <i class="fas fa-plus"></i> Add Platform
                     </button>
                 </div>
@@ -342,3 +342,5 @@
         document.getElementById('heroBtnText').oninput = function() { document.querySelector('.preview-btn-el').textContent = this.value; };
     </script>
 @endpush
+
+

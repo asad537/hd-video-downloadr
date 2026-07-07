@@ -9,7 +9,7 @@
 @section('header_title', 'Edit Legacy Blog Post')
 
 @section('breadcrumb')
-    / <a href="{{ route('admin.blogs.index') }}" style="color:#FFB800;text-decoration:none;">Blogs</a> / Edit Legacy
+    / <a href="{{ route('admin.blogs.index') }}" style="color:#36DEB3;text-decoration:none;">Blogs</a> / Edit Legacy
 @endsection
 
 @section('topbar_actions')
@@ -188,3 +188,4 @@
 </form>
 
 @endsection
+

@@ -26,62 +26,35 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "Video Saver",
+      "@id": "https://hdvideodownloader.online/#organization",
+      "name": "HD Video Downloader",
       "alternateName": [
-        "HD Video Saver",
-        "HDVideoSaver",
-        "HVS Downloader"
+        "HDVideoDownloader",
+        "HD Video DL",
+        "HDVDownloader"
       ],
-      "url": "https://hdvideosaver.com",
+      "url": "https://hdvideodownloader.online/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://hdvideosaver.com/images/logofinal.png"
+        "url": "https://hdvideodownloader.online/images/Logo_Website.png"
       },
-      "description": "Video Saver is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from supported platforms.",
-      "sameAs": [
-        "https://play.google.com/store/apps/details?id=com.jmdsol.videodownloader.videosaver"
-      ]
+      "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more."
     }
     </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "Video Saver",
+      "name": "HD Video Downloader",
       "alternateName": [
-        "HD Video Saver",
-        "HDVideoSaver",
-        "HVS Downloader"
+        "HDVideoDownloader",
+        "HD Video DL",
+        "HDVDownloader"
       ],
-      "url": "https://hdvideosaver.com",
-      "description": "Video Saver is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from supported platforms.",
+      "url": "https://hdvideodownloader.online/",
+      "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more.",
       "publisher": {
-        "@id": "https://hdvideosaver.com/#organization"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Video Saver",
-      "alternateName": [
-        "HD Video Saver",
-        "HDVideoSaver",
-        "HVS Downloader"
-      ],
-      "description": "Video Saver is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from supported platforms.",
-      "operatingSystem": "Windows, macOS, Linux, Android, iOS",
-      "applicationCategory": "MultimediaApplication",
-      "url": "https://hdvideosaver.com",
-      "downloadUrl": "https://play.google.com/store/apps/details?id=com.jmdsol.videodownloader.videosaver",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "publisher": {
-        "@id": "https://hdvideosaver.com/#organization"
+        "@id": "https://hdvideodownloader.online/#organization"
       }
     }
     </script>
@@ -94,15 +67,39 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://hdvideosaver.com"
+          "item": "https://hdvideodownloader.online/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "{{ $platform->name }}",
-          "item": "{{ url('/' . $platform->slug) }}/"
+          "name": "{{ $platform->name }} Video Downloader",
+          "item": "https://hdvideodownloader.online/{{ $platform->slug }}/"
         }
       ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "HD Video Downloader",
+      "alternateName": [
+        "HDVideoDownloader",
+        "HD Video DL",
+        "HDVDownloader"
+      ],
+      "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more.",
+      "operatingSystem": "Windows, macOS, Linux, Android, iOS",
+      "applicationCategory": "MultimediaApplication",
+      "url": "https://hdvideodownloader.online/",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@id": "https://hdvideodownloader.online/#organization"
+      }
     }
     </script>
     @if(count($faqs) > 0)
@@ -113,7 +110,7 @@
       "name": "Frequently Asked Questions - {{ $platform->name }}",
       "url": "{{ url('/' . $platform->slug) }}/",
       "publisher": {
-        "@id": "https://hdvideosaver.com/#organization"
+        "@id": "https://hdvideodownloader.online/#organization"
       },
       "mainEntity": [
         @foreach($faqs as $index => $faq)
@@ -863,87 +860,13 @@
             }
         }
     </style>
+<style>h1{font-size:3rem !important;}h2{font-size:2rem !important;}h3{font-size:1.5rem !important;}p{font-size:1.2rem !important;}</style>
 </head>
 
 <body>
+    @include('partials.navbar')
 
     <!-- Dark Header — matches homepage style -->
-    <header class="platform-header">
-        <nav class="platform-nav">
-            <a class="platform-brand" href="{{ route('home') }}" aria-label="Home">
-                <img src="/images/home/hd-video-download.png" alt="HD Video Downloader Logo" style="height: 60px; width: auto; object-fit: contain;">
-            </a>
-            <div class="platform-nav-links">
-                <a href="{{ route('home') }}">Home</a>
-                
-                @php
-                    $navPlatforms = \App\Models\Platform::whereNull('parent_id')
-                        ->where('status', 'active')
-                        ->with('children')
-                        ->orderBy('name')
-                        ->get();
-                @endphp
-                <div class="nav-dropdown-wrap active">
-                    <a class="dropdown-trigger active">Supported Platforms <svg style="display:inline-block;width:12px;height:12px;margin-left:3px;vertical-align:middle;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
-                    <div class="mega-menu">
-                        <div class="mega-menu-grid">
-                            @foreach($navPlatforms as $np)
-                            @php
-                                $icoName = strtolower($np->name);
-                                if($icoName == 'twitter' || $icoName == 'x') $icoName = 'x';
-                                
-                                if(!empty($np->icon) && strpos($np->icon, 'fa-') !== false) {
-                                    $mpIconHtml = '<i class="'.$np->icon.'"></i>';
-                                } else {
-                                    $iconSlug = (!empty($np->icon) && strpos($np->icon, 'fa-') === false) ? strtolower($np->icon) : $icoName;
-                                    $mpIconHtml = '<img src="https://cdn.simpleicons.org/'.$iconSlug.'/39e1b6" alt="" width="18" height="18" style="display:block;">';
-                                }
-                                $hasKids = $np->children->isNotEmpty();
-                            @endphp
-                            <div style="position:relative;" class="mega-parent-wrap {{ $hasKids ? 'has-kids' : '' }}">
-                                <a href="{{ route('platforms.show', $np->slug) }}/" class="mega-item">
-                                    <div class="mega-icon">{!! $mpIconHtml !!}</div>
-                                    <span style="text-transform:uppercase;">{{ $np->name }}</span>
-                                    @if($hasKids)
-                                    <i class="fas fa-chevron-right" style="margin-left:auto;font-size:0.65rem;color:#39e1b6;flex-shrink:0;"></i>
-                                    @endif
-                                </a>
-                                @if($hasKids)
-                                <div class="mega-child-menu">
-                                    @foreach($np->children as $child)
-                                    @php
-                                        $cIconSource = !empty($child->icon) ? $child->icon : $np->icon;
-                                        $cIcoNameFallback = !empty($child->icon) ? strtolower($child->name) : strtolower($np->name);
-                                        if($cIcoNameFallback == 'twitter' || $cIcoNameFallback == 'x') $cIcoNameFallback = 'x';
-
-                                        if(!empty($cIconSource) && strpos($cIconSource, 'fa-') !== false) {
-                                            $cIconHtml = '<i class="'.$cIconSource.'"></i>';
-                                        } else {
-                                            $cIconSlug = (!empty($cIconSource) && strpos($cIconSource, 'fa-') === false) ? strtolower($cIconSource) : $cIcoNameFallback;
-                                            $cIconHtml = '<img src="https://cdn.simpleicons.org/'.$cIconSlug.'/39e1b6" alt="" width="14" height="14" style="display:block;">';
-                                        }
-                                    @endphp
-                                    <a href="{{ route('platforms.show', $child->slug) }}/" class="mega-item mega-child-item">
-                                        <div class="mega-icon" style="width:28px;height:28px;">{!! $cIconHtml !!}</div>
-                                        <span style="text-transform:uppercase;font-size:0.78rem;">{{ $child->name }}</span>
-                                    </a>
-                                    @endforeach
-                                </div>
-                                @endif
-                            </div>
-                            @endforeach
-                        </div>
-                        <div class="mega-footer">
-                            <a href="{{ route('platforms') }}" class="mega-all-link">View all platforms <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <a href="{{ route('blog') }}">Blog</a>
-                <a href="{{ route('privacy') }}">Privacy</a>
-            </div>
-        </nav>
-    </header>
-
     <!-- Hero Section — dark homepage style -->
     <section class="platform-hero">
         <div class="platform-hero-wrap">
@@ -967,7 +890,7 @@
                 @if (isset($result) && $result)
                     @include('partials.result', ['result' => $result])
                 @else
-                    <p class="note" id="default-note">Supports public video URLs. Respect each platform's terms, creator rights, and local copyright law.</p>
+
                 @endif
             </div>
         </div>
@@ -1303,3 +1226,10 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
