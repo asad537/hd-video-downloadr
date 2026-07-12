@@ -2,7 +2,7 @@
 <header class="topbar">
     <nav class="wrap nav">
         <a class="brand" href="{{ route('home') }}" aria-label="HDVideoDownloader home">
-            <img src="/images/Logo_Website.png" alt="HD Video Downloader" style="height: 60px; width: auto; object-fit: contain;">
+            <img src="/images/Logo_Website.png" alt="HD Video Downloader" width="190" height="60" style="height:60px;width:auto;object-fit:contain;">
         </a>
         <button class="menu-toggle" aria-label="Toggle menu"><span></span></button>
         <div class="nav-links">
@@ -32,7 +32,7 @@
                             $hasKids = $mp->children->isNotEmpty();
                         @endphp
                         <div style="position:relative;" class="mega-parent-wrap {{ $hasKids ? 'has-kids' : '' }}">
-                            <a href="{{ route('platforms.show', $mp->slug) }}/" class="mega-item">
+                            <a href="{{ route('platforms.show', $mp->slug) }}" class="mega-item">
                                 <div class="mega-icon">{!! $mpIconHtml !!}</div>
                                 <span style="text-transform:uppercase;">{{ $mp->name }}</span>
                                 @if($hasKids)
@@ -54,7 +54,7 @@
                                         $cIconHtml = '<img src="https://cdn.simpleicons.org/'.$cIconSlug.'/39e1b6" alt="" width="14" height="14" style="display:block;">';
                                     }
                                 @endphp
-                                <a href="{{ route('platforms.show', $child->slug) }}/" class="mega-item mega-child-item">
+                                <a href="{{ route('platforms.show', $child->slug) }}" class="mega-item mega-child-item">
                                     <div class="mega-icon" style="width:28px;height:28px;">{!! $cIconHtml !!}</div>
                                     <span style="text-transform:uppercase;font-size:0.78rem;">{{ $child->name }}</span>
                                 </a>
@@ -69,8 +69,8 @@
                     </div>
                 </div>
             </div>
-            <a class="{{ in_array(($page ?? ''), ['blog', 'blog-post']) ? 'active' : '' }}" href="{{ route('blog') }}/">Blog</a>
-            <a class="{{ ($page ?? "") === 'privacy' ? 'active' : '' }}" href="{{ route('privacy') }}/">Privacy</a>
+            <a class="{{ in_array(($page ?? ''), ['blog', 'blog-post']) ? 'active' : '' }}" href="{{ route('blog') }}">Blog</a>
+            <a class="{{ ($page ?? "") === 'privacy' ? 'active' : '' }}" href="{{ route('privacy') }}">Privacy</a>
             <!-- Language Selector -->
             <div class="lang-selector notranslate" id="langSelector" translate="no">
                 <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Select language">

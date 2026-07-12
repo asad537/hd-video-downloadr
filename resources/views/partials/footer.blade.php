@@ -153,7 +153,7 @@
             <!-- Brand -->
             <div>
                 <a href="/" class="footer-logo-link">
-                    <img src="/images/Logo_Website.png" alt="HD Video Downloader">
+                    <img src="/images/Logo_Website.png" alt="HD Video Downloader" width="190" height="60">
                 </a>
                 <p class="footer-desc" style="line-height: 1.6;">
                     {{ $footerDescription }}
@@ -188,7 +188,7 @@
 
                     @forelse($footerPlatforms as $platform)
                         <li>
-                            <a href="{{ route('platforms.show', $platform->slug) }}/">{{ $platform->name }}</a>
+                            <a href="{{ route('platforms.show', $platform->slug) }}">{{ $platform->name }}</a>
                         </li>
                     @empty
                         <li><span style="font-size: 0.95rem; color: #a0aaba; opacity: 0.6;">No platforms available</span></li>

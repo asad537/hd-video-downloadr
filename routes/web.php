@@ -13,14 +13,14 @@ use App\Http\Controllers\PlatformController;
 use App\Models\BlogPost;
 
 $platforms = [
-    ['name' => 'YouTube', 'domain' => 'youtube.com', 'accent' => '#ff3b30', 'icon' => 'youtube'],
-    ['name' => 'Facebook', 'domain' => 'facebook.com', 'accent' => '#1877f2', 'icon' => 'facebook'],
-    ['name' => 'Instagram', 'domain' => 'instagram.com', 'accent' => '#e1306c', 'icon' => 'instagram'],
-    ['name' => 'TikTok', 'domain' => 'tiktok.com', 'accent' => '#00b9d8', 'icon' => 'tiktok'],
-    ['name' => 'Twitter / X', 'domain' => 'x.com', 'accent' => '#111827', 'icon' => 'x'],
-    ['name' => 'Vimeo', 'domain' => 'vimeo.com', 'accent' => '#1ab7ea', 'icon' => 'vimeo'],
-    ['name' => 'Dailymotion', 'domain' => 'dailymotion.com', 'accent' => '#00aaff', 'icon' => 'dailymotion'],
-    ['name' => 'Pinterest', 'domain' => 'pinterest.com', 'accent' => '#e60023', 'icon' => 'pinterest'],
+    ['name' => 'YouTube', 'domain' => 'youtube.com', 'accent' => '#ff3b30', 'icon' => 'youtube', 'slug' => 'youtube-video-downloader'],
+    ['name' => 'Facebook', 'domain' => 'facebook.com', 'accent' => '#1877f2', 'icon' => 'facebook', 'slug' => 'facebook-video-downloader'],
+    ['name' => 'Instagram', 'domain' => 'instagram.com', 'accent' => '#e1306c', 'icon' => 'instagram', 'slug' => 'instagram-video-downloader'],
+    ['name' => 'TikTok', 'domain' => 'tiktok.com', 'accent' => '#00b9d8', 'icon' => 'tiktok', 'slug' => 'tiktok-video-downloader'],
+    ['name' => 'Twitter / X', 'domain' => 'x.com', 'accent' => '#111827', 'icon' => 'x', 'slug' => 'twitter-video-downloader'],
+    ['name' => 'Vimeo', 'domain' => 'vimeo.com', 'accent' => '#1ab7ea', 'icon' => 'vimeo', 'slug' => 'vimeo-video-downloader'],
+    ['name' => 'Dailymotion', 'domain' => 'dailymotion.com', 'accent' => '#00aaff', 'icon' => 'dailymotion', 'slug' => 'dailymotion-video-downloader'],
+    ['name' => 'Pinterest', 'domain' => 'pinterest.com', 'accent' => '#e60023', 'icon' => 'pinterest', 'slug' => 'pinterest-video-downloader'],
 ];
 
 $loadPosts = function () {
@@ -482,15 +482,29 @@ Route::get('/download-file', function (Request $request) {
 
 // ── Sitemap ───────────────────────────────────────────────────────────────────
 Route::get('/sitemap.xml', function () {
-    $platforms = \App\Models\Platform::all();
+    $platforms = \App\Models\Platform::where('status', 'active')->get();
     $blogs = \App\Models\Blog::where('status', 1)->get();
-    $guides = \App\Models\Guide::all();
+    $legacyBlogs = \App\Models\BlogPost::published()
+        ->whereNotIn('slug', $blogs->pluck('slug'))
+        ->get();
+    $guides = \App\Models\Guide::where('status', 1)->get();
+    $staticUrls = [
+        ['loc' => route('home'), 'lastmod' => null, 'changefreq' => 'daily', 'priority' => '1.0'],
+        ['loc' => route('platforms'), 'lastmod' => null, 'changefreq' => 'weekly', 'priority' => '0.8'],
+        ['loc' => route('blog'), 'lastmod' => null, 'changefreq' => 'weekly', 'priority' => '0.8'],
+        ['loc' => route('public.faqs'), 'lastmod' => null, 'changefreq' => 'monthly', 'priority' => '0.6'],
+        ['loc' => route('privacy'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
+        ['loc' => route('terms'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
+        ['loc' => route('disclaimer'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
+    ];
 
     return response()->view('sitemap', [
+        'staticUrls' => $staticUrls,
         'platforms' => $platforms,
         'blogs' => $blogs,
+        'legacyBlogs' => $legacyBlogs,
         'guides' => $guides,
-    ])->header('Content-Type', 'text/xml');
+    ])->header('Content-Type', 'application/xml');
 });
 
 // ── Catch-all Public Platform Route (Must be last) ────────────────────────────

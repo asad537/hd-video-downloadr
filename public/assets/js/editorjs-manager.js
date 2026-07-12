@@ -598,7 +598,7 @@ if (typeof EditorJSManager === 'undefined') {
             if (typeof Header !== 'undefined') {
                 tools.header = {
                     class: Header,
-                    config: { placeholder: 'Enter a header', levels: [1, 2, 3, 4, 5, 6], defaultLevel: 2 },
+                    config: { placeholder: 'Enter a header', levels: [2, 3, 4, 5, 6], defaultLevel: 2 },
                     inlineToolbar: inlineTools,
                     shortcut: 'CMD+SHIFT+H'
                 };

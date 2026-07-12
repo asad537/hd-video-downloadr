@@ -7,10 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $blog->meta_title ?: $blog->title . ' — Video Saver Blog' }}</title>
     <meta name="description" content="{{ $blog->meta_description }}">
+    @php $articleUrl = route(($type ?? 'blog') . '.show', $blog->slug); @endphp
+    <link rel="canonical" href="{{ $articleUrl }}">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="HDVideoDownloader">
+    <meta property="og:title" content="{{ $blog->meta_title ?: $blog->title . ' | HDVideoDownloader' }}">
+    <meta property="og:description" content="{{ $blog->meta_description }}">
+    <meta property="og:url" content="{{ $articleUrl }}">
+    <meta property="og:image" content="{{ $blog->featured_image ? asset($blog->featured_image) : asset('images/Logo_Website.png') }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $blog->meta_title ?: $blog->title }}">
+    <meta name="twitter:description" content="{{ $blog->meta_description }}">
+    <meta name="twitter:image" content="{{ $blog->featured_image ? asset($blog->featured_image) : asset('images/Logo_Website.png') }}">
     <meta name="keywords" content="{{ $blog->meta_keywords }}">
-    @if($blog->meta_robots)
-    <meta name="robots" content="{{ $blog->meta_robots }}">
-    @endif
+    <meta name="robots" content="{{ $blog->meta_robots ?: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }}">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
@@ -22,6 +32,25 @@
                 {!! $blog->schema !!}
             </script>
         @endif
+    @else
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'BlogPosting',
+        '@id' => $articleUrl . '#article',
+        'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $articleUrl],
+        'headline' => $blog->title,
+        'description' => $blog->meta_description,
+        'image' => $blog->featured_image ? asset($blog->featured_image) : asset('images/Logo_Website.png'),
+        'datePublished' => optional($blog->created_at)->toAtomString(),
+        'dateModified' => optional($blog->updated_at)->toAtomString(),
+        'author' => ['@type' => 'Organization', 'name' => 'HDVideoDownloader'],
+        'publisher' => [
+            '@type' => 'Organization',
+            '@id' => 'https://hdvideodownloader.online/#organization',
+            'name' => 'HD Video Downloader',
+            'logo' => ['@type' => 'ImageObject', 'url' => asset('images/Logo_Website.png')],
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endif
 
     <style>
@@ -611,10 +640,10 @@
                 <div class="sidebar-widget-title">Popular Guides</div>
                 <div class="popular-list">
                     @foreach($related as $item)
-                    <a href="{{ route($type . '.show', $item->slug) }}/" class="popular-item">
+                    <a href="{{ route($type . '.show', $item->slug) }}" class="popular-item">
                         <div class="pop-avatar">
                             @if($item->featured_image)
-                                <img src="{{ $item->featured_image }}" alt="">
+                                <img src="{{ $item->featured_image }}" alt="{{ $item->title }}" loading="lazy">
                             @else
                                 {{ strtoupper(substr($item->title, 0, 1)) }}
                             @endif
@@ -696,8 +725,8 @@
             </div>
             <div class="related-grid">
                 @foreach($related as $post)
-                <a href="{{ route($type . '.show', $post->slug) }}/" class="related-card">
-                    <img src="{{ $post->featured_image ?: '/images/placeholder-blog.jpg' }}" alt="" class="related-card-img">
+                <a href="{{ route($type . '.show', $post->slug) }}" class="related-card">
+                    <img src="{{ $post->featured_image ?: '/images/placeholder-blog.jpg' }}" alt="{{ $post->title }}" class="related-card-img" loading="lazy">
                     <div class="related-card-body">
                         <h4>{{ $post->title }}</h4>
                         <span>{{ $post->created_at->format('M d, Y') }}</span>
@@ -845,10 +874,5 @@
 
 </body>
 </html>
-
-
-
-
-
 
 

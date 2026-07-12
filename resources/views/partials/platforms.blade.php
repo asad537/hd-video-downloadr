@@ -6,7 +6,7 @@
         </div>
         <div class="grid platform-grid">
             @foreach ($platforms as $platform)
-                <div class="platform-card" style="--platform-accent:{{ $platform['accent'] }}">
+                <a class="platform-card" href="{{ route('platforms.show', $platform['slug']) }}" style="--platform-accent:{{ $platform['accent'] }};text-decoration:none">
                     <div class="platform-card-top">
                         <div class="platform-icon"><img src="https://cdn.simpleicons.org/{{ $platform['icon'] }}/ffffff" alt="" loading="lazy"></div>
                         <span class="platform-arrow" aria-hidden="true">↗</span>
@@ -15,7 +15,7 @@
                         <h3>{{ $platform['name'] }}</h3>
                         <p>Download public videos in available formats and quality.</p>
                     </div>
-                </div>
+                </a>
             @endforeach
         </div>
     </div>

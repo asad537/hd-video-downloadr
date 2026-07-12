@@ -10,12 +10,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $platform->meta_title ?: $platform->name . ' - Video Saver' }}</title>
     <meta name="description" content="{{ $platform->meta_description }}">
+    <link rel="canonical" href="{{ route('platforms.show', $platform->slug) }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="HDVideoDownloader">
+    <meta property="og:title" content="{{ $platform->meta_title ?: $platform->name . ' Video Downloader | HDVideoDownloader' }}">
+    <meta property="og:description" content="{{ $platform->meta_description ?: 'Download public ' . $platform->name . ' videos in available formats and quality.' }}">
+    <meta property="og:url" content="{{ route('platforms.show', $platform->slug) }}">
+    <meta property="og:image" content="{{ asset('images/Logo_Website.png') }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $platform->meta_title ?: $platform->name . ' Video Downloader' }}">
+    <meta name="twitter:description" content="{{ $platform->meta_description ?: 'Download public ' . $platform->name . ' videos in available formats and quality.' }}">
+    <meta name="twitter:image" content="{{ asset('images/Logo_Website.png') }}">
     @if($platform->meta_keywords)
     <meta name="keywords" content="{{ $platform->meta_keywords }}">
     @endif
-    @if($platform->meta_robots)
-    <meta name="robots" content="{{ $platform->meta_robots }}">
-    @endif
+    <meta name="robots" content="{{ $platform->meta_robots ?: 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -73,7 +82,7 @@
           "@type": "ListItem",
           "position": 2,
           "name": "{{ $platform->name }} Video Downloader",
-          "item": "https://hdvideodownloader.online/{{ $platform->slug }}/"
+          "item": "{{ route('platforms.show', $platform->slug) }}"
         }
       ]
     }
@@ -82,16 +91,16 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "HD Video Downloader",
+      "name": "{{ $platform->name }} Video Downloader",
       "alternateName": [
         "HDVideoDownloader",
         "HD Video DL",
         "HDVDownloader"
       ],
-      "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more.",
+      "description": "Analyze supported public {{ $platform->name }} video links and review available media formats.",
       "operatingSystem": "Windows, macOS, Linux, Android, iOS",
       "applicationCategory": "MultimediaApplication",
-      "url": "https://hdvideodownloader.online/",
+      "url": "{{ route('platforms.show', $platform->slug) }}",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -103,29 +112,21 @@
     }
     </script>
     @if(count($faqs) > 0)
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "name": "Frequently Asked Questions - {{ $platform->name }}",
-      "url": "{{ url('/' . $platform->slug) }}/",
-      "publisher": {
-        "@id": "https://hdvideodownloader.online/#organization"
-      },
-      "mainEntity": [
-        @foreach($faqs as $index => $faq)
-        {
-          "@type": "Question",
-          "name": "{{ strip_tags($faq->question) }}",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "{{ strip_tags($faq->answer) }}"
-          }
-        }{{ !$loop->last ? ',' : '' }}
-        @endforeach
-      ]
-    }
-    </script>
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'FAQPage',
+        '@id' => route('platforms.show', $platform->slug) . '#faq',
+        'name' => 'Frequently Asked Questions - ' . $platform->name,
+        'url' => route('platforms.show', $platform->slug),
+        'mainEntity' => collect($faqs)->map(fn ($faq) => [
+            '@type' => 'Question',
+            'name' => strip_tags($faq->question),
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text' => strip_tags($faq->answer),
+            ],
+        ])->values()->all(),
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endif
 
     <style>
@@ -997,7 +998,7 @@
                 ];
             @endphp
             @foreach ($hardcodedPlatforms as $p)
-                <a href="{{ route('platforms.show', $p['slug']) }}/" style="text-decoration:none;">
+                <a href="{{ route('platforms.show', $p['slug']) }}" style="text-decoration:none;">
                     <span class="platform-pill">
                         <span class="platform-dot" style="background:{{ $p['accent'] }}">
                             <img src="https://cdn.simpleicons.org/{{ $p['icon'] }}/ffffff" alt="{{ $p['name'] }}" loading="lazy" onerror="this.style.display='none'">

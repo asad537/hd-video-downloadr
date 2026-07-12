@@ -5,11 +5,11 @@
     <!-- Preload hero image for instant LCP -->
     <link rel="preload" as="image" href="/images/faqs.webp" type="image/webp" fetchpriority="high">
     <link rel="icon" type="image/webp" href="/images/Fav-logo.webp">
-    <link rel="apple-touch-icon" href="/images/logofinal.png">
+    <link rel="apple-touch-icon" href="/images/Logo_Website.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @php $seo = \App\Models\PageSeo::getFor('faqs'); @endphp
-    <title>{{ $seo->meta_title ?? ($settings->faq_meta_title ?? 'Frequently Asked Questions — Video Saver') }}</title>
+    <title>{{ $seo->meta_title ?? ($settings->faq_meta_title ?? 'Frequently Asked Questions | HDVideoDownloader') }}</title>
     @if($seo && $seo->meta_description)
     <meta name="description" content="{{ $seo->meta_description }}">
     @else
@@ -22,7 +22,17 @@
     @endif
     @if($seo && $seo->meta_robots)
     <meta name="robots" content="{{ $seo->meta_robots }}">
+    @else
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
     @endif
+    <link rel="canonical" href="{{ route('public.faqs') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="HDVideoDownloader">
+    <meta property="og:title" content="{{ $seo->meta_title ?? 'Frequently Asked Questions | HDVideoDownloader' }}">
+    <meta property="og:description" content="{{ $seo->meta_description ?? ($settings->faq_meta_description ?? '') }}">
+    <meta property="og:url" content="{{ route('public.faqs') }}">
+    <meta property="og:image" content="{{ asset('images/Logo_Website.png') }}">
+    <meta name="twitter:card" content="summary_large_image">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -32,18 +42,18 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "Video Saver",
+      "@id": "https://hdvideodownloader.online/#organization",
+      "name": "HD Video Downloader",
       "alternateName": [
-        "HD Video Saver",
-        "HDVideoSaver",
-        "HVS Downloader"
+        "HDVideoDownloader",
+        "HD Video DL"
       ],
-      "url": "https://hdvideosaver.com",
+      "url": "https://hdvideodownloader.online/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://hdvideosaver.com/images/logofinal.png"
+        "url": "https://hdvideodownloader.online/images/Logo_Website.png"
       },
-      "description": "Video Saver is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from supported platforms.",
+      "description": "HD Video Downloader helps users analyze public video links and save available media formats.",
       "sameAs": [
         "https://play.google.com/store/apps/details?id=com.jmdsol.videodownloader.videosaver"
       ]
@@ -53,11 +63,11 @@
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "name": "Frequently Asked Questions - Video Saver",
-      "url": "https://hdvideosaver.com/faq/",
-      "description": "Find answers to frequently asked questions about Video Saver — how it works, supported platforms, troubleshooting, and general usage.",
+      "name": "Frequently Asked Questions - HD Video Downloader",
+      "url": "https://hdvideodownloader.online/faqs",
+      "description": "Answers about HD Video Downloader, supported platforms, troubleshooting, and responsible use.",
       "publisher": {
-        "@id": "https://hdvideosaver.com/#organization"
+        "@id": "https://hdvideodownloader.online/#organization"
       },
       "mainEntity": [
         {
@@ -200,13 +210,13 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://hdvideosaver.com"
+          "item": "https://hdvideodownloader.online/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "FAQ",
-          "item": "https://hdvideosaver.com/faq/"
+          "item": "https://hdvideodownloader.online/faqs"
         }
       ]
     }
@@ -215,16 +225,16 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "Video Saver",
+      "name": "HD Video Downloader",
       "alternateName": [
         "HD Video Saver",
         "HDVideoSaver",
         "HVS Downloader"
       ],
-      "url": "https://hdvideosaver.com",
-      "description": "Video Saver is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from supported platforms.",
+      "url": "https://hdvideodownloader.online/",
+      "description": "HD Video Downloader helps users analyze public video links and save available media formats.",
       "publisher": {
-        "@id": "https://hdvideosaver.com/#organization"
+        "@id": "https://hdvideodownloader.online/#organization"
       }
     }
     </script>

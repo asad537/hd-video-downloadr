@@ -85,7 +85,7 @@
                             @if($hasKids)
                             {{-- Parent platform with children: show arrow + nested flyout --}}
                             <div class="dropdown-item-wrap has-children">
-                                <a href="{{ route('platforms.show', $np->slug) }}/" class="dropdown-item dropdown-item--parent">
+                                <a href="{{ route('platforms.show', $np->slug) }}" class="dropdown-item dropdown-item--parent">
                                     <div class="item-icon"><i class="{{ $iconClass }}"></i></div>
                                     <span>{{ $np->name }}</span>
                                     <i class="fas fa-chevron-right item-arrow"></i>
@@ -99,7 +99,7 @@
                                             $cIcon = $iconClass;
                                         }
                                     @endphp
-                                    <a href="{{ route('platforms.show', $child->slug) }}/" class="dropdown-item child-item">
+                                    <a href="{{ route('platforms.show', $child->slug) }}" class="dropdown-item child-item">
                                         <div class="item-icon" style="width:28px;height:28px;font-size:11px;"><i class="{{ $cIcon }}"></i></div>
                                         <span>{{ $child->name }}</span>
                                     </a>
@@ -108,7 +108,7 @@
                             </div>
                             @else
                             {{-- Regular platform: direct link --}}
-                            <a href="{{ route('platforms.show', $np->slug) }}/" class="dropdown-item">
+                            <a href="{{ route('platforms.show', $np->slug) }}" class="dropdown-item">
                                 <div class="item-icon"><i class="{{ $iconClass }}"></i></div>
                                 <span>{{ $np->name }}</span>
                             </a>
@@ -173,7 +173,7 @@
                 <div style="font-size: 0.75rem; font-weight: 800; color: #9CA3AF; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 0.05em;">Platforms</div>
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                     @foreach($navPlatforms as $np)
-                    <a href="{{ route('platforms.show', $np->slug) }}/" onclick="toggleMobileMenu()" style="display:flex; align-items:center; gap:8px; text-decoration:none; color:#111827; font-size:0.9rem; font-weight:600; padding:8px; background:#F9FAFB; border-radius:8px;">
+                    <a href="{{ route('platforms.show', $np->slug) }}" onclick="toggleMobileMenu()" style="display:flex; align-items:center; gap:8px; text-decoration:none; color:#111827; font-size:0.9rem; font-weight:600; padding:8px; background:#F9FAFB; border-radius:8px;">
                         @php
                             if(!empty($np->icon)) {
                                 $iconClass = $np->icon;
@@ -938,4 +938,3 @@
         document.body.style.top = '0px';
     }, 500);
 </script>
-

@@ -16,7 +16,14 @@
     @endif
     @if($seo && $seo->meta_robots)
     <meta name="robots" content="{{ $seo->meta_robots }}">
+    @else
+    <meta name="robots" content="index,follow">
     @endif
+    <link rel="canonical" href="{{ route('disclaimer') }}">
+    <meta property="og:title" content="{{ $seo->meta_title ?? 'Disclaimer | HDVideoDownloader' }}">
+    <meta property="og:description" content="{{ $seo->meta_description ?? 'Read the HDVideoDownloader legal disclaimer.' }}">
+    <meta property="og:url" content="{{ route('disclaimer') }}">
+    <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
@@ -97,7 +104,6 @@
 </body>
 
 </html>
-
 
 
 

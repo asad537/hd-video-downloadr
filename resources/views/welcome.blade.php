@@ -4,20 +4,31 @@
     <style>iframe.goog-te-banner-frame{display:none!important}body{top:0!important;position:static!important}.goog-te-banner-frame{display:none!important}.skiptranslate{display:none!important}#google_translate_element{display:none!important}.goog-tooltip{display:none!important}.goog-tooltip:hover{display:none!important}.goog-text-highlight{background:none!important;box-shadow:none!important}</style>
     @php
         $siteName = $siteSettings['site_name'] ?? 'HDVideoDownloader';
+        $staticTitles = [
+            'platforms' => 'Supported Video Platforms | HDVideoDownloader',
+            'blog' => 'Video Download Guides & Tips | HDVideoDownloader',
+            'privacy' => 'Privacy Policy | HDVideoDownloader',
+            'terms' => 'Terms of Service | HDVideoDownloader',
+            'disclaimer' => 'Disclaimer | HDVideoDownloader',
+        ];
+        $staticDescriptions = [
+            'platforms' => 'Explore the public video platforms supported by HDVideoDownloader and open a dedicated downloader page.',
+            'blog' => 'Read practical guides about public video links, formats, quality, compatibility, and responsible downloading.',
+            'privacy' => 'Learn how HDVideoDownloader handles submitted links, temporary processing, privacy, and data protection.',
+            'terms' => 'Review the terms governing responsible use of HDVideoDownloader and its public-link analysis tools.',
+            'disclaimer' => 'Read important legal information about HDVideoDownloader, third-party platforms, copyright, and responsible use.',
+        ];
         $pageTitle = $page === 'blog-post'
             ? (($post['title'] ?? 'Guide') . ' | ' . $siteName)
             : ($page === 'home'
                 ? (!empty($homeSeo->meta_title) ? $homeSeo->meta_title : 'HD Video Downloader - All in One Video Saver')
-                : ucwords(str_replace('-', ' ', $page)) . ' - HD Video Downloader');
+                : ($staticTitles[$page] ?? ucwords(str_replace('-', ' ', $page)) . ' | HDVideoDownloader'));
         $pageDescription = $page === 'blog-post'
             ? ($post['description'] ?? $post['excerpt'] ?? '')
             : ($page === 'home'
                 ? (!empty($homeSeo->meta_description) ? $homeSeo->meta_description : ($siteSettings['default_meta_description'] ?? 'HDVideoDownloader is an all-in-one video downloader interface.'))
-                : ($siteSettings['default_meta_description'] ?? 'HDVideoDownloader is an all-in-one video downloader interface for public video links, HD formats, and supported platforms.'));
+                : ($staticDescriptions[$page] ?? ($siteSettings['default_meta_description'] ?? 'Analyze supported public video links and review available media formats.')));
         $pageUrl = $page === 'blog-post' ? route('blog.show', $post['slug']) : url()->current();
-        if ($pageUrl !== url('/') && substr($pageUrl, -1) !== '/') {
-            $pageUrl .= '/';
-        }
         $pageImage = $page === 'blog-post' ? asset($post['image']) : asset('/images/blog/generated/001-youtube-video-downloader-safe-hd-mp4-guide.svg');
     @endphp
     <meta charset="utf-8">
@@ -32,6 +43,7 @@
     <title>{{ $pageTitle }}</title>
     <link rel="canonical" href="{{ $pageUrl }}">
     <meta property="og:site_name" content="{{ $siteName }}">
+    <meta property="og:type" content="{{ $page === 'blog-post' ? 'article' : 'website' }}">
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:url" content="{{ $pageUrl }}">
@@ -74,11 +86,6 @@
           "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more.",
           "publisher": {
             "@id": "https://hdvideodownloader.online/#organization"
-          },
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://hdvideodownloader.online/?q={search_term_string}",
-            "query-input": "required name=search_term_string"
           }
         }
         </script>
@@ -210,7 +217,7 @@
               "@type": "ListItem",
               "position": 2,
               "name": "Blog",
-              "item": "https://hdvideodownloader.online/blog/"
+              "item": "https://hdvideodownloader.online/blog"
             }
           ]
         }
@@ -219,9 +226,9 @@
         {
           "@context": "https://schema.org",
           "@type": "Blog",
-          "@id": "https://hdvideodownloader.online/blog/",
+          "@id": "https://hdvideodownloader.online/blog#blog",
           "name": "HD Video Downloader Blog",
-          "url": "https://hdvideodownloader.online/blog/",
+          "url": "https://hdvideodownloader.online/blog",
           "description": "Browse all video download guides, how-to tutorials, and tips for downloading videos from YouTube, TikTok, Facebook, Instagram, and more.",
           "inLanguage": "en",
           "publisher": {
@@ -236,7 +243,6 @@
         }
         </script>
     @elseif($page === 'blog-post')
-        <meta property="og:type" content="article">
         <meta property="article:published_time" content="{{ date('c', strtotime($post['published'])) }}">
         <meta property="article:modified_time" content="{{ date('c', strtotime($post['published'])) }}">
         <script type="application/ld+json">{!! json_encode([
