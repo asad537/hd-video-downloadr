@@ -34,6 +34,24 @@ class DownloaderTest extends TestCase
             $this->get($path)->assertOk();
         }
 
+        $contact = $this->get('/contact')
+            ->assertSee('support@hdvideodownloader.online')
+            ->assertSee('+44 7308 208926')
+            ->assertSee('ContactPage')
+            ->assertSee('ContactPoint')
+            ->assertSee('BreadcrumbList')
+            ->assertSee('<link rel="canonical" href="' . route('contact') . '">', false)
+            ->assertSee('<meta name="robots" content="index,follow', false)
+            ->assertSee('<meta property="og:type" content="website">', false)
+            ->assertSee('<meta name="twitter:card" content="summary_large_image">', false);
+
+        preg_match_all('/<script type="application\/ld\+json">(.*?)<\/script>/s', $contact->getContent(), $schemaScripts);
+        $this->assertNotEmpty($schemaScripts[1]);
+        foreach ($schemaScripts[1] as $schemaJson) {
+            json_decode(html_entity_decode(trim($schemaJson)), true);
+            $this->assertSame(JSON_ERROR_NONE, json_last_error());
+        }
+
         $home = $this->get('/');
         $home->assertOk()
             ->assertSee(route('privacy'), false)

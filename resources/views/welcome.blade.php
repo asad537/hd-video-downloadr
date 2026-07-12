@@ -55,6 +55,46 @@
     <meta name="twitter:title" content="{{ $pageTitle }}">
     <meta name="twitter:description" content="{{ $pageDescription }}">
     <meta name="twitter:image" content="{{ $pageImage }}">
+    @if($page === 'contact')
+        <script type="application/ld+json">{!! json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'ContactPage',
+            'name' => 'Contact HDVideoDownloader',
+            'url' => route('contact'),
+            'mainEntity' => [
+                '@type' => 'Organization',
+                '@id' => 'https://hdvideodownloader.online/#organization',
+                'name' => 'HD Video Downloader',
+                'email' => 'support@hdvideodownloader.online',
+                'telephone' => '+44 7308 208926',
+                'contactPoint' => [
+                    '@type' => 'ContactPoint',
+                    'contactType' => 'customer support',
+                    'email' => 'support@hdvideodownloader.online',
+                    'telephone' => '+44 7308 208926',
+                    'availableLanguage' => ['English', 'Urdu'],
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+        <script type="application/ld+json">{!! json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                [
+                    '@type' => 'ListItem',
+                    'position' => 1,
+                    'name' => 'Home',
+                    'item' => route('home'),
+                ],
+                [
+                    '@type' => 'ListItem',
+                    'position' => 2,
+                    'name' => 'Contact',
+                    'item' => route('contact'),
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    @endif
     @if($page === 'home')
         <script type="application/ld+json">
         {
@@ -1611,14 +1651,31 @@
                         <h2>Our Standards</h2>
                         <ul><li>Clear information about supported sources and available formats.</li><li>No fake download buttons or forced browser notifications.</li><li>Privacy-conscious processing over encrypted HTTPS connections.</li><li>A published process for copyright and legal concerns.</li></ul>
                     @elseif($page === 'contact')
-                        <h2>How We Can Help</h2>
-                        <p>Use this page to identify the right next step for a downloader problem, privacy question, broken page, or copyright concern. Never send passwords, login cookies, private media links, payment details, or other sensitive information.</p>
-                        <h2>Technical Problems</h2>
-                        <p>Before reporting a link problem, confirm that the source page is public, copy the URL again from the platform's official Share control, and try a current browser. Note the platform, browser, device, visible error message, and approximate time of the problem. Do not include the private content itself.</p>
-                        <h2>Privacy and Legal Questions</h2>
-                        <p>Read the <a href="{{ route('privacy') }}">Privacy Policy</a> for information about submitted URLs and data handling. Copyright owners or authorized representatives should use the requirements described in the <a href="{{ route('dmca') }}">DMCA and Copyright Policy</a>.</p>
+                        <h2>Contact HDVideoDownloader</h2>
+                        <p>Our support channel handles technical questions, broken-page reports, privacy enquiries, copyright concerns, and constructive website feedback. Choose the contact method that works best for you.</p>
+
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0 32px;">
+                            <a href="mailto:support@hdvideodownloader.online" style="display:block;padding:22px;border:1px solid #dbe4ea;border-radius:14px;background:#f8fafc;text-decoration:none;color:#172033;">
+                                <strong style="display:block;color:#087d6a;margin-bottom:8px;">Email Support</strong>
+                                <span style="overflow-wrap:anywhere;">support@hdvideodownloader.online</span>
+                            </a>
+                            <a href="tel:+447308208926" style="display:block;padding:22px;border:1px solid #dbe4ea;border-radius:14px;background:#f8fafc;text-decoration:none;color:#172033;">
+                                <strong style="display:block;color:#087d6a;margin-bottom:8px;">Telephone</strong>
+                                <span>+44 7308 208926</span>
+                            </a>
+                        </div>
+
+                        <h2>Technical Support</h2>
+                        <p>When reporting a downloader problem, include the platform name, your device and browser, the exact error message, and the approximate time the issue occurred. Confirm first that the source page is public and opens without a signed-in account. For your security, do not send passwords, session cookies, private media, payment details, or account credentials.</p>
+
+                        <h2>Privacy and Copyright</h2>
+                        <p>For questions about submitted URLs or data handling, review our <a href="{{ route('privacy') }}">Privacy Policy</a> and email the support address above. Copyright owners and authorized representatives should include the information requested in our <a href="{{ route('dmca') }}">DMCA and Copyright Policy</a> so the notice can be reviewed efficiently.</p>
+
                         <h2>Website Feedback</h2>
-                        <p>Useful feedback identifies the exact page, explains what was expected, and describes what happened instead. A public support address or contact form will be displayed here only after its delivery and privacy controls are configured; we do not publish a non-working address.</p>
+                        <p>Helpful feedback identifies the exact HDVideoDownloader page, explains what you expected, and describes what happened instead. Screenshots may be useful when they do not contain personal information, private URLs, or account details.</p>
+
+                        <h2>Response Guidance</h2>
+                        <p>We aim to review complete support enquiries as promptly as practical. Complex technical or copyright requests may require additional information. Sending the same request repeatedly can delay investigation, so please keep follow-up messages in the same email thread.</p>
                     @else
                         <h2>Copyright Policy</h2>
                         <p>HDVideoDownloader does not claim ownership of third-party media. Users must comply with applicable copyright law, source-platform terms, and the permissions attached to each work.</p>
