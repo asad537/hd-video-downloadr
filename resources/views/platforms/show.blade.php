@@ -986,28 +986,6 @@
             </div>
         </div>
         
-        <div class="platform-strip" aria-label="Popular supported platforms">
-            @php
-                $hardcodedPlatforms = [
-                    ['name' => 'YouTube', 'domain' => 'youtube.com', 'accent' => '#ff3b30', 'icon' => 'youtube', 'slug' => 'youtube'],
-                    ['name' => 'Facebook', 'domain' => 'facebook.com', 'accent' => '#1877f2', 'icon' => 'facebook', 'slug' => 'facebook'],
-                    ['name' => 'Instagram', 'domain' => 'instagram.com', 'accent' => '#e1306c', 'icon' => 'instagram', 'slug' => 'instagram'],
-                    ['name' => 'TikTok', 'domain' => 'tiktok.com', 'accent' => '#00b9d8', 'icon' => 'tiktok', 'slug' => 'tiktok'],
-                    ['name' => 'Twitter / X', 'domain' => 'x.com', 'accent' => '#111827', 'icon' => 'x', 'slug' => 'twitter'],
-                    ['name' => 'Vimeo', 'domain' => 'vimeo.com', 'accent' => '#1ab7ea', 'icon' => 'vimeo', 'slug' => 'vimeo'],
-                ];
-            @endphp
-            @foreach ($hardcodedPlatforms as $p)
-                <a href="{{ route('platforms.show', $p['slug']) }}" style="text-decoration:none;">
-                    <span class="platform-pill">
-                        <span class="platform-dot" style="background:{{ $p['accent'] }}">
-                            <img src="https://cdn.simpleicons.org/{{ $p['icon'] }}/ffffff" alt="{{ $p['name'] }}" loading="lazy" onerror="this.style.display='none'">
-                        </span>
-                        {{ $p['name'] }}
-                    </span>
-                </a>
-            @endforeach
-        </div>
     </div>
 
     <div class="trust-bar">
