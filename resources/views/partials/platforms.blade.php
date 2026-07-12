@@ -6,10 +6,15 @@
         </div>
         <div class="grid platform-grid">
             @foreach ($platforms as $platform)
-                <div class="platform-card">
-                    <div class="platform-icon" style="background: {{ $platform['accent'] }}"><img src="https://cdn.simpleicons.org/{{ $platform['icon'] }}/ffffff" alt="{{ $platform['name'] }} icon" loading="lazy" style="width:22px;height:22px;object-fit:contain"></div>
-                    <h3>{{ $platform['name'] }}</h3>
-                    <p>Paste a public {{ $platform['domain'] }} video link and preview available save formats.</p>
+                <div class="platform-card" style="--platform-accent:{{ $platform['accent'] }}">
+                    <div class="platform-card-top">
+                        <div class="platform-icon"><img src="https://cdn.simpleicons.org/{{ $platform['icon'] }}/ffffff" alt="" loading="lazy"></div>
+                        <span class="platform-arrow" aria-hidden="true">↗</span>
+                    </div>
+                    <div class="platform-card-copy">
+                        <h3>{{ $platform['name'] }}</h3>
+                        <p>Download public videos in available formats and quality.</p>
+                    </div>
                 </div>
             @endforeach
         </div>

@@ -377,6 +377,38 @@
         .url-form input::placeholder { color: #687386; }
         .url-form input:hover { background: #0d131a; border-color: #394555; }
         .url-form input:focus { color: #fff; background: #0b1016; border-color: #39e1b6; box-shadow: 0 0 0 4px rgba(57,225,182,0.11); outline: none; }
+        @keyframes resultFadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .result-fade-in { animation:resultFadeIn .4s ease-out both; }
+        .loader-container { margin-top:20px; padding:60px 20px; text-align:center; background:#0c1117; border:1px solid #2a3440; border-radius:12px; }
+        .spinner { width:40px; height:40px; margin:0 auto 20px; border:4px solid rgba(57,225,182,.2); border-left-color:#39e1b6; border-radius:50%; animation:spin 1s linear infinite; }
+        .loader-text { color:#a0aaba; font-size:16px; font-weight:600; }
+        .result { margin-top:14px; padding:0; overflow:hidden; text-align:left; color:#edf1f6; background:#0c1117; border:1px solid #2a3440; border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,.2); }
+        .result-layout { display:grid; grid-template-columns:minmax(230px,.72fr) minmax(0,1.55fr); }
+        .media-summary { padding:24px; background:#0e141b; border-right:1px solid #29323e; }
+        .media-thumb-wrap { position:relative; }
+        .media-thumb { width:100%; aspect-ratio:16/9; display:block; object-fit:cover; background:#171e27; border-radius:10px; }
+        .media-play { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:66px; height:66px; display:grid; place-items:center; color:#04130f; background:rgba(255,255,255,.94); border-radius:50%; font-size:25px; box-shadow:0 18px 45px rgba(0,0,0,.28); }
+        .media-platform { margin:18px 0 8px; color:#37d8b0; font-size:12px; font-weight:800; text-transform:uppercase; }
+        .media-title { margin:0; color:#f4f7fa; font-size:18px !important; line-height:1.55; }
+        .media-duration { display:inline-flex; margin-top:14px; padding:8px 11px; color:#66e7c5; background:rgba(34,211,167,.1); border:1px solid rgba(34,211,167,.15); border-radius:8px; font-size:14px; font-weight:800; }
+        .format-section + .format-section { border-top:1px solid #29323e; }
+        .format-heading { display:flex; align-items:center; gap:10px; margin:0; padding:20px 24px; color:#edf1f6; background:#10161e; border-bottom:1px solid #29323e; font-size:21px !important; }
+        .format-heading-mark { width:32px; height:32px; display:grid; place-items:center; color:#06241d; background:#2dd4aa; border-radius:8px; font-size:13px; }
+        .format-row { display:grid; grid-template-columns:90px minmax(90px,1fr) minmax(90px,.8fr) auto; align-items:center; gap:12px; min-height:82px; padding:14px 24px; background:#0c1117; border-bottom:1px solid #29323e; }
+        .format-row:last-child { border-bottom:0; }
+        .format-row:hover { background:#111820; }
+        .format-badge { justify-self:start; min-width:58px; padding:8px 9px; color:#251702; background:linear-gradient(135deg,#ffc45b,#f09b27); border-radius:8px; text-align:center; font-weight:800; }
+        .format-quality { color:#edf1f6; font-weight:800; }
+        .format-size { color:#9aa5b5; font-weight:800; }
+        .download-link { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:142px; min-height:48px; padding:0 16px; color:#34d399; background:#0d1418; border:2px solid #24c98f; border-radius:10px; font-weight:800; text-decoration:none; cursor:pointer; }
+        .download-link:hover { color:#03140f; background:#34d399; }
+        .download-link.is-loading { color:#7d8796; background:#171c23; border-color:#36404d; cursor:wait; }
+        .download-arrow { font-size:20px; line-height:1; }
+        .empty-formats { padding:24px; color:#9aa5b5; }
+        .result-note { margin:0; padding:14px 24px; color:#7e899a; background:#10161d; border-top:1px solid #29323e; font-size:12px !important; }
+        @media (max-width:860px) { .result-layout{grid-template-columns:1fr;} .media-summary{border-right:0;border-bottom:1px solid #29323e;} }
+        @media (max-width:620px) { .format-row{grid-template-columns:58px 1fr auto;gap:8px;padding:13px 14px;} .format-size{grid-column:2;} .download-link{grid-column:3;grid-row:1 / span 2;min-width:48px;width:48px;padding:0;font-size:0;} .download-arrow{font-size:22px;} .format-heading{padding:17px 14px;} }
         .button {
             min-width: 165px; min-height: 62px; border-radius: 12px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #39e1b6, #13b98f); color: #04130f; font-weight: 800; font-size: 16px;
@@ -662,7 +694,7 @@
 
         /* ── Platform Content ── */
         .content-section {
-            padding: 0rem 0 2rem;
+            padding: 12px 0 2rem;
             background: #090c11; /* Match page bg */
         }
         
@@ -682,6 +714,11 @@
             line-height: 1.25 !important;
             font-weight: 800 !important;
         }
+
+        .editor-content > h1:first-child,
+        .editor-content > h2:first-child,
+        .editor-content > h3:first-child,
+        .editor-content > p:first-child { margin-top: 0 !important; }
 
         .editor-content h3 {
             margin: 32px 0 14px !important;
@@ -736,7 +773,7 @@
         /* --- Shared UI CSS --- */
 
         .why-choose-section {
-            padding: 3rem 0;
+            padding: 2rem 0 12px;
             background: #ffffff;
         }
 
@@ -827,6 +864,34 @@
         }
 
         @media (max-width: 768px) {
+            html, body { max-width:100%; overflow-x:hidden; }
+            .download-panel-wrap { width:100%; padding:0 12px; box-sizing:border-box; }
+            .download-panel { width:100%; padding:9px; border-radius:14px; box-sizing:border-box; }
+            .url-form { grid-template-columns:1fr; }
+            .url-form input, .button { min-height:54px; border-radius:10px; }
+            .platform-strip { justify-content:flex-start; overflow-x:auto; flex-wrap:nowrap; padding:0 2px 8px; scrollbar-width:none; }
+            .platform-strip::-webkit-scrollbar { display:none; }
+            .platform-strip a, .platform-pill { flex:0 0 auto; }
+            .result { margin-top:14px; border-radius:22px; background:#0d1117; border-color:#27313c; }
+            .result-layout { grid-template-columns:1fr; }
+            .media-summary { padding:18px 18px 20px; text-align:center; background:#0f151c; border-right:0; border-bottom:1px solid #27313c; }
+            .media-thumb-wrap { overflow:hidden; border-radius:16px; box-shadow:0 18px 44px rgba(0,0,0,.28); }
+            .media-thumb { border-radius:16px; }
+            .media-play { width:58px; height:58px; font-size:21px; }
+            .media-platform { margin-top:18px; font-size:11px; }
+            .media-title { max-width:96%; margin:0 auto; color:#f8fafc; font-size:24px !important; line-height:1.25; font-weight:900; text-align:center; }
+            .media-duration { margin-top:14px; padding:8px 12px; color:#03140f; background:#39e1b6; border:0; border-radius:8px; font-size:14px; }
+            .format-list { background:#0d1117; }
+            .format-section { padding:18px 0 6px; }
+            .format-heading { gap:12px; padding:0 18px 14px; color:#f8fafc; background:transparent; border-bottom:1px solid #27313c; font-size:24px !important; font-weight:900; }
+            .format-row { grid-template-columns:auto 1fr auto auto; gap:10px; min-height:60px; padding:12px 16px; background:#0d1117; border-bottom:1px solid #1f2832; }
+            .format-badge { grid-column:1; grid-row:1; min-width:auto; padding:4px 8px; color:#03140f; background:#39e1b6; border-radius:6px; font-size:12px; }
+            .format-quality { grid-column:2; grid-row:1; color:#f8fafc; font-size:14px; text-align:left; }
+            .format-size { grid-column:3; grid-row:1; padding-right:4px; color:#9da8b7; font-size:12px; text-align:right; }
+            .download-link { grid-column:4; grid-row:1; width:auto; min-width:0; min-height:32px; padding:0 12px; color:#39e1b6; background:transparent; border:1px solid #39e1b6; border-radius:6px; font-size:12px; }
+            .download-arrow { display:inline-block; margin-right:4px; font-size:14px; }
+            .result-note { padding:14px 18px; text-align:center; }
+
             .why-choose-section {
                 padding: 2rem 0;
             }
@@ -860,7 +925,32 @@
             }
         }
     </style>
-<style>h1{font-size:3rem !important;}h2{font-size:2rem !important;}h3{font-size:1.5rem !important;}p{font-size:1.2rem !important;}</style>
+<style>
+    h1{font-size:3rem !important;}
+    h2{font-size:2rem !important;}
+    h3{font-size:1.5rem !important;}
+    p{font-size:1.2rem !important;}
+
+    .platform-hero { padding:56px 20px 72px !important; }
+    .platform-hero-badge { margin-bottom:18px; }
+    .platform-hero h1 { max-width:980px; margin:0 auto 18px; font-size:42px !important; line-height:1.12; letter-spacing:-1px; }
+    .platform-hero p { max-width:760px; margin:0 auto; font-size:16px !important; line-height:1.6; }
+
+    @media (max-width:768px) {
+        .platform-hero { padding:64px 16px 56px !important; min-height:auto; }
+        .platform-hero-wrap { width:100%; max-width:100%; }
+        .platform-hero-badge { margin-bottom:20px; padding:7px 13px; font-size:11px; letter-spacing:.08em; }
+        .platform-hero h1 { max-width:560px; margin:0 auto 16px; font-size:clamp(32px,8.5vw,44px) !important; line-height:1.08; letter-spacing:-1px; overflow-wrap:normal; word-break:normal; }
+        .platform-hero p { max-width:560px; margin:0 auto; font-size:15px !important; line-height:1.65; }
+    }
+
+    @media (max-width:430px) {
+        .platform-hero { padding:48px 14px 46px !important; }
+        .platform-hero-badge { font-size:10px; padding:6px 11px; }
+        .platform-hero h1 { font-size:clamp(28px,9vw,36px) !important; line-height:1.1; letter-spacing:-.7px; }
+        .platform-hero p { font-size:14px !important; line-height:1.6; }
+    }
+</style>
 </head>
 
 <body>
@@ -1117,6 +1207,17 @@
                 line-height: 1.75;
             }
             .platform-faq-answer p { margin: 0; }
+
+            @media (max-width: 768px) {
+                .platform-faq-section { padding: 32px 0 12px; }
+                .platform-faq-wrap { padding: 0 16px; }
+                .platform-faq-header { margin-bottom: 22px; }
+                .platform-faq-header h2 { margin: 0 0 8px; font-size: 28px !important; line-height: 1.15; }
+                .platform-faq-header p { margin: 0; font-size: 14px !important; line-height: 1.5; }
+                .platform-faq-list { gap: 10px; }
+                .platform-faq-question { padding: 16px; font-size: 15px; }
+                .platform-faq-answer { padding: 0 16px 16px; font-size: 14px; }
+            }
         </style>
     @endif
 
@@ -1125,96 +1226,87 @@
     @include('partials.footer')
 
     <script>
-        const input = document.getElementById('videoUrl');
-        const fetchBtn = document.getElementById('fetchBtn');
-        const loader = document.getElementById('loader');
-        const resultsBox = document.getElementById('results');
-        const errorDiv = document.getElementById('error');
-        const csrf = document.querySelector('meta[name="csrf-token"]').content;
+        const analyzeForm = document.getElementById('analyze-form');
+        const urlInput = document.getElementById('video-url-input');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const resultContainer = document.getElementById('result-container');
+        const errorContainer = document.getElementById('error-container');
+        const downloadButtonHtml = analyzeBtn ? analyzeBtn.innerHTML : '';
 
-        async function fetchVideo(url) {
-            if (!url) return;
-            loader.style.display = 'block';
-            resultsBox.style.display = 'none';
-            errorDiv.style.display = 'none';
+        async function fetchResult(url) {
+            if (!url || !/^https?:\/\//i.test(url) || !analyzeForm) return;
+
+            analyzeBtn.disabled = true;
+            analyzeBtn.innerHTML = '<span class="spinner" style="width:18px;height:18px;margin:0 8px 0 0;border-width:2px"></span><span>Analyzing...</span>';
+            errorContainer.style.display = 'none';
+            errorContainer.textContent = '';
+            resultContainer.innerHTML = '<div class="loader-container result-fade-in"><div class="spinner"></div><div class="loader-text">Analyzing link and fetching formats...</div></div>';
+            document.querySelector('.download-panel').classList.add('has-result');
 
             try {
-                const res = await fetch('/extract', {
+                const formData = new FormData(analyzeForm);
+                formData.set('video_url', url);
+                const response = await fetch("{{ route('analyze') }}", {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrf },
-                    body: JSON.stringify({ url })
+                    body: formData,
+                    headers: {'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'}
                 });
-                const data = await res.json();
-                if (data.error) throw new Error(data.error);
-                renderResults(data);
-            } catch (e) {
-                errorDiv.textContent = e.message;
-                errorDiv.style.display = 'block';
+                const data = await response.json();
+                if (!response.ok || !data.success) throw new Error(data.error || 'Failed to retrieve video data.');
+                resultContainer.innerHTML = `<div class="result-fade-in">${data.html}</div>`;
+            } catch (error) {
+                resultContainer.innerHTML = '';
+                errorContainer.textContent = error.message || 'An error occurred while connecting to the server.';
+                errorContainer.style.display = 'block';
+                document.querySelector('.download-panel').classList.remove('has-result');
             } finally {
-                loader.style.display = 'none';
+                analyzeBtn.disabled = false;
+                analyzeBtn.innerHTML = downloadButtonHtml;
             }
         }
 
-        fetchBtn.addEventListener('click', () => fetchVideo(input.value.trim()));
-        input.addEventListener('keydown', e => { if (e.key === 'Enter') fetchVideo(input.value.trim()); });
+        if (analyzeForm && urlInput) {
+            analyzeForm.addEventListener('submit', event => {
+                event.preventDefault();
+                fetchResult(urlInput.value.trim());
+            });
 
-        function renderResults(data) {
-            const videoMedias = data.medias.filter(m => m.type === 'video');
-            const audioMedias = data.medias.filter(m => m.type === 'audio');
-
-            function renderRow(m, title) {
-                const dlUrl = `/proxy-download?url=${encodeURIComponent(m.url)}&title=${encodeURIComponent(title)}&ext=${m.extension}`;
-                return `
-                    <div style="display:grid; grid-template-columns: 60px 80px 100px 1fr; align-items:center; background:#fff; padding:12px 0; border-bottom:1px solid #F3F4F6;">
-                        <span style="background:#00C853; color:#fff; padding:4px 0; border-radius:5px; font-size:0.75rem; font-weight:800; text-align:center; width:50px;">${m.extension.toUpperCase()}</span>
-                        <span style="font-weight:700; color:#111827; font-size:0.9rem;">${m.quality}</span>
-                        <span style="color:#000; font-size:0.85rem; font-weight:600;">${m.size || ''}</span>
-                        <a href="${dlUrl}" style="background:#fff; color:#000; border:2px solid #FFB800; text-decoration:none; padding:8px 22px; border-radius:10px; font-weight:700; font-size:0.85rem; display:flex; align-items:center; gap:10px; transition:0.2s; width:fit-content; justify-self:end;">
-                            <i class="fas fa-download" style="color:#FFB800; font-size:0.95rem;"></i> Download
-                        </a>
-                    </div>
-                `;
-            }
-
-            let html = `
-                <div style="display:flex; gap:40px; flex-wrap:wrap; align-items:flex-start; text-align:left;">
-                    <!-- Sidebar -->
-                    <div style="width: 280px; flex-shrink: 0;">
-                        <div style="width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; margin-bottom:15px; background:#f3f4f6;">
-                            <img src="/thumbnail-proxy?url=${encodeURIComponent(data.thumbnail)}" style="width:100%; height:100%; object-fit:cover;">
-                        </div>
-                        <h3 style="font-weight:700; font-size:1.05rem; margin-bottom:15px; line-height:1.4; color:#111827;">${data.title}</h3>
-                        <span style="background:#FFE082; color:#000; padding:6px 14px; border-radius:10px; font-weight:800; font-size:0.85rem; display:inline-flex; align-items:center; gap:8px;">
-                            <i class="far fa-clock"></i> ${data.duration || '00:00'}
-                        </span>
-                    </div>
-
-                    <!-- Content Area -->
-                    <div style="flex:1; min-width:300px;">
-                        <!-- Video Section -->
-                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px; border-bottom:2px solid #F3F4F6; padding-bottom:10px;">
-                            <i class="fas fa-film" style="color:#FFB800; font-size:1.3rem;"></i>
-                            <h4 style="font-weight:800; font-size:1.3rem; color:#111827;">Video</h4>
-                        </div>
-                        <div style="display:flex; flex-direction:column; margin-bottom:35px;">
-                            ${videoMedias.length ? videoMedias.map(m => renderRow(m, data.title)).join('') : '<p style="color:#000; font-size:0.9rem; line-height: 1.45;">No video formats available.</p>'}
-                        </div>
-
-                        <!-- Music Section -->
-                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px; border-bottom:2px solid #F3F4F6; padding-bottom:10px;">
-                            <i class="fas fa-music" style="color:#FFB800; font-size:1.3rem;"></i>
-                            <h4 style="font-weight:800; font-size:1.3rem; color:#111827;">Music</h4>
-                        </div>
-                        <div style="display:flex; flex-direction:column;">
-                            ${audioMedias.length ? audioMedias.map(m => renderRow(m, data.title)).join('') : '<p style="color:#000; font-size:0.9rem; line-height: 1.45;">No audio formats available.</p>'}
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            resultsBox.innerHTML = html;
-            resultsBox.style.display = 'block';
+            let typingTimer;
+            urlInput.addEventListener('input', function () {
+                clearTimeout(typingTimer);
+                const url = this.value.trim();
+                if (/^https?:\/\//i.test(url)) typingTimer = setTimeout(() => fetchResult(url), 600);
+            });
+            urlInput.addEventListener('paste', () => setTimeout(() => fetchResult(urlInput.value.trim()), 100));
         }
+
+        document.addEventListener('click', async function (event) {
+            const button = event.target.closest('.prepare-download');
+            if (!button || button.disabled) return;
+            const originalHtml = button.innerHTML;
+            button.disabled = true;
+            button.classList.add('is-loading');
+            button.textContent = 'Preparing...';
+            try {
+                const response = await fetch(button.dataset.prepareUrl, {headers:{'Accept':'application/json'}});
+                const data = await response.json();
+                if (!response.ok || !data.download_url) throw new Error();
+                const link = document.createElement('a');
+                link.href = data.download_url;
+                link.download = '';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                button.textContent = 'Started';
+            } catch (error) {
+                button.textContent = 'Try again';
+            }
+            setTimeout(() => {
+                button.innerHTML = originalHtml;
+                button.disabled = false;
+                button.classList.remove('is-loading');
+            }, 3000);
+        });
 
         // Auto-Hide Google Translate Banner
         setInterval(function () {
@@ -1226,10 +1318,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-

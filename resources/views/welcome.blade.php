@@ -321,6 +321,17 @@
         .platform-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
         .platform-card, .post-card, .feature-card { background:white; border:1px solid var(--line); border-radius:8px; padding:20px; }
         .platform-icon { width:44px; height:44px; border-radius:8px; display:grid; place-items:center; color:white; font-weight:900; margin-bottom:15px; }
+        .platform-card { position:relative; min-height:210px; display:flex; flex-direction:column; justify-content:space-between; padding:22px !important; overflow:hidden; border-radius:16px !important; background:linear-gradient(145deg,#151c24,#11171e) !important; }
+        .platform-card::before { content:''; position:absolute; inset:0 auto auto 0; width:100%; height:3px; background:var(--platform-accent); opacity:.9; }
+        .platform-card::after { content:''; position:absolute; width:150px; height:150px; top:-85px; left:-70px; border-radius:50%; background:var(--platform-accent); opacity:.08; filter:blur(12px); pointer-events:none; }
+        .platform-card-top { position:relative; z-index:1; display:flex; align-items:center; justify-content:center; }
+        .platform-card .platform-icon { width:48px; height:48px; margin:0; border-radius:14px; background:var(--platform-accent); box-shadow:0 10px 26px color-mix(in srgb,var(--platform-accent) 30%,transparent); }
+        .platform-card .platform-icon img { width:22px; height:22px; object-fit:contain; }
+        .platform-arrow { position:absolute; top:0; right:0; width:32px; height:32px; display:grid; place-items:center; color:#7f8a9b; border:1px solid #2c3744; border-radius:50%; font-size:16px; transition:.2s ease; }
+        .platform-card-copy { position:relative; z-index:1; }
+        .platform-card h3 { margin:0 0 8px; color:#f8fafc; font-size:20px; letter-spacing:-.3px; text-align:center; }
+        .platform-card p { max-width:240px; margin:0; color:#8f9aaa; font-size:13px; line-height:1.55; }
+        .platform-card:hover .platform-arrow { color:#07110e; background:var(--platform-accent); border-color:var(--platform-accent); transform:translate(2px,-2px); }
         .platform-card h3, .post-card h3, .feature-card h3 { margin:0 0 8px; font-size:18px; }
         .platform-card p, .post-card p, .feature-card p { margin:0; color:var(--muted); line-height:1.6; font-size:14px; }
         .features, .blog-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -522,7 +533,7 @@
         @media (max-width:620px) { .hero{padding:48px 0 32px;} .nav{align-items:center; flex-direction:row;} .nav-links a:not(:first-child){display:none;} .brand{font-size:17px;} .download-panel{border-radius:12px;} .url-form{grid-template-columns:1fr;} .button{width:100%;} .platform-strip{gap:8px;} .platform-pill{padding:7px 10px;} .format-row{grid-template-columns:62px 1fr auto; gap:8px; padding:13px 14px;} .format-size{grid-column:2;} .download-link{grid-column:3; grid-row:1 / span 2; min-width:48px; width:48px; padding:0; font-size:0;} .download-arrow{font-size:22px;} .format-heading{padding:17px 14px;} }
 
         /* SEO Content Section */
-        .seo-content-section { padding:80px 0; background:transparent; color:#a0aaba; border-top:1px solid rgba(255,255,255,0.05); }
+        .seo-content-section { padding:48px 0 24px; background:transparent; color:#a0aaba; border-top:1px solid rgba(255,255,255,0.05); }
         .seo-content-wrap { max-width:930px; margin:0 auto; padding:0 20px; text-align:left; }
         .seo-heading { font-size:clamp(26px, 4vw, 36px); font-weight:900; color:#fff; margin-bottom:24px; line-height:1.3; }
         .seo-text-container { position:relative; color:#a0aaba; line-height:1.85; font-size:16px; }
@@ -532,6 +543,26 @@
         .seo-read-more { background:linear-gradient(135deg,#39e1b6,#13b98f); color:#04130f; border:none; padding:10px 24px; border-radius:30px; font-weight:800; font-size:14px; cursor:pointer; margin-top:20px; transition:transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(57,225,182,0.25); display:none; }
         .seo-read-more.visible { display:inline-block; }
         .seo-read-more:hover { transform:translateY(-2px); box-shadow: 0 12px 30px rgba(57,225,182,0.35); }
+        .home-faq-section { padding:32px 0 16px; }
+        .home-faq-section .section-head { margin-bottom:20px !important; }
+        .home-faq-section .section-head h2 { margin-bottom:8px; }
+        .home-faq-section .section-head p { margin:0; }
+        .home-faq-section .faq { max-width:880px; padding:0; }
+        .home-faq-section .faq details { margin-bottom:10px; overflow:hidden; background:#121820; border:1px solid #293341; border-radius:12px; transition:border-color .2s ease, background .2s ease; }
+        .home-faq-section .faq details:last-child { margin-bottom:0; }
+        .home-faq-section .faq details:hover,
+        .home-faq-section .faq details[open] { background:#151d26; border-color:rgba(57,225,182,.38); }
+        .home-faq-section .faq summary { padding:16px 18px; color:#edf2f7; text-align:left; }
+        .home-faq-section .faq summary::after { margin-left:18px; }
+        .home-faq-section .faq details p { padding:0 52px 16px 18px; text-align:left; }
+        @media (max-width:760px) {
+            .seo-content-section { padding:32px 0 16px; }
+            .home-faq-section { padding:24px 0 12px; }
+            .home-faq-section .section-head { margin-bottom:16px !important; }
+            .home-faq-section .faq { padding:0 12px; }
+            .home-faq-section .faq summary { padding:14px 15px; font-size:14px; }
+            .home-faq-section .faq details p { padding:0 40px 14px 15px; font-size:13px; }
+        }
     </style>
     <style>
         :root {
@@ -786,7 +817,7 @@
         .post-meta span:first-child { color:#44dcb8; }
         .post-content .read { margin-top:18px; color:#48dfba; }
         .read-time { margin:18px 0 0 auto; color:#788394; font-size:12px; }
-        .home-blog { padding:80px 0 86px; background:#0b0e13; border-top:1px solid #202832; }
+        .home-blog { padding:32px 0 72px; background:#0b0e13; border-top:1px solid #202832; }
         .home-blog-head { max-width:680px; margin:0 auto 42px; text-align:center; }
         .home-blog-label { display:inline-flex; margin-bottom:13px; padding:7px 16px; border:1px solid rgba(34,211,167,.45); border-radius:999px; color:var(--teal); font-size:11px; font-weight:800; }
         .home-blog-head h2 { margin:0 0 12px; font-size:34px; }
@@ -1036,7 +1067,7 @@
         }
         @media (max-width:900px) { .article-hero-grid, .article-layout { grid-template-columns:1fr; } .article-hero-grid { gap:30px; } .article-aside { display:none; } }
         @media (max-width:860px) { .editorial-blog-grid { grid-template-columns:1fr; gap:34px; } }
-        @media (max-width:560px) { .home-blog { padding:56px 0; } .home-blog-head { margin-bottom:28px; } .home-blog-head h2 { font-size:29px; } .side-post { grid-template-columns:100px minmax(0,1fr); gap:12px; padding:12px; border-radius:12px; align-items:center; } .side-post-image { width:100px; } .side-post h3 { font-size:14px; margin-bottom:4px; } .editorial-meta { gap:8px; } }
+        @media (max-width:560px) { .home-blog { padding:28px 0 44px; } .home-blog-head { margin-bottom:28px; } .home-blog-head h2 { font-size:29px; } .side-post { grid-template-columns:100px minmax(0,1fr); gap:12px; padding:12px; border-radius:12px; align-items:center; } .side-post-image { width:100px; } .side-post h3 { font-size:14px; margin-bottom:4px; } .editorial-meta { gap:8px; } }
         @media (max-width:760px) {
             html, body { max-width:100%; overflow-x:hidden; }
             .wrap { width:min(100% - 24px, 1160px); }
@@ -1080,10 +1111,10 @@
             .platform-strip::-webkit-scrollbar { display:none; }
             .platform-pill { flex:0 0 auto; }
             .trust-grid, .platform-grid, .features, .blog-grid { grid-template-columns:1fr; gap:12px; }
-            .platform-card { display:grid; grid-template-columns:auto 1fr; grid-template-areas:"icon title" "icon text"; gap:4px 16px; padding:16px; border-radius:14px; background:rgba(255,255,255,0.02); text-align:left; border:1px solid rgba(255,255,255,0.04); }
-            .platform-icon { grid-area:icon; margin-bottom:0; width:48px; height:48px; align-self:center; }
-            .platform-card h3 { grid-area:title; margin:0; font-size:17px; align-self:end; }
-            .platform-card p { grid-area:text; font-size:13px; margin:0; align-self:start; }
+            .platform-card { min-height:170px; display:flex; padding:18px !important; text-align:left; }
+            .platform-card .platform-icon { width:44px; height:44px; }
+            .platform-card h3 { margin:0 0 6px; font-size:17px; }
+            .platform-card p { max-width:none; font-size:12.5px; }
             .trust-item { padding:18px 10px; }
             section { padding:46px 0; }
             .section-head h2 { font-size:28px; }
@@ -1369,7 +1400,7 @@
             </section>
             @endif
 
-            <section>
+            <section class="home-faq-section">
                 <div class="wrap">
                     <div class="section-head"><h2>{{ $homeSettings->faq_h1 ?? 'Frequently asked questions' }}</h2><p>{{ $homeSettings->faq_description ?? 'Quick answers about using HDVideoDownloader.' }}</p></div>
                     <div class="faq">
@@ -1716,10 +1747,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-

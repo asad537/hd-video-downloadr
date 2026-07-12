@@ -37,7 +37,7 @@
     <script src="https://cdn.jsdelivr.net/npm/editorjs-inline-font-family-tool@1.0.4/dist/bundle.js"></script>
     
     <!-- Custom Editor.js Manager -->
-    <script src="{{ asset('assets/js/editorjs-manager.js') }}"></script>
+    <script src="{{ asset('assets/js/editorjs-manager.js') }}?v={{ filemtime(public_path('assets/js/editorjs-manager.js')) }}"></script>
 
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
@@ -409,6 +409,5 @@
 
 </body>
 </html>
-
 
 

@@ -110,7 +110,7 @@
         }
 
         .site-footer {
-            padding: 2rem 0 0;
+            padding: 16px 0 0;
         }
 
         .footer-logo-link img {

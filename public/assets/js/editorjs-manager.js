@@ -580,7 +580,8 @@ if (typeof EditorJSManager === 'undefined') {
                 }
             };
 
-            const inlineTools = ['link', 'bold', 'italic'];
+            // Keep the same rich inline toolbar in Homepage, Platforms and Blogs.
+            const inlineTools = ['link', 'bold', 'italic', 'inlineH2', 'inlineH3', 'inlineList'];
             if (typeof window.FontSizeTool !== 'undefined') inlineTools.push('fontSize');
             if (typeof window.FontFamilyTool !== 'undefined') inlineTools.push('fontFamily');
             if (typeof Marker !== 'undefined') inlineTools.push('marker');

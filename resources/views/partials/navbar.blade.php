@@ -102,6 +102,25 @@
     </nav>
 </header>
 
+<style>
+    iframe.goog-te-banner-frame,
+    iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
+    .goog-te-banner-frame,
+    .VIpgJd-ZVi9od-ORHb,
+    .VIpgJd-ZVi9od-ORHb-OEVmcd,
+    #goog-gt-tt,
+    .goog-te-balloon-frame,
+    .goog-te-spinner-pos,
+    .goog-te-spinner,
+    .goog-te-spinner-animation,
+    .VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+    .VIpgJd-ZVi9od-aZ2wEe-OiiCO,
+    .VIpgJd-ZVi9od-aZ2wEe { display:none !important; visibility:hidden !important; width:0 !important; height:0 !important; opacity:0 !important; pointer-events:none !important; }
+    html, body { top:0 !important; margin-top:0 !important; }
+    .goog-text-highlight { background:transparent !important; box-shadow:none !important; }
+    #gt-root { position:absolute !important; width:1px !important; height:1px !important; overflow:hidden !important; opacity:0 !important; pointer-events:none !important; }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Mobile Toggle
@@ -121,6 +140,29 @@
             var label    = document.getElementById('langLabel');
             var options  = document.querySelectorAll('.lang-option');
             if (!selector || !btn) return;
+
+            function loadGoogleTranslate() {
+                if (window._gtLoaded) return;
+                window._gtLoaded = true;
+                var el = document.getElementById('gt-root');
+                if (!el) {
+                    el = document.createElement('div');
+                    el.id = 'gt-root';
+                    document.body.appendChild(el);
+                }
+                window.googleTranslateElementInit = function() {
+                    new google.translate.TranslateElement({pageLanguage:'en', autoDisplay:false}, 'gt-root');
+                    window._gtReady = true;
+                };
+                var s = document.createElement('script');
+                s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+                s.async = true;
+                document.head.appendChild(s);
+            }
+
+            // Preload in the background so the first language switch is faster.
+            if ('requestIdleCallback' in window) requestIdleCallback(loadGoogleTranslate, {timeout:1200});
+            else setTimeout(loadGoogleTranslate, 300);
 
             // Toggle dropdown
             btn.addEventListener('click', function(e) {
@@ -185,31 +227,35 @@
                 document.cookie = 'googtrans=' + val + '; path=/';
                 document.cookie = 'googtrans=' + val + '; path=/; domain=' + location.hostname;
 
-                if (!window._gtLoaded) {
-                    window._gtLoaded = true;
-                    window.googleTranslateElementInit = function() {
-                        new google.translate.TranslateElement({ pageLanguage:'en', autoDisplay:false }, 'gt-root');
-                    };
-                    var s = document.createElement('script');
-                    s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-                    document.head.appendChild(s);
-                    var el = document.createElement('div');
-                    el.id = 'gt-root';
-                    el.style.display = 'none';
-                    document.body.appendChild(el);
-                } else {
-                    location.reload();
-                }
+                loadGoogleTranslate();
+                var attempts = 0;
+                var switchLanguage = setInterval(function() {
+                    var combo = document.querySelector('#gt-root select.goog-te-combo, select.goog-te-combo');
+                    if (combo) {
+                        clearInterval(switchLanguage);
+                        combo.value = lang;
+                        combo.dispatchEvent(new Event('change', {bubbles:true}));
+                    } else if (++attempts >= 30) {
+                        clearInterval(switchLanguage);
+                        location.reload();
+                    }
+                }, 100);
             }
 
-            // Aggressively kill Google Translate bar every 50ms
-            setInterval(function() {
-                var f = document.querySelector('iframe.goog-te-banner-frame');
-                if (f) f.style.setProperty('display','none','important');
+            function hideGoogleChrome() {
+                document.querySelectorAll('iframe.goog-te-banner-frame, iframe.VIpgJd-ZVi9od-ORHb-OEVmcd, .goog-te-spinner-pos, .goog-te-spinner, .VIpgJd-ZVi9od-aZ2wEe-wOHMyf, .VIpgJd-ZVi9od-aZ2wEe-OiiCO').forEach(function(f) {
+                    f.style.setProperty('display','none','important');
+                    f.style.setProperty('visibility','hidden','important');
+                    f.style.setProperty('opacity','0','important');
+                });
                 if (document.body.style.top && document.body.style.top !== '0px') {
                     document.body.style.setProperty('top','0','important');
                 }
-            }, 50);
+                document.documentElement.style.setProperty('margin-top','0','important');
+            }
+            new MutationObserver(hideGoogleChrome).observe(document.documentElement, {childList:true, subtree:true, attributes:true});
+            setInterval(hideGoogleChrome, 500);
+            hideGoogleChrome();
         })();
     });
 </script>
