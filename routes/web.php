@@ -236,6 +236,7 @@ Route::get('/disclaimer', function () use ($platforms, $loadPosts) {
 
 foreach ([
     'about' => 'about',
+    'contact' => 'contact',
     'dmca' => 'dmca',
 ] as $path => $page) {
     Route::get('/' . $path, function () use ($platforms, $loadPosts, $page) {
@@ -530,6 +531,7 @@ Route::get('/sitemap.xml', function () {
         ['loc' => route('terms'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
         ['loc' => route('disclaimer'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
         ['loc' => route('about'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.4'],
+        ['loc' => route('contact'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.4'],
         ['loc' => route('dmca'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
     ];
 

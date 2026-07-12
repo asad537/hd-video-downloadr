@@ -11,6 +11,7 @@
             'terms' => 'Terms of Service | HDVideoDownloader',
             'disclaimer' => 'Disclaimer | HDVideoDownloader',
             'about' => 'About HDVideoDownloader | Our Purpose & Standards',
+            'contact' => 'Contact HDVideoDownloader | Help & Website Feedback',
             'dmca' => 'DMCA & Copyright Policy | HDVideoDownloader',
         ];
         $staticDescriptions = [
@@ -20,6 +21,7 @@
             'terms' => 'Review the terms governing responsible use of HDVideoDownloader and its public-link analysis tools.',
             'disclaimer' => 'Read important legal information about HDVideoDownloader, third-party platforms, copyright, and responsible use.',
             'about' => 'Learn about HDVideoDownloader, our public-link tools, responsible-use standards, and commitment to user privacy.',
+            'contact' => 'Find help for technical issues, privacy questions, website feedback, and copyright concerns related to HDVideoDownloader.',
             'dmca' => 'Read the HDVideoDownloader copyright policy and learn how rights holders can submit a complete removal notice.',
         ];
         $pageTitle = $page === 'blog-post'
@@ -1577,21 +1579,23 @@
                 </div>
             </section>
         </main>
-    @elseif (in_array($page, ['about', 'dmca'], true))
+    @elseif (in_array($page, ['about', 'contact', 'dmca'], true))
         <main>
             <div class="privacy-hero">
                 <div class="wrap">
                     <nav class="breadcrumb" aria-label="Breadcrumb">
                         <a href="{{ route('home') }}">Home</a><span class="breadcrumb-separator">/</span><span>{{ strtoupper($page) === 'DMCA' ? 'DMCA' : ucfirst($page) }}</span>
                     </nav>
-                    <span class="blog-badge">{{ $page === 'about' ? 'Company' : 'Legal' }}</span>
+                    <span class="blog-badge">{{ $page === 'about' ? 'Company' : ($page === 'contact' ? 'Support' : 'Legal') }}</span>
                     <h1>
                         @if($page === 'about') About <span>HDVideoDownloader</span>
+                        @elseif($page === 'contact') Contact <span>Us</span>
                         @else DMCA &amp; <span>Copyright</span>
                         @endif
                     </h1>
                     <p>
                         @if($page === 'about') Learn why we built this public-link utility and the standards that guide it.
+                        @elseif($page === 'contact') Help us understand your question so it can reach the right part of the website.
                         @else Information for copyright owners and authorized representatives.
                         @endif
                     </p>
@@ -1606,6 +1610,15 @@
                         <p>We encourage people to save only content they own, content for which they have permission, or content whose license permits downloading. Public availability does not by itself grant permission to copy or redistribute a work.</p>
                         <h2>Our Standards</h2>
                         <ul><li>Clear information about supported sources and available formats.</li><li>No fake download buttons or forced browser notifications.</li><li>Privacy-conscious processing over encrypted HTTPS connections.</li><li>A published process for copyright and legal concerns.</li></ul>
+                    @elseif($page === 'contact')
+                        <h2>How We Can Help</h2>
+                        <p>Use this page to identify the right next step for a downloader problem, privacy question, broken page, or copyright concern. Never send passwords, login cookies, private media links, payment details, or other sensitive information.</p>
+                        <h2>Technical Problems</h2>
+                        <p>Before reporting a link problem, confirm that the source page is public, copy the URL again from the platform's official Share control, and try a current browser. Note the platform, browser, device, visible error message, and approximate time of the problem. Do not include the private content itself.</p>
+                        <h2>Privacy and Legal Questions</h2>
+                        <p>Read the <a href="{{ route('privacy') }}">Privacy Policy</a> for information about submitted URLs and data handling. Copyright owners or authorized representatives should use the requirements described in the <a href="{{ route('dmca') }}">DMCA and Copyright Policy</a>.</p>
+                        <h2>Website Feedback</h2>
+                        <p>Useful feedback identifies the exact page, explains what was expected, and describes what happened instead. A public support address or contact form will be displayed here only after its delivery and privacy controls are configured; we do not publish a non-working address.</p>
                     @else
                         <h2>Copyright Policy</h2>
                         <p>HDVideoDownloader does not claim ownership of third-party media. Users must comply with applicable copyright law, source-platform terms, and the permissions attached to each work.</p>

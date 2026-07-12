@@ -13,11 +13,24 @@ class DownloaderTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_editorjs_renderer_drops_exact_duplicate_text_blocks()
+    {
+        $content = json_encode(['blocks' => [
+            ['type' => 'header', 'data' => ['text' => 'Useful guide', 'level' => 2]],
+            ['type' => 'paragraph', 'data' => ['text' => 'Keep this practical paragraph.']],
+            ['type' => 'paragraph', 'data' => ['text' => '  KEEP this practical paragraph.  ']],
+        ]]);
+
+        $html = \App\Models\Blog::renderEditorJS($content);
+
+        $this->assertSame(1, substr_count(strtolower($html), 'keep this practical paragraph.'));
+    }
+
     public function test_public_trust_pages_footer_and_security_headers_are_ready()
     {
         $this->seed();
 
-        foreach (['/about', '/dmca', '/privacy', '/terms', '/disclaimer'] as $path) {
+        foreach (['/about', '/contact', '/dmca', '/privacy', '/terms', '/disclaimer'] as $path) {
             $this->get($path)->assertOk();
         }
 
@@ -37,9 +50,8 @@ class DownloaderTest extends TestCase
         $this->get('/sitemap.xml')
             ->assertOk()
             ->assertSee(route('about'), false)
+            ->assertSee(route('contact'), false)
             ->assertSee(route('dmca'), false);
-
-        $this->get('/contact')->assertNotFound();
 
         $this->get('/this-page-does-not-exist')
             ->assertNotFound()

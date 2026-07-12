@@ -25,7 +25,18 @@ class Blog extends Model
         }
 
         $html = '';
+        $seenTextBlocks = [];
         foreach ($data['blocks'] as $block) {
+            if (in_array($block['type'] ?? '', ['header', 'paragraph'], true)) {
+                $plainText = html_entity_decode(strip_tags($block['data']['text'] ?? ''), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                $normalizedText = preg_replace('/\s+/u', ' ', trim(mb_strtolower($plainText)));
+                if ($normalizedText !== '' && isset($seenTextBlocks[$normalizedText])) {
+                    continue;
+                }
+                if ($normalizedText !== '') {
+                    $seenTextBlocks[$normalizedText] = true;
+                }
+            }
             switch ($block['type']) {
                 case 'header':
                     $text = $block['data']['text'] ?? '';

@@ -89,27 +89,37 @@ class PlatformPageSeeder extends Seeder
             ]],
         ];
 
+        // Keep universal instructions concise and devote half of every page to
+        // source-specific link types, media behavior, restrictions, and formats.
+        $universalSections = [$sections[2], $sections[3], $sections[4], $sections[6]];
+        $platformSections = [
+            ['What makes ' . $p['name'] . ' different', [
+                $p['overview'],
+                "Unlike a generic file URL, a {$p['name']} page can change its media response according to post type, creator settings, region, and processing status. HDVideoDownloader therefore reports only the public resources detected for the submitted {$p['domain']} address instead of promising the same choices for every post.",
+            ]],
+            ['Accepted ' . $p['name'] . ' URL patterns', [
+                $p['links'],
+                "Before submitting a {$p['name']} link, check that the browser address belongs to {$p['domain']} or an official share domain described above. Open it in a private window to confirm that it does not depend on your signed-in session. Copied tracking parameters can usually remain, but the underlying post must still resolve publicly.",
+            ]],
+            [$p['name'] . ' media and format behavior', [
+                $p['media'],
+                $p['specific'],
+            ]],
+            [$p['name'] . ' restrictions and quality limits', [
+                $p['quality'],
+                "A result from {$p['name']} reflects the source response at that moment. Creator privacy changes, removal, regional rules, unfinished processing, or delivery updates can change what is available later. If no usable option appears, do not install an unrelated extension or provide account credentials to bypass that limitation.",
+            ]],
+        ];
+        $sections = array_merge($platformSections, $universalSections);
+
         $blocks = [];
         foreach ($sections as $section) {
             $blocks[] = ['type' => 'header', 'data' => ['text' => $section[0], 'level' => 2]];
             foreach ($section[1] as $paragraph) $blocks[] = ['type' => 'paragraph', 'data' => ['text' => $paragraph]];
         }
 
-        // Ensure every seeded page contains at least 2,000 useful visible words.
-        $extra = [
-            "A good workflow begins with the original source. Verify the creator, publication context, and usage permission before saving anything. Keep the source URL with your notes so the origin can be checked later. This is especially helpful for research, classroom references, client approvals, and personal archives where context matters as much as the media file.",
-            "Browser updates frequently improve download reliability, security, and media compatibility. Use a supported browser version, avoid unnecessary extensions, and review the filename before opening it. An extension such as MP4 describes a container; it does not by itself prove who created the file or whether reuse is permitted. Permission and provenance should always be evaluated separately.",
-            "Search engines and platform interfaces change over time, so instructions should be understood as a current practical workflow rather than a promise that every historical link will remain available. HDVideoDownloader focuses on transparent results: if a source does not expose a usable public format, the page should report the limitation instead of presenting a misleading download option.",
-            "For creators managing their own media library, retain master files outside social platforms. Platform copies are optimized for streaming and may be resized or recompressed. A downloaded public copy is convenient for review and offline access, but it should not replace an original production archive containing project files, captions, thumbnails, licensing records, and full-quality exports.",
-        ];
-        $text = implode(' ', array_map(fn ($b) => $b['data']['text'], $blocks));
-        $i = 0;
-        while (str_word_count(strip_tags($text)) < 2000) {
-            $paragraph = $extra[$i % count($extra)];
-            $blocks[] = ['type' => 'paragraph', 'data' => ['text' => $paragraph]];
-            $text .= ' ' . $paragraph;
-            $i++;
-        }
+        // Never pad pages to an arbitrary word count. Repeated boilerplate is less
+        // useful than a shorter platform-specific guide.
         return $blocks;
     }
 
