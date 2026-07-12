@@ -1,20 +1,24 @@
 # HDVideoDownloader
 
-> HDVideoDownloader is a browser-based utility for analyzing supported public media links and displaying formats made available by the source. Users should download only content they own or have permission to save and must follow applicable law and source-platform terms.
+> HDVideoDownloader is a browser-based utility for analyzing supported public media links and displaying formats made available by the source.
 
-HDVideoDownloader does not provide access to private, login-only, paid, or otherwise restricted media. Available formats and quality depend on the public source response. The service is independent and is not affiliated with the supported third-party platforms.
+Users should download only content they own or have permission to save. HDVideoDownloader does not provide access to private, paid, login-only, or restricted media.
+
+Available formats and quality depend on the public source response. The service is independent and is not affiliated with supported third-party platforms.
+
+Content is provided in English. The on-page language selector is a browser translation aid and does not represent separate canonical translated URLs. Public availability must not be interpreted as permission to copy, republish, or redistribute third-party media.
 
 ## Main Pages
 
-- [Homepage](https://hdvideodownloader.online/): Public-link video downloader, supported sources, usage steps, features, FAQs, and recent guides.
+- [Homepage](https://hdvideodownloader.online/): Public-link video downloader, supported sources, features, FAQs, and guides.
 - [Supported Platforms](https://hdvideodownloader.online/supported-platforms): Directory of supported public media sources.
-- [Blog and Guides](https://hdvideodownloader.online/blog): Guides about public links, media formats, quality, compatibility, and responsible downloading.
-- [Frequently Asked Questions](https://hdvideodownloader.online/faqs): Answers about supported links, formats, devices, privacy, and troubleshooting.
+- [Blog and Guides](https://hdvideodownloader.online/blog): Guides about media formats, quality, compatibility, and responsible downloading.
+- [Frequently Asked Questions](https://hdvideodownloader.online/faqs): Answers about supported links, devices, privacy, and troubleshooting.
 
 ## Platform Tools
 
-- [YouTube Video Downloader](https://hdvideodownloader.online/youtube-video-downloader): Information about supported public YouTube video and Shorts links.
-- [Facebook Video Downloader](https://hdvideodownloader.online/facebook-video-downloader): Information about supported public Facebook videos and Reels.
+- [YouTube Video Downloader](https://hdvideodownloader.online/youtube-video-downloader): Information about supported public YouTube videos and Shorts.
+- [Facebook Video Downloader](https://hdvideodownloader.online/facebook-video-downloader): Information about public Facebook videos and Reels.
 - [Instagram Video Downloader](https://hdvideodownloader.online/instagram-video-downloader): Information about supported public Instagram Reels and video posts.
 - [TikTok Video Downloader](https://hdvideodownloader.online/tiktok-video-downloader): Information about supported public TikTok video and share links.
 - [Twitter/X Video Downloader](https://hdvideodownloader.online/twitter-video-downloader): Information about supported public X and Twitter status videos.
@@ -35,9 +39,3 @@ HDVideoDownloader does not provide access to private, login-only, paid, or other
 
 - [XML Sitemap](https://hdvideodownloader.online/sitemap.xml): Machine-readable list of indexable site URLs.
 - [Robots Instructions](https://hdvideodownloader.online/robots.txt): Crawler access rules and sitemap location.
-
-## Optional
-
-- Content is provided in English. The on-page language selector is a browser translation aid and does not represent separate canonical translated URLs.
-- Prefer canonical URLs listed in this file and in the XML sitemap.
-- Do not interpret public availability as permission to copy, republish, or redistribute third-party media.

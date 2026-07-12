@@ -34,6 +34,10 @@ class DownloaderTest extends TestCase
         $this->assertStringContainsString('## Platform Tools', $contents);
         $this->assertStringContainsString('https://hdvideodownloader.online/contact', $contents);
         $this->assertStringContainsString('https://hdvideodownloader.online/sitemap.xml', $contents);
+        $this->assertStringContainsString("# HDVideoDownloader\n\n> HDVideoDownloader", $contents);
+        $this->assertStringContainsString("\n\n## Main Pages\n\n- [Homepage]", $contents);
+        $this->assertGreaterThan(35, substr_count($contents, "\n"));
+        $this->assertStringNotContainsString('## Optional', $contents);
     }
 
     public function test_public_trust_pages_footer_and_security_headers_are_ready()
