@@ -994,6 +994,27 @@
             <div class="trust-item"><strong>No installation</strong><span>Works directly in your browser</span></div>
             <div class="trust-item"><strong>HD quality</strong><span>Choose the best available resolution</span></div>
         </div>
+
+        <div class="platform-strip" aria-label="Popular supported platforms">
+            @php
+                $platformIcons = [
+                    ['name' => 'YouTube', 'accent' => '#ff3b30', 'icon' => 'youtube'],
+                    ['name' => 'Facebook', 'accent' => '#1877f2', 'icon' => 'facebook'],
+                    ['name' => 'Instagram', 'accent' => '#e1306c', 'icon' => 'instagram'],
+                    ['name' => 'TikTok', 'accent' => '#00b9d8', 'icon' => 'tiktok'],
+                    ['name' => 'Twitter / X', 'accent' => '#111827', 'icon' => 'x'],
+                    ['name' => 'Vimeo', 'accent' => '#1ab7ea', 'icon' => 'vimeo'],
+                ];
+            @endphp
+            @foreach ($platformIcons as $p)
+                <span class="platform-pill">
+                    <span class="platform-dot" style="background:{{ $p['accent'] }}">
+                        <img src="https://cdn.simpleicons.org/{{ $p['icon'] }}/ffffff" alt="" loading="lazy" onerror="this.style.display='none'">
+                    </span>
+                    {{ $p['name'] }}
+                </span>
+            @endforeach
+        </div>
     </div>
     @if(!empty($platform->content))
         <section class="content-section">
