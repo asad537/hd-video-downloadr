@@ -13,6 +13,39 @@ class DownloaderTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_public_trust_pages_footer_and_security_headers_are_ready()
+    {
+        $this->seed();
+
+        foreach (['/about', '/dmca', '/privacy', '/terms', '/disclaimer'] as $path) {
+            $this->get($path)->assertOk();
+        }
+
+        $home = $this->get('/');
+        $home->assertOk()
+            ->assertSee(route('privacy'), false)
+            ->assertSee(route('terms'), false)
+            ->assertSee(route('dmca'), false)
+            ->assertDontSee('No platforms available')
+            ->assertHeader('X-Content-Type-Options', 'nosniff')
+            ->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+            ->assertHeader('X-Frame-Options', 'SAMEORIGIN');
+
+        $this->get('/privacy-policy')->assertRedirect('/privacy');
+        $this->get('/terms-of-service')->assertRedirect('/terms');
+
+        $this->get('/sitemap.xml')
+            ->assertOk()
+            ->assertSee(route('about'), false)
+            ->assertSee(route('dmca'), false);
+
+        $this->get('/contact')->assertNotFound();
+
+        $this->get('/this-page-does-not-exist')
+            ->assertNotFound()
+            ->assertSee('Page not found');
+    }
+
     public function test_blog_has_one_hundred_indexable_articles_with_metadata()
     {
         $this->seed();

@@ -121,9 +121,21 @@ Route::post('/admin/cms/upload-editor-image', [AdminController::class, 'uploadEd
 // ── Original Frontend Routes ──────────────────────────────────────────────────
 
 Route::get('/', function () use ($platforms, $loadPosts) {
-    $homeSettings = DB::table('homepage_settings')->first();
-    $homeSeo = \App\Models\PageSeo::where('page_name', 'home')->first();
-    $faqs = DB::table('faqs')->where('page', 'home')->where('is_active', true)->orderBy('sort_order')->get();
+    try {
+        $homeSettings = DB::table('homepage_settings')->first();
+    } catch (\Throwable $exception) {
+        $homeSettings = null;
+    }
+    try {
+        $homeSeo = \App\Models\PageSeo::where('page_name', 'home')->first();
+    } catch (\Throwable $exception) {
+        $homeSeo = null;
+    }
+    try {
+        $faqs = DB::table('faqs')->where('page', 'home')->where('is_active', true)->orderBy('sort_order')->get();
+    } catch (\Throwable $exception) {
+        $faqs = collect();
+    }
 
     return view('welcome', [
         'page'         => 'home',
@@ -221,6 +233,26 @@ Route::get('/disclaimer', function () use ($platforms, $loadPosts) {
         'result'    => null,
     ]);
 })->name('disclaimer');
+
+foreach ([
+    'about' => 'about',
+    'dmca' => 'dmca',
+] as $path => $page) {
+    Route::get('/' . $path, function () use ($platforms, $loadPosts, $page) {
+        return view('welcome', [
+            'page' => $page,
+            'platforms' => $platforms,
+            'posts' => $loadPosts(),
+            'result' => null,
+        ]);
+    })->name($page);
+}
+
+// Preserve old public URLs and consolidate every legal page on one canonical URL.
+Route::permanentRedirect('/privacy-policy', '/privacy');
+Route::permanentRedirect('/privacy-policy/', '/privacy');
+Route::permanentRedirect('/terms-of-service', '/terms');
+Route::permanentRedirect('/terms-of-service/', '/terms');
 
 // ── Analyze / Download (existing hd-video-downloadr logic) ───────────────────
 Route::post('/analyze', function (Request $request) {
@@ -497,6 +529,8 @@ Route::get('/sitemap.xml', function () {
         ['loc' => route('privacy'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
         ['loc' => route('terms'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
         ['loc' => route('disclaimer'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
+        ['loc' => route('about'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.4'],
+        ['loc' => route('dmca'), 'lastmod' => null, 'changefreq' => 'yearly', 'priority' => '0.3'],
     ];
 
     return response()->view('sitemap', [

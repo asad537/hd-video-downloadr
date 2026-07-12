@@ -145,7 +145,11 @@
         <div class="footer-grid">
 
             @php
-                $footerSettings = \App\Models\FooterSetting::first();
+                try {
+                    $footerSettings = \App\Models\FooterSetting::first();
+                } catch (\Throwable $exception) {
+                    $footerSettings = null;
+                }
                 $footerDescription = optional($footerSettings)->description ?? 'Download videos, audios and reels from your favourite platforms in high quality for free. No login required. Works on all devices. Fast, safe and 100% free to use.';
                 $selectedPlatformIds = optional($footerSettings)->platforms ?? [];
             @endphp
@@ -164,9 +168,11 @@
             <div>
                 <h4 class="footer-col-title">Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="/">Home</a></li>
-                    <!-- <li><a href="#supported">Supported Platforms</a></li> -->
+                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li><a href="{{ route('platforms') }}">Supported Platforms</a></li>
+                    <li><a href="{{ route('blog') }}">Blog</a></li>
                     <li><a href="{{ route('public.faqs') }}">FAQs</a></li>
+                    <li><a href="{{ route('about') }}">About</a></li>
                 </ul>
             </div>
 
@@ -181,13 +187,24 @@
                                 ->orderBy('name')
                                 ->get();
                         } else {
-                            $footerPlatforms = collect();
+                            try {
+                                $footerPlatforms = \App\Models\Platform::where('status', 'active')->orderBy('name')->get();
+                            } catch (\Throwable $exception) {
+                                $footerPlatforms = collect();
+                            }
+                        }
+                        if ($footerPlatforms->isEmpty() && !empty($platforms)) {
+                            $footerPlatforms = collect($platforms);
                         }
                     @endphp
 
                     @forelse($footerPlatforms as $platform)
                         <li>
-                            <a href="{{ route('platforms.show', $platform->slug) }}">{{ $platform->name }}</a>
+                            @php
+                                $platformSlug = is_array($platform) ? $platform['slug'] : $platform->slug;
+                                $platformName = is_array($platform) ? $platform['name'] : $platform->name;
+                            @endphp
+                            <a href="{{ route('platforms.show', $platformSlug) }}">{{ $platformName }}</a>
                         </li>
                     @empty
                         <li><span style="font-size: 0.95rem; color: #a0aaba; opacity: 0.6;">No platforms available</span></li>
@@ -199,9 +216,10 @@
             <div>
                 <h4 class="footer-col-title">Legal</h4>
                 <ul class="footer-links">
-                    <li><a href="/privacy-policy/">Privacy Policy</a></li>
-                    <li><a href="/terms-of-service/">Term of Service</a></li>
-                    <li><a href="/disclaimer/">Disclaimer</a></li>
+                    <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
+                    <li><a href="{{ route('terms') }}">Terms of Service</a></li>
+                    <li><a href="{{ route('dmca') }}">DMCA</a></li>
+                    <li><a href="{{ route('disclaimer') }}">Disclaimer</a></li>
                 </ul>
             </div>
 

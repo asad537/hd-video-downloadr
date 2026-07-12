@@ -10,6 +10,8 @@
             'privacy' => 'Privacy Policy | HDVideoDownloader',
             'terms' => 'Terms of Service | HDVideoDownloader',
             'disclaimer' => 'Disclaimer | HDVideoDownloader',
+            'about' => 'About HDVideoDownloader | Our Purpose & Standards',
+            'dmca' => 'DMCA & Copyright Policy | HDVideoDownloader',
         ];
         $staticDescriptions = [
             'platforms' => 'Explore the public video platforms supported by HDVideoDownloader and open a dedicated downloader page.',
@@ -17,6 +19,8 @@
             'privacy' => 'Learn how HDVideoDownloader handles submitted links, temporary processing, privacy, and data protection.',
             'terms' => 'Review the terms governing responsible use of HDVideoDownloader and its public-link analysis tools.',
             'disclaimer' => 'Read important legal information about HDVideoDownloader, third-party platforms, copyright, and responsible use.',
+            'about' => 'Learn about HDVideoDownloader, our public-link tools, responsible-use standards, and commitment to user privacy.',
+            'dmca' => 'Read the HDVideoDownloader copyright policy and learn how rights holders can submit a complete removal notice.',
         ];
         $pageTitle = $page === 'blog-post'
             ? ($post['meta_title'] ?? (($post['title'] ?? 'Guide') . ' | ' . $siteName))
@@ -36,9 +40,6 @@
     <link rel="apple-touch-icon" href="/images/home/Favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ $pageDescription }}">
-    @if($page === 'home' && !empty($homeSeo->meta_keywords))
-    <meta name="keywords" content="{{ $homeSeo->meta_keywords }}">
-    @endif
     <meta name="robots" content="{{ $page === 'home' && !empty($homeSeo->meta_robots) ? $homeSeo->meta_robots : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }}">
     <title>{{ $pageTitle }}</title>
     <link rel="canonical" href="{{ $pageUrl }}">
@@ -106,7 +107,7 @@
         <script type="application/ld+json">
         {
           "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
+          "@type": "WebApplication",
           "name": "HD Video Downloader",
           "alternateName": [
             "HDVideoDownloader",
@@ -1275,7 +1276,7 @@
                                     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                                 </div>
                                 <h3>Ultra-Fast Speeds</h3>
-                                <p>Our high-performance servers process video extraction in milliseconds, ensuring you get your files without the wait. Powered by distributed cloud technology.</p>
+                                <p>Our service analyzes supported public links and returns the formats reported by the source as quickly as network conditions allow.</p>
                             </div>
                         </div>
 
@@ -1291,7 +1292,7 @@
                             <div class="bento-chips">
                                 <span class="bento-chip">1080p</span>
                                 <span class="bento-chip">4K UHD</span>
-                                <span class="bento-chip">8K</span>
+                                <span class="bento-chip">Source quality</span>
                             </div>
                         </div>
 
@@ -1307,7 +1308,7 @@
                                     <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                                 </div>
                                 <h3>Safe &amp; Private</h3>
-                                <p>We value your privacy. No registration required, and all processed files are purged from our servers after 24 hours. SSL encrypted transfers.</p>
+                                <p>No registration is required for basic link analysis. Submitted links are processed over encrypted HTTPS connections; avoid submitting private or sensitive URLs.</p>
                             </div>
                         </div>
 
@@ -1573,6 +1574,48 @@
                     <h2>Limitation of Liability</h2>
                     <p>Under no circumstances shall HDVideoDownloader be liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising out of or in connection with your access or use of or inability to access or use the application and any third-party content and services.</p>
                     <p>Use this service at your own risk. It is the user's responsibility to ensure that downloading content does not violate any local laws or the terms of service of the host platform.</p>
+                </div>
+            </section>
+        </main>
+    @elseif (in_array($page, ['about', 'dmca'], true))
+        <main>
+            <div class="privacy-hero">
+                <div class="wrap">
+                    <nav class="breadcrumb" aria-label="Breadcrumb">
+                        <a href="{{ route('home') }}">Home</a><span class="breadcrumb-separator">/</span><span>{{ strtoupper($page) === 'DMCA' ? 'DMCA' : ucfirst($page) }}</span>
+                    </nav>
+                    <span class="blog-badge">{{ $page === 'about' ? 'Company' : 'Legal' }}</span>
+                    <h1>
+                        @if($page === 'about') About <span>HDVideoDownloader</span>
+                        @else DMCA &amp; <span>Copyright</span>
+                        @endif
+                    </h1>
+                    <p>
+                        @if($page === 'about') Learn why we built this public-link utility and the standards that guide it.
+                        @else Information for copyright owners and authorized representatives.
+                        @endif
+                    </p>
+                </div>
+            </div>
+            <section class="privacy-content-wrap">
+                <div class="privacy-box">
+                    @if($page === 'about')
+                        <h2>Our Purpose</h2>
+                        <p>HDVideoDownloader provides a browser-based interface for analyzing supported public media links and showing formats made available by the source. The basic tool does not require an account or software installation.</p>
+                        <h2>Responsible Use</h2>
+                        <p>We encourage people to save only content they own, content for which they have permission, or content whose license permits downloading. Public availability does not by itself grant permission to copy or redistribute a work.</p>
+                        <h2>Our Standards</h2>
+                        <ul><li>Clear information about supported sources and available formats.</li><li>No fake download buttons or forced browser notifications.</li><li>Privacy-conscious processing over encrypted HTTPS connections.</li><li>A published process for copyright and legal concerns.</li></ul>
+                    @else
+                        <h2>Copyright Policy</h2>
+                        <p>HDVideoDownloader does not claim ownership of third-party media. Users must comply with applicable copyright law, source-platform terms, and the permissions attached to each work.</p>
+                        <h2>Submitting a Notice</h2>
+                        <p>A complete notice should identify the copyrighted work, identify the affected HDVideoDownloader page or URL, provide the rights holder's contact information, state a good-faith belief that the disputed use is not authorized, and confirm under penalty of perjury that the information is accurate and that the sender is authorized to act.</p>
+                        <h2>Review Process</h2>
+                        <p>We review complete notices and may disable relevant access or links when appropriate. Incomplete or unrelated requests may require additional information. Misrepresenting infringement may carry legal consequences.</p>
+                        <h2>Important Scope</h2>
+                        <p>If the material is hosted by a third-party platform, contact that platform as well. Removing a page or link from this website does not remove the original material from a third-party service.</p>
+                    @endif
                 </div>
             </section>
         </main>
