@@ -13,7 +13,7 @@
     @if($seo && $seo->meta_description)
     <meta name="description" content="{{ $seo->meta_description }}">
     @else
-    <meta name="description" content="{{ $settings->faq_meta_description ?? '' }}">
+    <meta name="description" content="{{ $settings->faq_meta_description ?? 'Find clear answers about supported public video links, available formats, device compatibility, troubleshooting, privacy, and responsible use.' }}">
     @endif
     @if($seo && $seo->meta_keywords)
     <meta name="keywords" content="{{ $seo->meta_keywords }}">
@@ -29,7 +29,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="HDVideoDownloader">
     <meta property="og:title" content="{{ $seo->meta_title ?? 'Frequently Asked Questions | HDVideoDownloader' }}">
-    <meta property="og:description" content="{{ $seo->meta_description ?? ($settings->faq_meta_description ?? '') }}">
+    <meta property="og:description" content="{{ $seo->meta_description ?? ($settings->faq_meta_description ?? 'Find answers about supported links, formats, devices, troubleshooting, privacy, and responsible use.') }}">
     <meta property="og:url" content="{{ route('public.faqs') }}">
     <meta property="og:image" content="{{ asset('images/Logo_Website.png') }}">
     <meta name="twitter:card" content="summary_large_image">

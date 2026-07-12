@@ -166,8 +166,7 @@
                 <ul class="footer-links">
                     <li><a href="/">Home</a></li>
                     <!-- <li><a href="#supported">Supported Platforms</a></li> -->
-                    <li><a href="/download/">Download</a></li>
-                    <li><a href="/faqs/">FAQs</a></li>
+                    <li><a href="{{ route('public.faqs') }}">FAQs</a></li>
                 </ul>
             </div>
 

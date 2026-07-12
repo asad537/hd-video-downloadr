@@ -52,7 +52,6 @@
 
 
                 <li><a href="/faqs/">FAQs</a></li>
-                <li><a href="/download/">Download</a></li>
                 
                 @php
                     // Only parent platforms (no parent_id)
@@ -167,7 +166,6 @@
         <ul>
             <li><a href="/" onclick="toggleMobileMenu()">Home</a></li>
             <li><a href="/faqs/" onclick="toggleMobileMenu()">FAQs</a></li>
-            <li><a href="/download/" onclick="toggleMobileMenu()">Download</a></li>
             
             <li style="padding: 1.2rem 1.5rem; border-bottom: 1px solid #F3F4F6;">
                 <div style="font-size: 0.75rem; font-weight: 800; color: #9CA3AF; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 0.05em;">Platforms</div>

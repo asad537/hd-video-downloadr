@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(PlatformPageSeeder::class);
+
         User::updateOrCreate(['email' => 'admin@hdvideodownloader.com'], [
             'name' => 'HDVideoDownloader Admin',
             'password' => Hash::make('Admin@12345'),
@@ -36,7 +38,9 @@ class DatabaseSeeder extends Seeder
 
             BlogPost::updateOrCreate(['slug' => $post['slug']], [
                 'title' => $post['title'], 'category' => $post['category'], 'excerpt' => $post['excerpt'],
-                'meta_title' => $post['title'], 'meta_description' => $post['description'], 'content' => $post['content'],
+                'meta_title' => Str::limit($post['title'], 60, ''),
+                'meta_description' => Str::limit($post['description'], 155, ''),
+                'content' => $post['content'],
                 'image' => $image, 'image_alt' => $post['image_alt'] ?? $post['title'] . ' illustrated guide',
                 'read_minutes' => (int) $post['read'], 'is_published' => true,
                 'published_at' => now()->subDays(99 - $index),

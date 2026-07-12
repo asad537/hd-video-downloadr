@@ -29,6 +29,7 @@ $loadPosts = function () {
             return [
                 'id' => $post->id,
                 'title' => $post->title,
+                'meta_title' => $post->meta_title,
                 'slug' => $post->slug,
                 'category' => $post->category,
                 'excerpt' => $post->excerpt,

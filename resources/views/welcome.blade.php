@@ -19,7 +19,7 @@
             'disclaimer' => 'Read important legal information about HDVideoDownloader, third-party platforms, copyright, and responsible use.',
         ];
         $pageTitle = $page === 'blog-post'
-            ? (($post['title'] ?? 'Guide') . ' | ' . $siteName)
+            ? ($post['meta_title'] ?? (($post['title'] ?? 'Guide') . ' | ' . $siteName))
             : ($page === 'home'
                 ? (!empty($homeSeo->meta_title) ? $homeSeo->meta_title : 'HD Video Downloader - All in One Video Saver')
                 : ($staticTitles[$page] ?? ucwords(str_replace('-', ' ', $page)) . ' | HDVideoDownloader'));
@@ -336,7 +336,7 @@
         .platform-arrow { position:absolute; top:0; right:0; width:32px; height:32px; display:grid; place-items:center; color:#7f8a9b; border:1px solid #2c3744; border-radius:50%; font-size:16px; transition:.2s ease; }
         .platform-card-copy { position:relative; z-index:1; }
         .platform-card h3 { margin:0 0 8px; color:#f8fafc; font-size:20px; letter-spacing:-.3px; text-align:center; }
-        .platform-card p { max-width:240px; margin:0; color:#8f9aaa; font-size:13px; line-height:1.55; }
+        .platform-card p { width:100%; max-width:240px; max-height:3.1em; margin:0 auto; color:#8f9aaa; font-size:13px; line-height:1.55; display:-webkit-box !important; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow:hidden; text-overflow:ellipsis; white-space:normal; }
         .platform-card:hover .platform-arrow { color:#07110e; background:var(--platform-accent); border-color:var(--platform-accent); transform:translate(2px,-2px); }
         .platform-card h3, .post-card h3, .feature-card h3 { margin:0 0 8px; font-size:18px; }
         .platform-card p, .post-card p, .feature-card p { margin:0; color:var(--muted); line-height:1.6; font-size:14px; }
@@ -1120,7 +1120,7 @@
             .platform-card { min-height:170px; display:flex; padding:18px !important; text-align:left; }
             .platform-card .platform-icon { width:44px; height:44px; }
             .platform-card h3 { margin:0 0 6px; font-size:17px; }
-            .platform-card p { max-width:none; font-size:12.5px; }
+            .platform-card p { max-width:260px; max-height:3.1em; font-size:12.5px; -webkit-line-clamp:2; line-clamp:2; }
             .trust-item { padding:18px 10px; }
             section { padding:46px 0; }
             .section-head h2 { font-size:28px; }
