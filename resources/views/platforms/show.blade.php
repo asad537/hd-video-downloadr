@@ -985,15 +985,6 @@
                 @endif
             </div>
         </div>
-        
-    </div>
-
-    <div class="trust-bar">
-        <div class="trust-grid">
-            <div class="trust-item"><strong>Fast link analysis</strong><span>Get available formats in seconds</span></div>
-            <div class="trust-item"><strong>No installation</strong><span>Works directly in your browser</span></div>
-            <div class="trust-item"><strong>HD quality</strong><span>Choose the best available resolution</span></div>
-        </div>
 
         <div class="platform-strip" aria-label="Popular supported platforms">
             @php
@@ -1014,6 +1005,14 @@
                     {{ $p['name'] }}
                 </span>
             @endforeach
+        </div>
+    </div>
+
+    <div class="trust-bar">
+        <div class="trust-grid">
+            <div class="trust-item"><strong>Fast link analysis</strong><span>Get available formats in seconds</span></div>
+            <div class="trust-item"><strong>No installation</strong><span>Works directly in your browser</span></div>
+            <div class="trust-item"><strong>HD quality</strong><span>Choose the best available resolution</span></div>
         </div>
     </div>
     @if(!empty($platform->content))
