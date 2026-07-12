@@ -26,6 +26,16 @@ class DownloaderTest extends TestCase
         $this->assertSame(1, substr_count(strtolower($html), 'keep this practical paragraph.'));
     }
 
+    public function test_llms_txt_exposes_a_curated_site_map()
+    {
+        $contents = file_get_contents(public_path('llms.txt'));
+
+        $this->assertStringStartsWith('# HDVideoDownloader', $contents);
+        $this->assertStringContainsString('## Platform Tools', $contents);
+        $this->assertStringContainsString('https://hdvideodownloader.online/contact', $contents);
+        $this->assertStringContainsString('https://hdvideodownloader.online/sitemap.xml', $contents);
+    }
+
     public function test_public_trust_pages_footer_and_security_headers_are_ready()
     {
         $this->seed();
