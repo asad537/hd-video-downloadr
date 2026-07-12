@@ -544,5 +544,57 @@ Route::get('/sitemap.xml', function () {
     ])->header('Content-Type', 'application/xml');
 });
 
+Route::get('/llms.txt', function () {
+    $lines = [
+        '# HDVideoDownloader',
+        '',
+        '> HDVideoDownloader is a browser-based utility for analyzing supported public media links and displaying formats made available by the source.',
+        '',
+        'Users should download only content they own or have permission to save. HDVideoDownloader does not provide access to private, paid, login-only, or restricted media.',
+        '',
+        'Available formats and quality depend on the public source response. The service is independent and is not affiliated with supported third-party platforms.',
+        '',
+        'Content is provided in English. The language selector is a browser translation aid and does not represent separate canonical translated URLs. Public availability is not permission to copy, republish, or redistribute third-party media.',
+        '',
+        '## Main Pages',
+        '',
+        '- [Homepage](https://hdvideodownloader.online/): Public-link video downloader, supported sources, features, FAQs, and guides.',
+        '- [Supported Platforms](https://hdvideodownloader.online/supported-platforms): Directory of supported public media sources.',
+        '- [Blog and Guides](https://hdvideodownloader.online/blog): Guides about media formats, quality, compatibility, and responsible downloading.',
+        '- [Frequently Asked Questions](https://hdvideodownloader.online/faqs): Answers about supported links, devices, privacy, and troubleshooting.',
+        '',
+        '## Platform Tools',
+        '',
+        '- [YouTube Video Downloader](https://hdvideodownloader.online/youtube-video-downloader): Information about supported public YouTube videos and Shorts.',
+        '- [Facebook Video Downloader](https://hdvideodownloader.online/facebook-video-downloader): Information about public Facebook videos and Reels.',
+        '- [Instagram Video Downloader](https://hdvideodownloader.online/instagram-video-downloader): Information about supported public Instagram Reels and video posts.',
+        '- [TikTok Video Downloader](https://hdvideodownloader.online/tiktok-video-downloader): Information about supported public TikTok videos and share links.',
+        '- [Twitter/X Video Downloader](https://hdvideodownloader.online/twitter-video-downloader): Information about supported public X and Twitter status videos.',
+        '- [Vimeo Video Downloader](https://hdvideodownloader.online/vimeo-video-downloader): Information about supported public Vimeo videos and creator-authorized formats.',
+        '- [Dailymotion Video Downloader](https://hdvideodownloader.online/dailymotion-video-downloader): Information about supported public Dailymotion video URLs.',
+        '- [Pinterest Video Downloader](https://hdvideodownloader.online/pinterest-video-downloader): Information about supported public Pinterest video Pins.',
+        '',
+        '## Trust and Legal',
+        '',
+        '- [About](https://hdvideodownloader.online/about): Purpose, responsible-use principles, and website standards.',
+        '- [Contact](https://hdvideodownloader.online/contact): Verified support contact information and enquiry guidance.',
+        '- [Privacy Policy](https://hdvideodownloader.online/privacy): Information about submitted URLs, data handling, and privacy.',
+        '- [Terms of Service](https://hdvideodownloader.online/terms): Conditions for responsible use of the service.',
+        '- [DMCA and Copyright Policy](https://hdvideodownloader.online/dmca): Requirements for copyright notices and rights-holder requests.',
+        '- [Disclaimer](https://hdvideodownloader.online/disclaimer): Service scope, third-party independence, and limitations.',
+        '',
+        '## Discovery',
+        '',
+        '- [XML Sitemap](https://hdvideodownloader.online/sitemap.xml): Machine-readable list of indexable site URLs.',
+        '- [Robots Instructions](https://hdvideodownloader.online/robots.txt): Crawler access rules and sitemap location.',
+        '',
+    ];
+
+    return response(implode("\n", $lines), 200, [
+        'Content-Type' => 'text/plain; charset=UTF-8',
+        'Cache-Control' => 'public, max-age=3600',
+    ]);
+})->name('llms');
+
 // ── Catch-all Public Platform Route (Must be last) ────────────────────────────
 Route::get('/{slug}/', [PlatformController::class, 'show'])->name('platforms.show');

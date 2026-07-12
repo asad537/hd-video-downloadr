@@ -28,7 +28,8 @@ class DownloaderTest extends TestCase
 
     public function test_llms_txt_exposes_a_curated_site_map()
     {
-        $contents = file_get_contents(public_path('llms.txt'));
+        $response = $this->get('/llms.txt')->assertOk()->assertHeader('Content-Type', 'text/plain; charset=UTF-8');
+        $contents = $response->getContent();
 
         $this->assertStringStartsWith('# HDVideoDownloader', $contents);
         $this->assertStringContainsString('## Platform Tools', $contents);
@@ -38,6 +39,7 @@ class DownloaderTest extends TestCase
         $this->assertStringContainsString("\n\n## Main Pages\n\n- [Homepage]", $contents);
         $this->assertGreaterThan(35, substr_count($contents, "\n"));
         $this->assertStringNotContainsString('## Optional', $contents);
+        $this->assertSame(41, substr_count($contents, "\n"));
     }
 
     public function test_public_trust_pages_footer_and_security_headers_are_ready()
