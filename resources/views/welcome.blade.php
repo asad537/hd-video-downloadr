@@ -1533,8 +1533,8 @@
             <section class="related-section"><div class="wrap"><div class="section-head"><h2>Related guides</h2><p>Continue learning about video formats, quality, and safer downloads.</p></div><div class="grid blog-grid">@foreach($relatedPosts as $related)<article class="post-card"><a class="post-cover" href="{{ route('blog.show', $related['slug']) }}"><img src="{{ asset($related['image']) }}" alt="{{ $related['title'] }}" loading="lazy"></a><div class="post-content"><div class="post-meta"><span>{{ $related['category'] }}</span><span>{{ $related['read'] }}</span></div><h3>{{ $related['title'] }}</h3><p>{{ $related['excerpt'] }}</p><a class="read" href="{{ route('blog.show', $related['slug']) }}">Read guide →</a></div></article>@endforeach</div></div></section>
         </main>
     @elseif ($page === 'privacy')
-        <main>
-            <div class="privacy-hero">
+        <main class="{{ $page === 'contact' ? 'contact-page' : '' }}">
+            <div class="privacy-hero {{ $page === 'contact' ? 'contact-hero' : '' }}">
                 <div class="wrap">
                     <nav class="breadcrumb" aria-label="Breadcrumb">
                         <a href="{{ route('home') }}">Home</a><span class="breadcrumb-separator">/</span><span>Privacy</span>
@@ -1544,8 +1544,8 @@
                     <p>Learn how we handle your data and respect your privacy at HDVideoDownloader.</p>
                 </div>
             </div>
-            <section class="privacy-content-wrap">
-                <div class="privacy-box">
+            <section class="privacy-content-wrap {{ $page === 'contact' ? 'contact-content-wrap' : '' }}">
+                <div class="privacy-box {{ $page === 'contact' ? 'contact-shell' : '' }}">
                     <h2>Our Commitment</h2>
                     <p>HDVideoDownloader is designed as a link analysis and download interface. We do not ask users to create an account for the basic paste-link flow, ensuring your activity remains mostly anonymous.</p>
                     
@@ -1620,8 +1620,8 @@
             </section>
         </main>
     @elseif (in_array($page, ['about', 'contact', 'dmca'], true))
-        <main>
-            <div class="privacy-hero">
+        <main class="{{ $page === 'contact' ? 'contact-page' : '' }}">
+            <div class="privacy-hero {{ $page === 'contact' ? 'contact-hero' : '' }}">
                 <div class="wrap">
                     <nav class="breadcrumb" aria-label="Breadcrumb">
                         <a href="{{ route('home') }}">Home</a><span class="breadcrumb-separator">/</span><span>{{ strtoupper($page) === 'DMCA' ? 'DMCA' : ucfirst($page) }}</span>
@@ -1641,8 +1641,8 @@
                     </p>
                 </div>
             </div>
-            <section class="privacy-content-wrap">
-                <div class="privacy-box">
+            <section class="privacy-content-wrap {{ $page === 'contact' ? 'contact-content-wrap' : '' }}">
+                <div class="privacy-box {{ $page === 'contact' ? 'contact-shell' : '' }}">
                     @if($page === 'about')
                         <h2>Our Purpose</h2>
                         <p>HDVideoDownloader provides a browser-based interface for analyzing supported public media links and showing formats made available by the source. The basic tool does not require an account or software installation.</p>
@@ -1651,31 +1651,41 @@
                         <h2>Our Standards</h2>
                         <ul><li>Clear information about supported sources and available formats.</li><li>No fake download buttons or forced browser notifications.</li><li>Privacy-conscious processing over encrypted HTTPS connections.</li><li>A published process for copyright and legal concerns.</li></ul>
                     @elseif($page === 'contact')
-                        <h2>Contact HDVideoDownloader</h2>
-                        <p>Our support channel handles technical questions, broken-page reports, privacy enquiries, copyright concerns, and constructive website feedback. Choose the contact method that works best for you.</p>
+                        <div class="contact-intro">
+                            <span class="contact-kicker">Talk to our team</span>
+                            <h2>Choose how you would like to reach us</h2>
+                            <p>For technical questions, privacy enquiries, copyright concerns, and website feedback, use one of the verified support channels below.</p>
+                        </div>
 
-                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0 32px;">
-                            <a href="mailto:support@hdvideodownloader.online" style="display:block;padding:22px;border:1px solid #dbe4ea;border-radius:14px;background:#f8fafc;text-decoration:none;color:#172033;">
-                                <strong style="display:block;color:#087d6a;margin-bottom:8px;">Email Support</strong>
-                                <span style="overflow-wrap:anywhere;">support@hdvideodownloader.online</span>
+                        <div class="contact-methods">
+                            <a class="contact-method-card" href="mailto:support@hdvideodownloader.online">
+                                <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg></span>
+                                <span class="contact-method-copy"><small>Email support</small><strong>support@hdvideodownloader.online</strong><span>Send us a detailed message</span></span>
+                                <span class="contact-arrow" aria-hidden="true">↗</span>
                             </a>
-                            <a href="tel:+447308208926" style="display:block;padding:22px;border:1px solid #dbe4ea;border-radius:14px;background:#f8fafc;text-decoration:none;color:#172033;">
-                                <strong style="display:block;color:#087d6a;margin-bottom:8px;">Telephone</strong>
-                                <span>+44 7308 208926</span>
+                            <a class="contact-method-card" href="tel:+447308208926">
+                                <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.6 3h3l1.5 4-2 1.7a15 15 0 0 0 6.2 6.2l1.7-2 4 1.5v3c0 2-1.6 3.6-3.6 3.6C9.4 21 3 14.6 3 6.6 3 4.6 4.6 3 6.6 3Z"/></svg></span>
+                                <span class="contact-method-copy"><small>Telephone</small><strong>+44 7308 208926</strong><span>Speak with our support team</span></span>
+                                <span class="contact-arrow" aria-hidden="true">↗</span>
                             </a>
                         </div>
 
-                        <h2>Technical Support</h2>
-                        <p>When reporting a downloader problem, include the platform name, your device and browser, the exact error message, and the approximate time the issue occurred. Confirm first that the source page is public and opens without a signed-in account. For your security, do not send passwords, session cookies, private media, payment details, or account credentials.</p>
+                        <div class="contact-support-grid">
+                            <article class="contact-info-card">
+                                <span class="info-card-number">01</span><div><h2>Technical support</h2><p>Include the platform, device, browser, exact error, and approximate time. Confirm the source link opens publicly before contacting us.</p></div>
+                            </article>
+                            <article class="contact-info-card">
+                                <span class="info-card-number">02</span><div><h2>Privacy &amp; copyright</h2><p>Review our <a href="{{ route('privacy') }}">Privacy Policy</a>. Rights holders can follow the requirements in our <a href="{{ route('dmca') }}">DMCA Policy</a>.</p></div>
+                            </article>
+                            <article class="contact-info-card">
+                                <span class="info-card-number">03</span><div><h2>Website feedback</h2><p>Share the exact page, what you expected, and what happened. Screenshots are welcome when they contain no private information.</p></div>
+                            </article>
+                            <article class="contact-info-card">
+                                <span class="info-card-number">04</span><div><h2>Stay secure</h2><p>Never send passwords, login cookies, private media, payment details, or account credentials through any support channel.</p></div>
+                            </article>
+                        </div>
 
-                        <h2>Privacy and Copyright</h2>
-                        <p>For questions about submitted URLs or data handling, review our <a href="{{ route('privacy') }}">Privacy Policy</a> and email the support address above. Copyright owners and authorized representatives should include the information requested in our <a href="{{ route('dmca') }}">DMCA and Copyright Policy</a> so the notice can be reviewed efficiently.</p>
-
-                        <h2>Website Feedback</h2>
-                        <p>Helpful feedback identifies the exact HDVideoDownloader page, explains what you expected, and describes what happened instead. Screenshots may be useful when they do not contain personal information, private URLs, or account details.</p>
-
-                        <h2>Response Guidance</h2>
-                        <p>We aim to review complete support enquiries as promptly as practical. Complex technical or copyright requests may require additional information. Sending the same request repeatedly can delay investigation, so please keep follow-up messages in the same email thread.</p>
+                        <div class="contact-response-note"><span class="response-dot"></span><div><strong>Response guidance</strong><p>Keep follow-up messages in the same email thread. Complete enquiries help us investigate and respond more efficiently.</p></div></div>
                     @else
                         <h2>Copyright Policy</h2>
                         <p>HDVideoDownloader does not claim ownership of third-party media. Users must comply with applicable copyright law, source-platform terms, and the permissions attached to each work.</p>
@@ -1688,6 +1698,11 @@
                     @endif
                 </div>
             </section>
+            @if($page === 'contact')
+                <style>
+                    .contact-page{background:#090d13}.contact-hero{padding:72px 0 68px}.contact-hero p{max-width:620px}.contact-content-wrap{max-width:1180px;padding:58px 24px 110px}.contact-shell{max-width:none;padding:0;background:transparent;border:0;box-shadow:none;color:#aeb8c6}.contact-intro{max-width:720px;margin-bottom:30px}.contact-kicker{display:inline-block;margin-bottom:12px;color:#39e1b6;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.contact-shell .contact-intro h2{margin:0 0 12px;color:#fff;font-size:clamp(26px,3vw,38px);line-height:1.2}.contact-intro p{max-width:680px;margin:0;font-size:16px!important;line-height:1.7}.contact-methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:24px}.contact-method-card{position:relative;display:flex;align-items:center;gap:18px;min-width:0;padding:24px;border:1px solid rgba(255,255,255,.09);border-radius:20px;background:linear-gradient(145deg,#171e27,#11171f);color:#fff;text-decoration:none;box-shadow:0 18px 50px rgba(0,0,0,.2);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}.contact-method-card:hover{transform:translateY(-3px);border-color:rgba(57,225,182,.45);box-shadow:0 24px 60px rgba(0,0,0,.3)}.contact-icon{display:grid;place-items:center;flex:0 0 54px;width:54px;height:54px;border-radius:16px;background:rgba(57,225,182,.12);color:#39e1b6}.contact-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.contact-method-copy{display:flex;min-width:0;flex-direction:column}.contact-method-copy small{margin-bottom:4px;color:#7f8b99;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.contact-method-copy strong{overflow-wrap:anywhere;color:#fff;font-size:17px;line-height:1.35}.contact-method-copy>span{margin-top:5px;color:#8e99a7;font-size:13px}.contact-arrow{margin-left:auto;color:#39e1b6;font-size:22px}.contact-support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.contact-info-card{display:flex;gap:18px;min-height:190px;padding:26px;border:1px solid rgba(255,255,255,.075);border-radius:20px;background:#11171f}.info-card-number{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:13px;background:#202a35;color:#39e1b6;font-size:12px;font-weight:900}.contact-shell .contact-info-card h2{margin:4px 0 10px;color:#fff;font-size:19px!important;line-height:1.3}.contact-info-card p{margin:0;color:#909baa;font-size:14px!important;line-height:1.75}.contact-info-card a{color:#39e1b6;text-decoration:underline;text-underline-offset:3px}.contact-response-note{display:flex;align-items:flex-start;gap:14px;margin-top:18px;padding:20px 22px;border:1px solid rgba(57,225,182,.16);border-radius:16px;background:rgba(57,225,182,.055)}.response-dot{flex:0 0 10px;width:10px;height:10px;margin-top:7px;border-radius:50%;background:#39e1b6;box-shadow:0 0 0 6px rgba(57,225,182,.1)}.contact-response-note strong{color:#fff}.contact-response-note p{margin:3px 0 0;color:#929daa;font-size:14px!important;line-height:1.6}@media(max-width:760px){.contact-hero{padding:52px 16px 46px}.contact-content-wrap{padding:38px 16px 72px}.contact-methods,.contact-support-grid{grid-template-columns:1fr}.contact-method-card{padding:20px}.contact-info-card{min-height:0;padding:22px}.contact-method-copy strong{font-size:15px}.contact-arrow{display:none}}@media(max-width:420px){.contact-method-card{align-items:flex-start;gap:14px}.contact-icon{flex-basis:46px;width:46px;height:46px;border-radius:13px}.contact-method-copy strong{font-size:14px}.contact-info-card{display:block}.info-card-number{margin-bottom:16px}}
+                </style>
+            @endif
         </main>
     @endif
 
