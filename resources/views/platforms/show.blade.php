@@ -709,56 +709,56 @@
         }
 
         .editor-content h2 {
-            margin: 42px 0 14px !important;
-            color: #fff !important;
-            font-size: 28px !important;
-            line-height: 1.25 !important;
-            font-weight: 800 !important;
+            margin: 42px 0 14px;
+            color: #fff;
+            font-size: 28px;
+            line-height: 1.25;
+            font-weight: 800;
         }
 
         .editor-content > h1:first-child,
         .editor-content > h2:first-child,
         .editor-content > h3:first-child,
-        .editor-content > p:first-child { margin-top: 0 !important; }
+        .editor-content > p:first-child { margin-top: 0; }
 
         .editor-content h3 {
-            margin: 32px 0 14px !important;
-            color: #fff !important;
-            font-size: 22px !important;
-            line-height: 1.3 !important;
-            font-weight: 700 !important;
+            margin: 32px 0 14px;
+            color: #fff;
+            font-size: 22px;
+            line-height: 1.3;
+            font-weight: 700;
         }
 
         .editor-content p {
-            margin: 0 0 20px !important;
-            color: #a0aaba !important;
+            margin: 0 0 20px;
+            color: #a0aaba;
         }
 
         .editor-content ul, .editor-content ol {
             display: grid;
             gap: 12px;
-            margin: 22px 0 30px !important;
-            padding: 0 !important;
-            list-style: none !important;
+            margin: 22px 0 30px;
+            padding: 0;
+            list-style: none;
         }
 
         .editor-content li {
             position: relative;
-            padding: 16px 18px 16px 48px !important;
-            border: 1px solid rgba(255,255,255,0.07) !important;
-            border-radius: 8px !important;
-            color: #e2e8f0 !important;
-            background: rgba(255,255,255,0.03) !important;
-            margin: 0 !important;
+            padding: 16px 18px 16px 48px;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            color: #e2e8f0;
+            background: rgba(255,255,255,0.03);
+            margin: 0;
         }
 
         .editor-content li::before {
-            content: '✓' !important;
-            position: absolute !important;
-            left: 18px !important;
-            top: 15px !important;
-            color: #39e1b6 !important;
-            font-weight: 900 !important;
+            content: '✓';
+            position: absolute;
+            left: 18px;
+            top: 15px;
+            color: #39e1b6;
+            font-weight: 900;
         }
         
         .editor-content a {
@@ -927,11 +927,6 @@
         }
     </style>
 <style>
-    h1{font-size:3rem !important;}
-    h2{font-size:2rem !important;}
-    h3{font-size:1.5rem !important;}
-    p{font-size:1.2rem !important;}
-
     .platform-hero { padding:56px 20px 72px !important; }
     .platform-hero-badge { margin-bottom:18px; }
     .platform-hero h1 { max-width:980px; margin:0 auto 18px; font-size:42px !important; line-height:1.12; letter-spacing:-1px; }
