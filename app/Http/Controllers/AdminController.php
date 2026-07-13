@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class AdminController extends Controller
 {
@@ -47,8 +48,11 @@ class AdminController extends Controller
         $recentLogs = $data['recentLogs'];
         $weeklyData = $data['weeklyData'];
         $platformData = $data['platformData'];
+        $countryData = $data['countryData'];
+        $sourceData = $data['sourceData'];
+        $topPages = $data['topPages'];
 
-        return view('admin.dashboard', compact('stats', 'recentLogs', 'weeklyData', 'platformData'));
+        return view('admin.dashboard', compact('stats', 'recentLogs', 'weeklyData', 'platformData', 'countryData', 'sourceData', 'topPages'));
     }
 
     /**
@@ -66,19 +70,28 @@ class AdminController extends Controller
     private function getDashboardData(): array
     {
         // ── Top stats ────────────────────────────────────────────────────
-        $totalDownloads   = DB::table('download_logs')->where('type', 'download')->count();
-        $todayDownloads   = DB::table('download_logs')->where('type', 'download')->whereDate('created_at', today())->count();
+        $downloads = DB::table('download_logs')->where('type', 'download');
+        $totalDownloads   = (clone $downloads)->where('status', true)->count();
+        $failedDownloads  = (clone $downloads)->where('status', false)->count();
+        $todayDownloads   = (clone $downloads)->where('status', true)->whereDate('created_at', today())->count();
+        $weekDownloads    = (clone $downloads)->where('status', true)->where('created_at', '>=', now()->startOfWeek())->count();
         $totalExtractions = DB::table('download_logs')->where('type', 'extraction')->count();
-        $activeUsers      = DB::table('download_logs')
-            ->where('created_at', '>=', now()->subMinutes(30))
-            ->distinct('ip_address')
-            ->count('ip_address');
+        $hasVisits = Schema::hasTable('analytics_visits');
+        $activeUsers = $hasVisits ? DB::table('analytics_visits')->where('last_seen_at', '>=', now()->subMinutes(5))->distinct()->count('session_id') : 0;
+        $todayVisitors = $hasVisits ? DB::table('analytics_visits')->whereDate('created_at', today())->distinct()->count('session_id') : 0;
+        $pageViews = $hasVisits ? DB::table('analytics_visits')->count() : 0;
+        $attempts = $totalDownloads + $failedDownloads;
 
         $stats = [
             'total_downloads'   => $totalDownloads,
             'today_downloads'   => $todayDownloads,
             'total_extractions' => $totalExtractions,
             'active_users'      => $activeUsers,
+            'failed_downloads'  => $failedDownloads,
+            'week_downloads'    => $weekDownloads,
+            'today_visitors'    => $todayVisitors,
+            'page_views'        => $pageViews,
+            'success_rate'      => $attempts ? round(($totalDownloads / $attempts) * 100, 1) : 0,
         ];
 
         // ── Last 7 days bar chart ────────────────────────────────────────
@@ -87,7 +100,7 @@ class AdminController extends Controller
             $date  = now()->subDays($i);
             $count = DB::table('download_logs')
                 ->whereDate('created_at', $date->toDateString())
-                ->count();
+                ->where('type', 'download')->where('status', true)->count();
             $weeklyData[] = [
                 'label' => $date->format('D'),
                 'count' => $count,
@@ -141,7 +154,17 @@ class AdminController extends Controller
             ->get()
             ->toArray();
 
-        return compact('stats', 'weeklyData', 'platformData', 'recentLogs');
+        $countryData = $hasVisits ? DB::table('analytics_visits')
+            ->select('country', 'country_code', DB::raw('COUNT(*) as views'), DB::raw('COUNT(DISTINCT session_id) as users'))
+            ->groupBy('country', 'country_code')->orderByDesc('views')->limit(8)->get()->toArray() : [];
+
+        $sourceData = $hasVisits ? DB::table('analytics_visits')
+            ->select('source', DB::raw('COUNT(*) as views'))->groupBy('source')->orderByDesc('views')->limit(6)->get()->toArray() : [];
+
+        $topPages = $hasVisits ? DB::table('analytics_visits')
+            ->select('path', DB::raw('COUNT(*) as views'))->groupBy('path')->orderByDesc('views')->limit(6)->get()->toArray() : [];
+
+        return compact('stats', 'weeklyData', 'platformData', 'recentLogs', 'countryData', 'sourceData', 'topPages');
     }
 
     public function homepageEdit()

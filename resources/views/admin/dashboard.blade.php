@@ -1,226 +1,51 @@
 @extends('layouts.admin_master')
 
-@section('title', 'Dashboard')
-
-@section('header_icon')
-    <i class="fas fa-th-large" style="color:#36DEB3;"></i>
-@endsection
-
-@section('header_title', 'Dashboard Overview')
-
-@section('breadcrumb')
-    <!-- Already at root -->
-@endsection
+@section('title', 'Analytics Dashboard')
+@section('header_icon')<i class="fas fa-chart-line" style="color:#36DEB3"></i>@endsection
+@section('header_title', 'Analytics Dashboard')
 
 @push('styles')
-    <style>
-        .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:2rem;}
-        .stat-card{background:#161B27;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.4rem;transition:transform 0.2s,border-color 0.2s;}
-        .stat-card:hover{transform:translateY(-3px);border-color:rgba(54,222,179,0.2);}
-        .stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem; line-height: 1.45; }
-        .stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
-        .stat-icon.yellow{background:rgba(54,222,179,0.15);color:#36DEB3;}
-        .stat-icon.green{background:rgba(34,197,94,0.15);color:#4ADE80;}
-        .stat-icon.blue{background:rgba(99,102,241,0.15);color:#818CF8;}
-        .stat-icon.red{background:rgba(239,68,68,0.15);color:#FCA5A5;}
-        .stat-badge{font-size:0.72rem;font-weight:600;padding:0.2rem 0.5rem;border-radius:6px;background:rgba(34,197,94,0.1);color:#4ADE80;}
-        .stat-value{font-size:1.9rem;font-weight:800;color:#fff;line-height:1;}
-        .stat-label{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;}
-        
-        .charts-row{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem;margin-bottom:2rem;}
-        .card{background:#161B27;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.5rem;}
-        .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;}
-        .card-header h3{font-size:0.95rem;font-weight:700;color:#fff;}
-        .card-header span{font-size:0.75rem;color:rgba(255,255,255,0.35);}
-        
-        .bar-chart{display:flex;align-items:flex-end;gap:0.6rem;height:140px;}
-        .bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem; line-height: 1.45; }
-        .bar{width:100%;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#36DEB3,#36DEB3);min-height:4px;transition:height 0.5s;}
-        .bar-label{font-size:0.65rem;color:rgba(255,255,255,0.3);}
-        .bar-count{font-size:0.6rem;color:rgba(255,255,255,0.25);margin-bottom:2px;}
-        
-        .platform-list{display:flex;flex-direction:column;gap:0.75rem;}
-        .platform-item{display:flex;align-items:center;gap:0.8rem;}
-        .platform-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
-        .platform-name{font-size:0.82rem;color:rgba(255,255,255,0.7);flex:1;}
-        .platform-bar-wrap{width:80px;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden; line-height: 1.45; }
-        .platform-bar{height:100%;border-radius:3px;transition:width 0.6s ease;}
-        .platform-pct{font-size:0.75rem;color:rgba(255,255,255,0.4);min-width:30px;text-align:right;}
-
-        .table-card{background:#161B27;border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;}
-        .table-head{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}
-        .table-head h3{font-size:0.95rem;font-weight:700;color:#fff;}
-        
-        table{width:100%;border-collapse:collapse;}
-        th{text-align:left;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.06em;padding:0.75rem 1.5rem;background:rgba(255,255,255,0.02);}
-        td{padding:0.9rem 1.5rem;font-size:0.83rem;color:rgba(255,255,255,0.7);border-top:1px solid rgba(255,255,255,0.04);}
-        tr:hover td{background:rgba(255,255,255,0.02);}
-
-        .platform-tag{display:inline-flex;align-items:center;gap:0.4rem;padding:0.25rem 0.7rem;border-radius:6px;font-size:0.75rem;font-weight:600;}
-        .tag-youtube{background:rgba(255,0,0,0.12);color:#FF6B6B;}
-        .tag-instagram{background:rgba(228,64,95,0.12);color:#E4405F;}
-        .tag-tiktok{background:rgba(0,242,234,0.12);color:#00F2EA;}
-        .tag-facebook{background:rgba(24,119,242,0.12);color:#1877F2;}
-        .tag-other{background:rgba(107,114,128,0.15);color:#9CA3AF;}
-        
-        .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:0.4rem;}
-        .status-ok{background:#4ADE80;}
-        .status-fail{background:#FCA5A5;}
-
-        .quick-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.2rem;}
-        .quick-card{background:#161B27;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;}
-        .quick-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
-        .quick-card h4{font-size:1.1rem;font-weight:700;color:#fff;}
-        .quick-card p{font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:1px; line-height: 1.45; }
-    </style>
+<style>
+    .dash-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem}.dash-head h2{font-size:1.15rem;color:#fff}.dash-head p{font-size:.78rem;color:#738093;margin-top:.25rem}.live{display:flex;align-items:center;gap:.5rem;color:#54e1b7;font-size:.76rem}.live:before{content:"";width:8px;height:8px;background:#36deb3;border-radius:50%;box-shadow:0 0 0 5px rgba(54,222,179,.1)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1rem}.stat{background:#161b27;border:1px solid #252b39;border-radius:15px;padding:1.15rem;position:relative;overflow:hidden}.stat:after{content:"";position:absolute;right:-20px;top:-25px;width:85px;height:85px;border-radius:50%;background:var(--glow);opacity:.08}.stat-top{display:flex;justify-content:space-between;align-items:center}.stat-icon{width:39px;height:39px;border-radius:11px;display:grid;place-items:center;background:var(--glow);color:var(--color)}.stat small{font-size:.68rem;color:#647085}.stat strong{display:block;font-size:1.65rem;color:#fff;margin-top:.85rem}.stat label{display:block;font-size:.75rem;color:#8791a2;margin-top:.25rem}
+    .grid-2{display:grid;grid-template-columns:1.65fr 1fr;gap:1rem;margin-bottom:1rem}.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}.panel{background:#161b27;border:1px solid #252b39;border-radius:15px;padding:1.2rem;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.1rem}.panel-head h3{font-size:.88rem;color:#f3f6fb}.panel-head span{font-size:.68rem;color:#667184}
+    .bars{height:190px;display:flex;align-items:flex-end;gap:.65rem;border-bottom:1px solid #29303d;padding:10px 4px 0}.bar-col{height:100%;flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.4rem}.bar-num{font-size:.66rem;color:#8c97a7}.bar{width:100%;max-width:46px;min-height:4px;background:linear-gradient(180deg,#42e2ba,#168f77);border-radius:6px 6px 2px 2px}.bar-day{font-size:.65rem;color:#697486;margin-bottom:-23px;transform:translateY(23px)}
+    .rank{display:flex;flex-direction:column;gap:.85rem}.rank-row{display:grid;grid-template-columns:minmax(80px,1fr) 90px 38px;align-items:center;gap:.65rem}.rank-name{font-size:.75rem;color:#bdc5d0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.track{height:6px;background:#252c39;border-radius:5px;overflow:hidden}.fill{height:100%;background:#36deb3;border-radius:5px}.rank-val{font-size:.7rem;color:#778294;text-align:right}
+    .country-row,.source-row,.page-row{display:flex;align-items:center;gap:.75rem;padding:.65rem 0;border-bottom:1px solid #242a36}.country-row:last-child,.source-row:last-child,.page-row:last-child{border:0}.flag{width:32px;height:25px;border-radius:7px;background:#222b38;display:grid;place-items:center;font-size:.64rem;color:#53dcb7;font-weight:700}.row-main{min-width:0;flex:1}.row-main b{display:block;color:#cdd4de;font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.row-main small{font-size:.65rem;color:#687386}.row-value{font-size:.75rem;color:#fff;font-weight:700}
+    .table-panel{background:#161b27;border:1px solid #252b39;border-radius:15px;overflow:hidden}.table-title{padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center}.table-title h3{font-size:.88rem;color:#fff}.refresh{border:1px solid #303846;background:#202633;color:#aeb8c7;border-radius:8px;padding:.5rem .75rem;cursor:pointer}.table-scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:760px}th{font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;color:#657084;background:#121722;text-align:left;padding:.7rem 1rem}td{font-size:.72rem;color:#aeb7c4;padding:.75rem 1rem;border-top:1px solid #222936}.pill{display:inline-flex;padding:.25rem .5rem;border-radius:6px;background:#222a36;color:#cbd3dd}.ok{color:#4ade80}.fail{color:#fb7185}.ip{font-family:monospace;color:#8da0b7}
+    @media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:1fr 1fr}.grid-3 .panel:last-child{grid-column:1/-1}}@media(max-width:760px){.content{padding:1rem!important}.stats,.grid-2,.grid-3{grid-template-columns:1fr}.grid-3 .panel:last-child{grid-column:auto}.dash-head{align-items:flex-start;gap:1rem}.stat strong{font-size:1.4rem}}
+</style>
 @endpush
 
 @section('content')
-    <!-- STATS -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-top">
-                <div class="stat-icon yellow"><i class="fas fa-download"></i></div>
-                <span class="stat-badge">Total</span>
-            </div>
-            <div class="stat-value" id="stat-total-downloads">{{ number_format($stats['total_downloads']) }}</div>
-            <div class="stat-label">Total Downloads</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-top">
-                <div class="stat-icon green"><i class="fas fa-calendar-day"></i></div>
-                <span class="stat-badge">Today</span>
-            </div>
-            <div class="stat-value" id="stat-today-downloads">{{ number_format($stats['today_downloads']) }}</div>
-            <div class="stat-label">Today's Downloads</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-top">
-                <div class="stat-icon blue"><i class="fas fa-search"></i></div>
-                <span class="stat-badge">Total</span>
-            </div>
-            <div class="stat-value" id="stat-extractions">{{ number_format($stats['total_extractions']) }}</div>
-            <div class="stat-label">Total Extractions</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-top">
-                <div class="stat-icon red"><i class="fas fa-users"></i></div>
-                <span class="stat-badge">30 min</span>
-            </div>
-            <div class="stat-value" id="stat-active-users">{{ number_format($stats['active_users']) }}</div>
-            <div class="stat-label">Active Users</div>
-        </div>
-    </div>
+<div class="dash-head"><div><h2>Website performance</h2><p>Downloads, visitors and traffic insights in one place.</p></div><div class="live"><span id="live-count">{{ number_format($stats['active_users']) }}</span> live now</div></div>
 
-    <!-- CHARTS -->
-    <div class="charts-row">
-        <div class="card">
-            <div class="card-header">
-                <h3>Downloads (Last 7 Days)</h3>
-                <span>Weekly overview</span>
-            </div>
-            <div class="bar-chart" id="bar-chart">
-                @php $maxVal = max(array_column($weeklyData, 'count') ?: [1]); @endphp
-                @foreach($weeklyData as $day)
-                <div class="bar-wrap">
-                    <div class="bar-count">{{ $day['count'] > 0 ? $day['count'] : '' }}</div>
-                    <div class="bar" style="height:{{ $maxVal > 0 ? round(($day['count'] / $maxVal) * 120) : 4 }}px;"></div>
-                    <div class="bar-label">{{ $day['label'] }}</div>
-                </div>
-                @endforeach
-            </div>
-        </div>
+<div class="stats">
+@php $cards = [
+ ['total_downloads','Downloads','fa-download','#36deb3','rgba(54,222,179,.18)','All-time successful'],
+ ['failed_downloads','Failed','fa-circle-exclamation','#fb7185','rgba(251,113,133,.18)','All-time failed'],
+ ['today_downloads','Today','fa-calendar-day','#60a5fa','rgba(96,165,250,.18)','Successful today'],
+ ['week_downloads','This week','fa-calendar-week','#a78bfa','rgba(167,139,250,.18)','Successful this week'],
+ ['active_users','Active users','fa-users','#fbbf24','rgba(251,191,36,.18)','Last 5 minutes'],
+ ['today_visitors','Visitors today','fa-user-group','#22d3ee','rgba(34,211,238,.18)','Unique sessions'],
+ ['page_views','Page views','fa-eye','#f472b6','rgba(244,114,182,.18)','All tracked views'],
+ ['success_rate','Success rate','fa-chart-pie','#4ade80','rgba(74,222,128,.18)','Download completion'],
+]; @endphp
+@foreach($cards as $c)<div class="stat" style="--color:{{ $c[3] }};--glow:{{ $c[4] }}"><div class="stat-top"><div class="stat-icon"><i class="fas {{ $c[2] }}"></i></div><small>{{ $c[5] }}</small></div><strong>{{ number_format($stats[$c[0]], $c[0] === 'success_rate' ? 1 : 0) }}{{ $c[0] === 'success_rate' ? '%' : '' }}</strong><label>{{ $c[1] }}</label></div>@endforeach
+</div>
 
-        <div class="card">
-            <div class="card-header">
-                <h3>By Platform</h3>
-                <span>Top sources</span>
-            </div>
-            <div class="platform-list" id="platform-list">
-                @foreach($platformData as $p)
-                <div class="platform-item">
-                    <div class="platform-dot" style="background:{{ $p['color'] }};"></div>
-                    <span class="platform-name">{{ $p['name'] }}</span>
-                    <div class="platform-bar-wrap">
-                        <div class="platform-bar" style="width:{{ $p['pct'] }}%;background:{{ $p['color'] }};"></div>
-                    </div>
-                    <span class="platform-pct">{{ $p['pct'] }}%</span>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
+<div class="grid-2">
+ <div class="panel"><div class="panel-head"><h3>Downloads — last 7 days</h3><span>Successful downloads</span></div><div class="bars">@php $mx=max(array_column($weeklyData,'count') ?: [1]); @endphp @foreach($weeklyData as $d)<div class="bar-col"><span class="bar-num">{{ $d['count'] }}</span><div class="bar" style="height:{{ $mx ? max(4,round($d['count']/$mx*145)) : 4 }}px"></div><span class="bar-day">{{ $d['label'] }}</span></div>@endforeach</div></div>
+ <div class="panel"><div class="panel-head"><h3>Top platforms</h3><span>All activity</span></div><div class="rank">@foreach($platformData as $p)<div class="rank-row"><span class="rank-name">{{ $p['name'] }}</span><div class="track"><div class="fill" style="width:{{ $p['pct'] }}%;background:{{ $p['color'] }}"></div></div><span class="rank-val">{{ $p['pct'] }}%</span></div>@endforeach</div></div>
+</div>
 
-    <!-- RECENT ACTIVITY -->
-    <div class="table-card">
-        <div class="table-head">
-            <h3>Recent Download Activity</h3>
-            <button class="btn-preview" onclick="refreshDashboard()" id="refreshBtn">
-                <i class="fas fa-sync-alt"></i> Refresh
-            </button>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Platform</th>
-                    <th>Type</th>
-                    <th>IP Address</th>
-                    <th>Status</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody id="activity-tbody">
-                @forelse($recentLogs as $i => $log)
-                <tr>
-                    <td style="color:rgba(255,255,255,0.25);">{{ $i + 1 }}</td>
-                    <td><span class="platform-tag tag-other">{{ $log->platform }}</span></td>
-                    <td>{{ $log->type }}</td>
-                    <td style="font-family:monospace;">{{ $log->ip_address }}</td>
-                    <td><span class="status-dot {{ $log->status ? 'status-ok' : 'status-fail' }}"></span>{{ $log->status ? 'Success' : 'Failed' }}</td>
-                    <td>{{ \Carbon\Carbon::parse($log->created_at)->diffForHumans() }}</td>
-                </tr>
-                @empty
-                <tr><td colspan="6" style="text-align:center;padding:2rem;color:rgba(255,255,255,0.2);">No activity yet.</td></tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
+<div class="grid-3">
+ <div class="panel"><div class="panel-head"><h3>Top countries</h3><span>Visitors by location</span></div>@forelse($countryData as $c)<div class="country-row"><div class="flag">{{ $c->country_code ?: '—' }}</div><div class="row-main"><b>{{ $c->country ?: 'Unknown' }}</b><small>{{ number_format($c->users) }} users</small></div><span class="row-value">{{ number_format($c->views) }}</span></div>@empty<div class="row-main"><small>Country data appears when Cloudflare geo headers are enabled.</small></div>@endforelse</div>
+ <div class="panel"><div class="panel-head"><h3>Traffic sources</h3><span>Where users come from</span></div>@forelse($sourceData as $s)<div class="source-row"><div class="flag"><i class="fas fa-arrow-trend-up"></i></div><div class="row-main"><b>{{ $s->source }}</b><small>Visits</small></div><span class="row-value">{{ number_format($s->views) }}</span></div>@empty<div class="row-main"><small>No traffic recorded yet.</small></div>@endforelse</div>
+ <div class="panel"><div class="panel-head"><h3>Popular pages</h3><span>Most viewed URLs</span></div>@forelse($topPages as $p)<div class="page-row"><div class="flag"><i class="fas fa-file"></i></div><div class="row-main"><b>{{ $p->path }}</b><small>Page views</small></div><span class="row-value">{{ number_format($p->views) }}</span></div>@empty<div class="row-main"><small>No page views recorded yet.</small></div>@endforelse</div>
+</div>
 
-    <!-- QUICK STATS -->
-    <div class="quick-row">
-        <div class="quick-card">
-            <div class="quick-icon" style="background:rgba(54,222,179,0.12);color:#36DEB3;"><i class="fas fa-bolt"></i></div>
-            <div>
-                <h4>Success Rate</h4>
-                <p style="line-height: 1.45;">98.2% Average</p>
-            </div>
-        </div>
-        <div class="quick-card">
-            <div class="quick-icon" style="background:rgba(34,197,94,0.12);color:#4ADE80;"><i class="fas fa-calendar-week"></i></div>
-            <div>
-                <h4>This Week</h4>
-                <p style="line-height: 1.45;">{{ array_sum(array_column($weeklyData, 'count')) }} Downloads</p>
-            </div>
-        </div>
-        <div class="quick-card">
-            <div class="quick-icon" style="background:rgba(99,102,241,0.12);color:#818CF8;"><i class="fas fa-layer-group"></i></div>
-            <div>
-                <h4>Top Platform</h4>
-                <p style="line-height: 1.45;">{{ $platformData[0]['name'] ?? '—' }}</p>
-            </div>
-        </div>
-    </div>
+<div class="table-panel"><div class="table-title"><h3>Recent download activity & IPs</h3><button class="refresh" onclick="location.reload()"><i class="fas fa-rotate"></i> Refresh</button></div><div class="table-scroll"><table><thead><tr><th>Platform</th><th>Action</th><th>Format</th><th>IP address</th><th>Status</th><th>Title</th><th>Time</th></tr></thead><tbody>@forelse($recentLogs as $log)<tr><td><span class="pill">{{ $log->platform }}</span></td><td>{{ ucfirst($log->type) }}</td><td>{{ $log->format }} {{ $log->quality !== '—' ? '· '.$log->quality : '' }}</td><td class="ip">{{ $log->ip_address ?: '—' }}</td><td class="{{ $log->status ? 'ok' : 'fail' }}"><i class="fas {{ $log->status ? 'fa-circle-check' : 'fa-circle-xmark' }}"></i> {{ $log->status ? 'Success' : 'Failed' }}</td><td>{{ \Illuminate\Support\Str::limit($log->title ?: '—', 34) }}</td><td>{{ \Carbon\Carbon::parse($log->created_at)->diffForHumans() }}</td></tr>@empty<tr><td colspan="7" style="text-align:center;padding:2rem">No download activity yet.</td></tr>@endforelse</tbody></table></div></div>
 @endsection
 
-@push('scripts')
-    <script>
-        async function refreshDashboard() {
-            const btn = document.getElementById('refreshBtn');
-            btn.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Refreshing...';
-            // Simple reload for now to show immediate fix, can be AJAX later
-            window.location.reload();
-        }
-    </script>
-@endpush
-
+@push('scripts')<script>setTimeout(()=>location.reload(),60000);</script>@endpush

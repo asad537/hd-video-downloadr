@@ -392,6 +392,14 @@ Route::post('/analyze', function (Request $request) {
                 'resources' => $resources,
             ];
 
+            DB::table('download_logs')->insert([
+                'platform' => $platform['name'] ?? ucfirst(explode('.', $cleanHost)[0] ?: 'Unknown'),
+                'format' => '—', 'quality' => '—', 'ip_address' => $request->ip(),
+                'type' => 'extraction', 'status' => true,
+                'title' => substr((string) $resultData['title'], 0, 255),
+                'created_at' => now(), 'updated_at' => now(),
+            ]);
+
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
@@ -404,6 +412,13 @@ Route::post('/analyze', function (Request $request) {
     } catch (\Exception $e) {
         // Log or handle exception
     }
+
+    DB::table('download_logs')->insert([
+        'platform' => $platform['name'] ?? ucfirst(explode('.', $cleanHost)[0] ?: 'Unknown'),
+        'format' => '—', 'quality' => '—', 'ip_address' => $request->ip(),
+        'type' => 'extraction', 'status' => false, 'title' => null,
+        'created_at' => now(), 'updated_at' => now(),
+    ]);
 
     if ($request->ajax() || $request->wantsJson()) {
         return response()->json([
@@ -491,8 +506,19 @@ Route::get('/download-file', function (Request $request) {
     }
 
     if ($upstream->getStatusCode() < 200 || $upstream->getStatusCode() >= 300) {
+        DB::table('download_logs')->insert([
+            'platform' => 'Direct link', 'format' => strtoupper(pathinfo($filename, PATHINFO_EXTENSION) ?: 'MP4'),
+            'quality' => '—', 'ip_address' => $request->ip(), 'type' => 'download',
+            'status' => false, 'title' => $filename, 'created_at' => now(), 'updated_at' => now(),
+        ]);
         return response('', 204);
     }
+
+    DB::table('download_logs')->insert([
+        'platform' => 'Direct link', 'format' => strtoupper(pathinfo($filename, PATHINFO_EXTENSION) ?: 'MP4'),
+        'quality' => '—', 'ip_address' => $request->ip(), 'type' => 'download',
+        'status' => true, 'title' => $filename, 'created_at' => now(), 'updated_at' => now(),
+    ]);
 
     $body = $upstream->getBody();
     $headers = [
