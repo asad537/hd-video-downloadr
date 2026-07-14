@@ -1230,6 +1230,7 @@
         }
     </style>
 
+    @include('partials.adsense-head')
 </head>
 <body>
     @include('partials.navbar')

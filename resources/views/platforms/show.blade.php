@@ -947,6 +947,7 @@
         .platform-hero p { font-size:14px !important; line-height:1.6; }
     }
 </style>
+    @include('partials.adsense-head')
 </head>
 
 <body>

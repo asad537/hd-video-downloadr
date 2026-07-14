@@ -536,6 +536,7 @@
         .platform-faq-answer p { margin: 0; }
     </style>
     <style>h1{font-size:3rem !important;}h2{font-size:2rem !important;}h3{font-size:1.5rem !important;}p{font-size:1.2rem !important;}</style>
+    @include('partials.adsense-head')
 </head>
 
 <body>
