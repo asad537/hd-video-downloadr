@@ -1229,7 +1229,7 @@
             .nav-links { grid-template-columns:1fr; }
         }
     </style>
-<style>h1{font-size:3rem !important;}h2{font-size:2rem !important;}h3{font-size:1.5rem !important;}p{font-size:1.2rem !important;}</style>
+
 </head>
 <body>
     @include('partials.navbar')
@@ -1260,7 +1260,10 @@
                                         if ($block['type'] === 'paragraph' && !empty($block['data']['text'])) {
                                             $html .= $block['data']['text'] . '<br>';
                                         } elseif ($block['type'] === 'header' && !empty($block['data']['text'])) {
-                                            $html .= '<strong>' . $block['data']['text'] . '</strong><br>';
+                                            $level = isset($block['data']['level']) ? $block['data']['level'] : 3;
+                                            $html .= '<h' . $level . '>' . $block['data']['text'] . '</h' . $level . '>';
+                                        } elseif ($block['type'] === 'raw' && !empty($block['data']['html'])) {
+                                            $html .= $block['data']['html'];
                                         }
                                     }
                                     if ($html !== '') {
@@ -1430,7 +1433,10 @@
                                             if ($block['type'] === 'paragraph' && !empty($block['data']['text'])) {
                                                 echo '<p>' . $block['data']['text'] . '</p>';
                                             } elseif ($block['type'] === 'header' && !empty($block['data']['text'])) {
-                                                echo '<h3>' . $block['data']['text'] . '</h3>';
+                                                $level = isset($block['data']['level']) ? $block['data']['level'] : 3;
+                                                echo '<h' . $level . '>' . $block['data']['text'] . '</h' . $level . '>';
+                                            } elseif ($block['type'] === 'raw' && !empty($block['data']['html'])) {
+                                                echo $block['data']['html'];
                                             }
                                         }
                                     } else {

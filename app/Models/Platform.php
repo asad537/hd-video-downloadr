@@ -21,7 +21,9 @@ class Platform extends Model
         'meta_keywords',
         'meta_robots',
         'content',
-        'status'
+        'status',
+        'show_in_navbar',
+        'show_in_footer'
     ];
 
     // Children platforms (sub-platforms)

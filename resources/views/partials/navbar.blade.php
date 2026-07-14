@@ -10,7 +10,10 @@
             @php
                 $menuPlatforms = \App\Models\Platform::whereNull('parent_id')
                     ->where('status', 'active')
-                    ->with('children')
+                    ->where('show_in_navbar', 1)
+                    ->with(['children' => function($query) {
+                        $query->where('show_in_navbar', 1);
+                    }])
                     ->orderBy('name')
                     ->get();
             @endphp

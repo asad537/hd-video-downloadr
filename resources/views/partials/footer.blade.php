@@ -248,20 +248,13 @@
                 <h4 class="footer-col-title">Supported Platforms</h4>
                 <ul class="footer-links">
                     @php
-                        if (!empty($selectedPlatformIds)) {
-                            $footerPlatforms = \App\Models\Platform::whereIn('id', $selectedPlatformIds)
-                                ->where('status', 'active')
+                        try {
+                            $footerPlatforms = \App\Models\Platform::where('status', 'active')
+                                ->where('show_in_footer', 1)
                                 ->orderBy('name')
                                 ->get();
-                        } else {
-                            try {
-                                $footerPlatforms = \App\Models\Platform::where('status', 'active')->orderBy('name')->get();
-                            } catch (\Throwable $exception) {
-                                $footerPlatforms = collect();
-                            }
-                        }
-                        if ($footerPlatforms->isEmpty() && !empty($platforms)) {
-                            $footerPlatforms = collect($platforms);
+                        } catch (\Throwable $exception) {
+                            $footerPlatforms = collect();
                         }
                     @endphp
 

@@ -271,7 +271,19 @@
                             <option value="inactive">Inactive</option>
                         </select>
                     </div>
-                    <div></div>
+                    <div class="form-group">
+                        <label>Visibility Toggles</label>
+                        <div style="display: flex; gap: 1rem; align-items: center; height: 100%;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: #fff; font-weight: 500; font-size: 0.85rem; text-transform: none; margin: 0; cursor: pointer;">
+                                <input type="checkbox" name="show_in_navbar" style="width: 18px; height: 18px; accent-color: #36DEB3; cursor: pointer;">
+                                Show in Navbar
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; color: #fff; font-weight: 500; font-size: 0.85rem; text-transform: none; margin: 0; cursor: pointer;">
+                                <input type="checkbox" name="show_in_footer" style="width: 18px; height: 18px; accent-color: #36DEB3; cursor: pointer;">
+                                Show in Footer
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- ── Sub-Platform Toggle ── --}}

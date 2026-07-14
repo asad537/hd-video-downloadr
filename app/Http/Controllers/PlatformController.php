@@ -45,6 +45,8 @@ class PlatformController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->slug);
         $data['parent_id'] = $request->input('parent_id') ?: null;
+        $data['show_in_navbar'] = $request->has('show_in_navbar') ? 1 : 0;
+        $data['show_in_footer'] = $request->has('show_in_footer') ? 1 : 0;
 
         Platform::create($data);
 
@@ -83,6 +85,8 @@ class PlatformController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->slug);
         $data['parent_id'] = $request->input('parent_id') ?: null;
+        $data['show_in_navbar'] = $request->has('show_in_navbar') ? 1 : 0;
+        $data['show_in_footer'] = $request->has('show_in_footer') ? 1 : 0;
 
         $platform->update($data);
 
