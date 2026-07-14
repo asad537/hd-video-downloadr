@@ -1,7 +1,18 @@
 <div class="result">
     @php
-        $videoFormats = collect($result['resources'] ?? [])->where('category', 'video');
-        $audioFormats = collect($result['resources'] ?? [])->where('category', 'audio');
+        $qualityNumber = function ($format) {
+            $quality = (string) ($format['quality'] ?? '');
+            preg_match('/\d+(?:\.\d+)?/', $quality, $matches);
+            return isset($matches[0]) ? (float) $matches[0] : 0;
+        };
+        $videoFormats = collect($result['resources'] ?? [])
+            ->where('category', 'video')
+            ->sortByDesc($qualityNumber)
+            ->values();
+        $audioFormats = collect($result['resources'] ?? [])
+            ->where('category', 'audio')
+            ->sortByDesc($qualityNumber)
+            ->values();
         $duration = (int) ($result['duration'] ?? 0);
     @endphp
     <div class="result-layout">

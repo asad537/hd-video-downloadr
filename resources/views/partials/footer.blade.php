@@ -5,6 +5,42 @@
         padding: 4rem 0 0;
     }
 
+    .footer-ad-slot {
+        width: 100%;
+        min-height: 250px;
+        padding: 1.5rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #0c1016;
+    }
+
+    .footer-ad-slot-inner {
+        width: 300px;
+        height: 250px;
+        max-width: 100%;
+    }
+
+    .footer-leaderboard-slot {
+        width: 100%;
+        min-height: 90px;
+        padding: 1.25rem 1rem;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        background: #0c1016;
+    }
+
+    .footer-leaderboard-inner {
+        width: 728px;
+        height: 90px;
+    }
+
+    @media (max-width: 767px) {
+        .footer-leaderboard-slot { display: none; }
+    }
+
     .footer-inner {
         max-width: 1100px;
         margin: 0 auto;
@@ -140,6 +176,36 @@
     }
 </style>
 
+<div class="footer-leaderboard-slot" aria-label="Advertisement">
+    <div class="footer-leaderboard-inner">
+        <script>
+            atOptions = {
+                'key': '61069575affe36a186c916ada795d73d',
+                'format': 'iframe',
+                'height': 90,
+                'width': 728,
+                'params': {}
+            };
+        </script>
+        <script src="https://www.highperformanceformat.com/61069575affe36a186c916ada795d73d/invoke.js"></script>
+    </div>
+</div>
+
+<div class="footer-ad-slot" aria-label="Advertisement">
+    <div class="footer-ad-slot-inner">
+        <script>
+            atOptions = {
+                'key': '853eebcb6629195c170f6c33e296c986',
+                'format': 'iframe',
+                'height': 250,
+                'width': 300,
+                'params': {}
+            };
+        </script>
+        <script src="https://www.highperformanceformat.com/853eebcb6629195c170f6c33e296c986/invoke.js"></script>
+    </div>
+</div>
+
 <footer class="site-footer">
     <div class="footer-inner">
         <div class="footer-grid">
@@ -234,3 +300,6 @@
         </div>
     </div>
 </footer>
+
+{{-- Social Bar advertising — public pages only --}}
+<script src="https://pl30357940.effectivecpmnetwork.com/92/61/ae/9261ae8ce7f7f8efe31c9bcf419e15f7.js"></script>
