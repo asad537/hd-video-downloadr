@@ -293,6 +293,3 @@
         </div>
     </div>
 </footer>
-
-{{-- Social Bar advertising — public pages only --}}
-<script src="https://pl30357940.effectivecpmnetwork.com/92/61/ae/9261ae8ce7f7f8efe31c9bcf419e15f7.js"></script>
