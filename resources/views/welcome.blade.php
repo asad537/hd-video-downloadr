@@ -438,10 +438,22 @@
         .result { text-align:left; box-shadow:none; }
         .result { padding:0; overflow:hidden; border:1px solid #dce5e2; border-radius:14px; background:#fff; }
         .result-layout { display:grid; grid-template-columns:minmax(230px, .72fr) minmax(0, 1.55fr); }
-        .media-summary { padding:24px; border-right:1px solid var(--line); background:#fff; }
+        .media-summary { padding:24px; border-right:1px solid var(--line); background:#fff; min-width:0; }
         .media-thumb { width:100%; aspect-ratio:16/9; display:block; object-fit:cover; border-radius:10px; background:#edf0f3; }
         .media-platform { margin:18px 0 8px; color:var(--teal); font-size:12px; font-weight:800; text-transform:uppercase; }
-        .media-title { margin:0; font-size:18px; line-height:1.55; }
+        .media-title {
+            margin:0;
+            color:#111827;
+            font-size:18px !important;
+            line-height:1.45;
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:2;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            overflow-wrap:anywhere;
+            word-break:break-word;
+        }
         .media-duration { display:inline-flex; align-items:center; gap:7px; margin-top:14px; padding:8px 11px; border-radius:8px; background:#def8ec; color:#08785f; font-size:14px; font-weight:800; }
         .format-section + .format-section { border-top:1px solid var(--line); }
         .format-heading { display:flex; align-items:center; gap:10px; margin:0; padding:20px 24px; border-bottom:1px solid var(--line); font-size:21px; }
@@ -451,10 +463,11 @@
         .format-badge { justify-self:start; min-width:58px; padding:8px 9px; border-radius:8px; background:#ffaf2f; color:#fff; text-align:center; font-weight:800; }
         .format-quality, .format-size { font-weight:800; color:#303746; }
         .format-size { color:#5e687b; }
-        .download-link { position:relative; display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:142px; min-height:48px; padding:0 16px; border:2px solid #08ba54; border-radius:10px; color:#08a94d; background:#fff; font-weight:800; }
+        .download-link { position:relative; display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:142px; min-height:48px; padding:0 16px; border:2px solid #08ba54; border-radius:10px; color:#08a94d; background:#fff; font-weight:800; font:inherit; line-height:1; }
         .download-link:hover { color:#fff; background:#08ba54; }
         .download-link.is-loading { border-color:#cdd4df; color:#7b8494; background:#f4f6f8; cursor:wait; }
-        .download-arrow { font-size:20px; line-height:1; }
+        .download-link svg, .download-link .download-icon { width:20px; height:20px; flex:0 0 20px; }
+        .download-label { font:inherit; font-weight:inherit; line-height:1; }
         .empty-formats { padding:24px; color:var(--muted); }
         .result-note { margin:0; padding:14px 24px; border-top:1px solid var(--line); background:#fafbfc; color:var(--muted); font-size:12px; }
         .trust-bar { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:#fff; }
@@ -579,7 +592,36 @@
         @media (max-width:860px) { .bento-grid,.bento-grid-r2 { grid-template-columns:1fr; } .bento-grid-r2 { margin-top:0; } .bento-card { min-height:auto; } }
         /* ===== /Bento Grid ===== */
         @media (max-width:860px) { .trust-grid { grid-template-columns:1fr; } .steps-flow { flex-direction:column; align-items:center; gap:40px; } .step:not(:last-child)::after { display:none; } .trust-item { border-right:0; border-bottom:1px solid var(--line); } .trust-item:last-child { border-bottom:0; } .result-layout{grid-template-columns:1fr;} .media-summary{border-right:0; border-bottom:1px solid var(--line);} }
-        @media (max-width:620px) { .hero{padding:48px 0 32px;} .nav{align-items:center; flex-direction:row;} .nav-links a:not(:first-child){display:none;} .brand{font-size:17px;} .download-panel{border-radius:12px;} .url-form{grid-template-columns:1fr;} .button{width:100%;} .platform-strip{gap:8px;} .platform-pill{padding:7px 10px;} .format-row{grid-template-columns:62px 1fr auto; gap:8px; padding:13px 14px;} .format-size{grid-column:2;} .download-link{grid-column:3; grid-row:1 / span 2; min-width:48px; width:48px; padding:0; font-size:0;} .download-arrow{font-size:22px;} .format-heading{padding:17px 14px;} }
+        @media (max-width:620px) {
+            .hero{padding:48px 0 32px;}
+            .nav{align-items:center; flex-direction:row;}
+            .nav-links a:not(:first-child){display:none;}
+            .brand{font-size:17px;}
+            .download-panel{border-radius:12px;}
+            .url-form{grid-template-columns:1fr;}
+            .button{width:100%;}
+            .platform-strip{gap:8px;}
+            .platform-pill{padding:7px 10px;}
+            .result-layout{grid-template-columns:1fr;}
+            .media-summary{padding:18px 16px;}
+            .media-title{
+                font-size:20px !important;
+                line-height:1.32;
+                max-width:100%;
+                display:-webkit-box;
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:2;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                overflow-wrap:anywhere;
+                word-break:break-word;
+            }
+            .format-row{grid-template-columns:62px minmax(0,1fr) auto; gap:8px; padding:13px 14px;}
+            .format-size{grid-column:2; min-width:0; overflow-wrap:anywhere;}
+            .download-link{grid-column:3; grid-row:1 / span 2; min-width:48px; width:48px; padding:0; font-size:0;}
+            .download-link svg, .download-link .download-icon{width:20px;height:20px;flex-basis:20px;}
+            .format-heading{padding:17px 14px;}
+        }
 
         /* SEO Content Section */
         .seo-content-section { padding:48px 0 24px; background:transparent; color:#a0aaba; border-top:1px solid rgba(255,255,255,0.05); }
@@ -1181,7 +1223,22 @@
             .media-thumb { border-radius:16px; }
             .media-play { width:58px; height:58px; font-size:21px; }
             .media-platform { margin-top:18px; font-size:11px; }
-            .media-title { max-width:96%; margin:0 auto; color:#f8fafc; font-size:24px; line-height:1.25; font-weight:900; text-align:center; }
+            .media-title {
+                max-width:100%;
+                margin:0 auto;
+                color:#f8fafc;
+                font-size:20px !important;
+                line-height:1.32;
+                font-weight:900;
+                text-align:center;
+                display:-webkit-box;
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:2;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                overflow-wrap:anywhere;
+                word-break:break-word;
+            }
             .media-duration { margin-top:14px; padding:8px 12px; border-radius:8px; color:#03140f; background:#39e1b6; border:0; font-size:14px; }
             .format-list { background:#0d1117; }
             .format-section { padding:18px 0 6px; }
@@ -1193,8 +1250,9 @@
             .format-quality { grid-column:2; grid-row:1; color:#f8fafc; font-size:14px; font-weight:700; text-align:left; }
             .format-size { grid-column:3; grid-row:1; color:#9da8b7; font-size:12px; text-align:right; padding-right:4px; }
             .download-link { grid-column:4; grid-row:1; width:auto; min-width:0; min-height:32px; margin-top:0; padding:0 12px; border:1px solid #39e1b6; border-radius:6px; color:#39e1b6; background:transparent; font-size:12px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
+            .download-link svg, .download-link .download-icon { width:14px; height:14px; flex:0 0 14px; }
+            .download-label { font-size:12px; }
             .download-link:hover { color:#03140f; background:#39e1b6; }
-            .download-arrow { font-size:14px; margin-right:4px; line-height:1; display:inline-block; }
             .result-note { padding:14px 18px; text-align:center; }
             .blog-page-hero, .platforms-page-hero, .privacy-hero { padding:54px 0 40px; }
             .blog-page-hero h1, .platforms-page-hero h1, .privacy-hero h1 { font-size:clamp(34px, 11vw, 46px); }
@@ -1280,8 +1338,8 @@
                                 @csrf
                                 <input id="video-url-input" name="video_url" type="url" value="{{ old('video_url') }}" placeholder="Paste a video URL here" aria-label="Video URL" required>
                                 <button id="analyze-btn" class="button" type="submit">
-                                    <svg style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                    <span>{{ !empty($homeSettings->hero_button_text) ? $homeSettings->hero_button_text : 'Download' }}</span>
+                                    <svg class="download-icon" style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+                                    <span class="download-label">{{ !empty($homeSettings->hero_button_text) ? $homeSettings->hero_button_text : 'Download' }}</span>
                                 </button>
                             </form>
                             @error('video_url')<div class="error" id="error-container">{{ $message }}</div>@else<div id="error-container" class="error" style="display:none;"></div>@enderror
@@ -1406,7 +1464,7 @@
                         <!-- Step 3: Download -->
                         <div class="step">
                             <div class="step-icon-box" aria-hidden="true">
-                                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                <svg class="download-icon" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
                             </div>
                             <h3>3. Download</h3>
                             <p>Choose your preferred resolution and format, then click download to save it to your device.</p>
@@ -1818,7 +1876,7 @@
             } finally {
                 if (analyzeBtn) {
                     analyzeBtn.disabled = false;
-                    analyzeBtn.innerHTML = '<svg style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Download</span>';
+                    analyzeBtn.innerHTML = '<svg class="download-icon" style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Download</span>';
                 }
             }
         }

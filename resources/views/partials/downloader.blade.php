@@ -519,7 +519,24 @@
         transition: all 0.2s;
     }
 
-    .dl-btn i { color: #FFC107; font-size: 1rem; }
+    .dl-btn,
+    .dl-btn span,
+    .dl-btn .download-label {
+        font: inherit;
+        line-height: 1;
+    }
+
+    .dl-btn .download-label {
+        font-weight: 700;
+    }
+
+    .dl-btn svg,
+    .dl-btn .download-icon {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 18px;
+        color: #FFC107;
+    }
     .dl-btn:hover { background: #FFF9C4; }
 
     /* ── Mobile Responsive ── */
@@ -625,6 +642,17 @@
             font-size: 0.75rem;
             flex-shrink: 0;
             white-space: nowrap;
+        }
+
+        .dl-btn .download-label {
+            font-size: 0.75rem;
+        }
+
+        .dl-btn svg,
+        .dl-btn .download-icon {
+            width: 16px;
+            height: 16px;
+            flex-basis: 16px;
         }
 
         .tutorial-dropdown {
@@ -1024,7 +1052,7 @@
                     <span class="format-badge">${m.extension.toUpperCase()}</span>
                     <span class="quality-text">${m.quality}${noAudioBadge}${speedBadge}</span>
                     <span class="size-text">${m.size || ''}</span>
-                    <a href="${dlUrl}" class="dl-btn"><i class="fas fa-download"></i> Download</a>
+                    <a href="${dlUrl}" class="dl-btn"><svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span class="download-label">Download</span></a>
                 `;
 
                 const dlBtn = row.querySelector('.dl-btn');
