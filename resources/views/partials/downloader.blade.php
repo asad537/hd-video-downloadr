@@ -517,6 +517,8 @@
         width: fit-content;
         justify-self: end;
         transition: all 0.2s;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
     .dl-btn,

@@ -463,11 +463,11 @@
         .format-badge { justify-self:start; min-width:58px; padding:8px 9px; border-radius:8px; background:#ffaf2f; color:#fff; text-align:center; font-weight:800; }
         .format-quality, .format-size { font-weight:800; color:#303746; }
         .format-size { color:#5e687b; }
-        .download-link { position:relative; display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:142px; min-height:48px; padding:0 16px; border:2px solid #08ba54; border-radius:10px; color:#08a94d; background:#fff; font-weight:800; font:inherit; line-height:1; }
+        .download-link { position:relative; display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:142px; min-height:48px; padding:0 16px; border:2px solid #08ba54; border-radius:10px; color:#08a94d; background:#fff; font-weight:800; font:inherit; line-height:1; white-space:nowrap; flex-shrink:0; }
         .download-link:hover { color:#fff; background:#08ba54; }
         .download-link.is-loading { border-color:#cdd4df; color:#7b8494; background:#f4f6f8; cursor:wait; }
         .download-link svg, .download-link .download-icon { width:20px; height:20px; flex:0 0 20px; }
-        .download-label { font:inherit; font-weight:inherit; line-height:1; }
+        .download-label { font:inherit; font-weight:inherit; line-height:1; display:inline-block; }
         .empty-formats { padding:24px; color:var(--muted); }
         .result-note { margin:0; padding:14px 24px; border-top:1px solid var(--line); background:#fafbfc; color:var(--muted); font-size:12px; }
         .trust-bar { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:#fff; }
@@ -616,9 +616,11 @@
                 overflow-wrap:anywhere;
                 word-break:break-word;
             }
-            .format-row{grid-template-columns:62px minmax(0,1fr) auto; gap:8px; padding:13px 14px;}
-            .format-size{grid-column:2; min-width:0; overflow-wrap:anywhere;}
-            .download-link{grid-column:3; grid-row:1 / span 2; min-width:48px; width:48px; padding:0; font-size:0;}
+            .format-row{grid-template-columns:56px minmax(0,1fr) auto; gap:6px 8px; padding:12px 14px 14px; align-items:center;}
+            .format-badge{grid-column:1; grid-row:1; align-self:center;}
+            .format-quality{grid-column:2; grid-row:1; min-width:0; line-height:1.05; text-align:center; justify-self:center; font-size:15px; font-weight:800;}
+            .format-size{grid-column:3; grid-row:1; min-width:max-content; white-space:nowrap; font-size:12px; line-height:1; overflow-wrap:normal; text-align:center; justify-self:center; color:#9aa6b4;}
+            .download-link{grid-column:1 / -1; grid-row:2; min-width:0; width:100%; height:42px; padding:0 12px; font-size:0; white-space:nowrap; justify-self:stretch; justify-content:center; margin-top:6px; border-radius:10px;}
             .download-link svg, .download-link .download-icon{width:20px;height:20px;flex-basis:20px;}
             .format-heading{padding:17px 14px;}
         }
@@ -1245,11 +1247,11 @@
             .format-section + .format-section { border-top:1px solid #27313c; }
             .format-heading { gap:12px; padding:0 18px 14px; border-bottom:1px solid #27313c; background:transparent; color:#f8fafc; font-size:24px; font-weight:900; }
             .format-heading-mark { width:32px; height:32px; border-radius:8px; color:#03140f; background:#39e1b6; }
-            .format-row { grid-template-columns:auto 1fr auto auto; gap:10px; min-height:60px; padding:12px 16px; background:#0d1117; border-bottom:1px solid #1f2832; align-items:center; }
-            .format-badge { grid-column:1; grid-row:1; min-width:auto; padding:4px 8px; border-radius:6px; color:#03140f; background:#39e1b6; font-size:12px; font-weight:800; display:inline-block; text-align:center; }
-            .format-quality { grid-column:2; grid-row:1; color:#f8fafc; font-size:14px; font-weight:700; text-align:left; }
-            .format-size { grid-column:3; grid-row:1; color:#9da8b7; font-size:12px; text-align:right; padding-right:4px; }
-            .download-link { grid-column:4; grid-row:1; width:auto; min-width:0; min-height:32px; margin-top:0; padding:0 12px; border:1px solid #39e1b6; border-radius:6px; color:#39e1b6; background:transparent; font-size:12px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
+            .format-row { grid-template-columns:56px minmax(0,1fr); gap:4px 8px; min-height:0; padding:12px 16px; background:#0d1117; border-bottom:1px solid #1f2832; align-items:start; }
+            .format-badge { grid-column:1; grid-row:1 / span 2; min-width:auto; padding:4px 8px; border-radius:6px; color:#03140f; background:#39e1b6; font-size:12px; font-weight:800; display:inline-block; text-align:center; }
+            .format-quality { grid-column:2; grid-row:1; color:#f8fafc; font-size:14px; font-weight:700; text-align:left; line-height:1.1; min-width:0; }
+            .format-size { grid-column:2; grid-row:2; color:#9da8b7; font-size:12px; text-align:left; padding-right:0; line-height:1; white-space:nowrap; min-width:0; }
+            .download-link { grid-column:1 / -1; grid-row:3; width:100%; min-width:0; min-height:32px; margin-top:4px; padding:0 12px; border:1px solid #39e1b6; border-radius:6px; color:#39e1b6; background:transparent; font-size:12px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap; }
             .download-link svg, .download-link .download-icon { width:14px; height:14px; flex:0 0 14px; }
             .download-label { font-size:12px; }
             .download-link:hover { color:#03140f; background:#39e1b6; }
