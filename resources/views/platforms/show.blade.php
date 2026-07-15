@@ -409,7 +409,15 @@
         .empty-formats { padding:24px; color:#9aa5b5; }
         .result-note { margin:0; padding:14px 24px; color:#7e899a; background:#10161d; border-top:1px solid #29323e; font-size:12px !important; }
         @media (max-width:860px) { .result-layout{grid-template-columns:1fr;} .media-summary{border-right:0;border-bottom:1px solid #29323e;} }
-        @media (max-width:620px) { .format-row{grid-template-columns:58px 1fr auto;gap:8px;padding:13px 14px;} .format-size{grid-column:2;} .download-link{grid-column:3;grid-row:1 / span 2;min-width:48px;width:48px;padding:0;font-size:0;} .download-arrow{font-size:22px;} .format-heading{padding:17px 14px;} }
+        @media (max-width:620px) {
+            .format-row{grid-template-columns:56px minmax(0,1fr) auto; gap:6px 8px; padding:12px 14px 14px; align-items:center;}
+            .format-badge{grid-column:1; grid-row:1; align-self:center;}
+            .format-quality{grid-column:2; grid-row:1; min-width:0; line-height:1.05; text-align:center; justify-self:center; font-size:15px; font-weight:800;}
+            .format-size{grid-column:3; grid-row:1; min-width:max-content; white-space:nowrap; font-size:12px; line-height:1; overflow-wrap:normal; text-align:center; justify-self:center; color:#9aa6b4;}
+            .download-link{grid-column:1 / -1; grid-row:2; min-width:0; width:100%; height:42px; padding:0 12px; font-size:0; white-space:nowrap; justify-self:stretch; justify-content:center; margin-top:6px; border-radius:10px;}
+            .download-arrow{font-size:22px;}
+            .format-heading{padding:17px 14px;}
+        }
         .button {
             min-width: 165px; min-height: 62px; border-radius: 12px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #39e1b6, #13b98f); color: #04130f; font-weight: 800; font-size: 16px;
@@ -885,11 +893,11 @@
             .format-list { background:#0d1117; }
             .format-section { padding:18px 0 6px; }
             .format-heading { gap:12px; padding:0 18px 14px; color:#f8fafc; background:transparent; border-bottom:1px solid #27313c; font-size:24px !important; font-weight:900; }
-            .format-row { grid-template-columns:auto 1fr auto auto; gap:10px; min-height:60px; padding:12px 16px; background:#0d1117; border-bottom:1px solid #1f2832; }
-            .format-badge { grid-column:1; grid-row:1; min-width:auto; padding:4px 8px; color:#03140f; background:#39e1b6; border-radius:6px; font-size:12px; }
-            .format-quality { grid-column:2; grid-row:1; color:#f8fafc; font-size:14px; text-align:left; }
-            .format-size { grid-column:3; grid-row:1; padding-right:4px; color:#9da8b7; font-size:12px; text-align:right; }
-            .download-link { grid-column:4; grid-row:1; width:auto; min-width:0; min-height:32px; padding:0 12px; color:#39e1b6; background:transparent; border:1px solid #39e1b6; border-radius:6px; font-size:12px; }
+            .format-row { grid-template-columns:56px minmax(0,1fr) auto; gap:6px 8px; min-height:0; padding:12px 16px 14px; background:#0d1117; border-bottom:1px solid #1f2832; align-items:center; }
+            .format-badge { grid-column:1; grid-row:1 / span 2; min-width:auto; padding:4px 8px; color:#03140f; background:#39e1b6; border-radius:6px; font-size:12px; align-self:center; }
+            .format-quality { grid-column:2; grid-row:1; color:#f8fafc; font-size:15px; font-weight:800; text-align:center; min-width:0; line-height:1.05; justify-self:center; }
+            .format-size { grid-column:2; grid-row:2; padding-right:0; color:#9da8b7; font-size:12px; text-align:center; min-width:0; line-height:1; white-space:nowrap; justify-self:center; }
+            .download-link { grid-column:1 / -1; grid-row:3; width:100%; min-width:0; min-height:42px; padding:0 12px; color:#39e1b6; background:transparent; border:1px solid #39e1b6; border-radius:10px; font-size:12px; margin-top:6px; justify-content:center; white-space:nowrap; }
             .download-arrow { display:inline-block; margin-right:4px; font-size:14px; }
             .result-note { padding:14px 18px; text-align:center; }
 
