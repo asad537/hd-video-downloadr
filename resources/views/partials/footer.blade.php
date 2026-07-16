@@ -227,3 +227,82 @@
         </div>
     </div>
 </footer>
+
+<style>
+    #scrollToTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 9999;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #39e1b6, #13b98f);
+        color: #04130f;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(57,225,182,0.3);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #scrollToTopBtn.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    #scrollToTopBtn:hover {
+        box-shadow: 0 6px 20px rgba(57,225,182,0.5);
+        transform: translateY(-2px);
+    }
+
+    #scrollToTopBtn svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    @media (max-width: 600px) {
+        #scrollToTopBtn {
+            bottom: 20px;
+            right: 20px;
+            width: 42px;
+            height: 42px;
+        }
+        #scrollToTopBtn svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+</style>
+
+<button id="scrollToTopBtn" aria-label="Scroll to top" title="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        window.addEventListener("scroll", function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add("show");
+            } else {
+                scrollToTopBtn.classList.remove("show");
+            }
+        });
+        scrollToTopBtn.addEventListener("click", function() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    });
+</script>

@@ -34,9 +34,9 @@
                             <span class="format-quality">{{ strtoupper($format['quality']) }}</span>
                             <span class="format-size">{{ $format['size'] }}</span>
                             @if($downloadUrl)
-                                <a class="download-link direct-download" href="{{ $downloadUrl }}"><span class="download-arrow">↓</span>Download</a>
+                                <a class="download-link direct-download" href="{{ $downloadUrl }}"><span class="download-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg></span>Download</a>
                             @elseif($prepareUrl)
-                                <button class="download-link prepare-download" type="button" data-prepare-url="{{ $prepareUrl }}"><span class="download-arrow">↓</span>Download</button>
+                                <button class="download-link prepare-download" type="button" data-prepare-url="{{ $prepareUrl }}"><span class="download-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg></span>Download</button>
                             @endif
                         </div>
                     @endforeach
@@ -58,9 +58,9 @@
                             <span class="format-quality">{{ strtoupper($format['quality']) }}</span>
                             <span class="format-size">{{ $format['size'] }}</span>
                             @if($downloadUrl)
-                                <a class="download-link direct-download" href="{{ $downloadUrl }}"><span class="download-arrow">↓</span>Download</a>
+                                <a class="download-link direct-download" href="{{ $downloadUrl }}"><span class="download-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg></span>Download</a>
                             @elseif($prepareUrl)
-                                <button class="download-link prepare-download" type="button" data-prepare-url="{{ $prepareUrl }}"><span class="download-arrow">↓</span>Download</button>
+                                <button class="download-link prepare-download" type="button" data-prepare-url="{{ $prepareUrl }}"><span class="download-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg></span>Download</button>
                             @endif
                         </div>
                     @endforeach

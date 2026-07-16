@@ -2,7 +2,7 @@
 <header class="topbar">
     <nav class="wrap nav">
         <a class="brand" href="{{ route('home') }}" aria-label="HDVideoDownloader home">
-            <img src="/images/Logo_Website.png" alt="HD Video Downloader" width="190" height="60" style="height:60px;width:auto;object-fit:contain;">
+            <img src="/images/Logo_Website.png" alt="HD Video Downloader" width="190" height="60" style="height:75px;width:auto;object-fit:contain;">
         </a>
         <button class="menu-toggle" aria-label="Toggle menu"><span></span></button>
         <div class="nav-links">
@@ -26,11 +26,31 @@
                             $icoName = strtolower($mp->name);
                             if($icoName == 'twitter' || $icoName == 'x') $icoName = 'x';
                             
+                            // Original brand colors for each platform
+                            $brandColors = [
+                                'youtube' => 'ff0000',
+                                'facebook' => '1877f2',
+                                'instagram' => 'e4405f',
+                                'tiktok' => '000000',
+                                'x' => '000000',
+                                'twitter' => '1da1f2',
+                                'vimeo' => '1ab7ea',
+                                'dailymotion' => '0066dc',
+                                'pinterest' => 'e60023',
+                                'linkedin' => '0a66c2',
+                                'snapchat' => 'fffc00',
+                                'reddit' => 'ff4500',
+                                'tumblr' => '36465d',
+                                'whatsapp' => '25d366',
+                            ];
+                            
+                            $iconColor = $brandColors[strtolower($icoName)] ?? '39e1b6'; // fallback to teal
+                            
                             if(!empty($mp->icon) && strpos($mp->icon, 'fa-') !== false) {
                                 $mpIconHtml = '<i class="'.$mp->icon.'"></i>';
                             } else {
                                 $iconSlug = (!empty($mp->icon) && strpos($mp->icon, 'fa-') === false) ? strtolower($mp->icon) : $icoName;
-                                $mpIconHtml = '<img src="https://cdn.simpleicons.org/'.$iconSlug.'/39e1b6" alt="" width="18" height="18" style="display:block;">';
+                                $mpIconHtml = '<img src="https://cdn.simpleicons.org/'.$iconSlug.'/'.$iconColor.'" alt="" width="18" height="18" style="display:block;">';
                             }
                             $hasKids = $mp->children->isNotEmpty();
                         @endphp
@@ -50,11 +70,14 @@
                                     $cIcoNameFallback = !empty($child->icon) ? strtolower($child->name) : strtolower($mp->name);
                                     if($cIcoNameFallback == 'twitter' || $cIcoNameFallback == 'x') $cIcoNameFallback = 'x';
 
+                                    // Child icon color (use parent's color if not found)
+                                    $cIconColor = $brandColors[strtolower($cIcoNameFallback)] ?? $iconColor;
+
                                     if(!empty($cIconSource) && strpos($cIconSource, 'fa-') !== false) {
                                         $cIconHtml = '<i class="'.$cIconSource.'"></i>';
                                     } else {
                                         $cIconSlug = (!empty($cIconSource) && strpos($cIconSource, 'fa-') === false) ? strtolower($cIconSource) : $cIcoNameFallback;
-                                        $cIconHtml = '<img src="https://cdn.simpleicons.org/'.$cIconSlug.'/39e1b6" alt="" width="14" height="14" style="display:block;">';
+                                        $cIconHtml = '<img src="https://cdn.simpleicons.org/'.$cIconSlug.'/'.$cIconColor.'" alt="" width="14" height="14" style="display:block;">';
                                     }
                                 @endphp
                                 <a href="{{ route('platforms.show', $child->slug) }}" class="mega-item mega-child-item">

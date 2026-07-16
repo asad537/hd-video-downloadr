@@ -372,12 +372,14 @@
         .url-form { display: grid; gap: 8px; grid-template-columns: 1fr; }
         .url-form input {
             min-height: 62px; padding: 18px 20px;
-            border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;
-            background: rgba(255,255,255,0.02); color: #fff;
+            border: 1px solid #324155; border-radius: 12px;
+            background: #16202c; color: #f8fafc;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            font-size: 17px;
         }
-        .url-form input::placeholder { color: #687386; }
-        .url-form input:hover { background: #0d131a; border-color: #394555; }
-        .url-form input:focus { color: #fff; background: #0b1016; border-color: #39e1b6; box-shadow: 0 0 0 4px rgba(57,225,182,0.11); outline: none; }
+        .url-form input::placeholder { color: #8292a8; }
+        .url-form input:hover { background: #1b2635; border-color: #40526b; }
+        .url-form input:focus { color: #fff; background: #16202c; border-color: #39e1b6; box-shadow: 0 0 0 4px rgba(57,225,182,0.15); outline: none; }
         @keyframes resultFadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
         @keyframes spin { to { transform:rotate(360deg); } }
         .result-fade-in { animation:resultFadeIn .4s ease-out both; }
@@ -695,22 +697,35 @@
 
         /* ── Platform Content ── */
         .content-section {
-            padding: 12px 0 2rem;
+            padding: 0px 0 2rem;
             background: #090c11; /* Match page bg */
         }
         
         .editor-content {
             max-width: 820px;
             margin: 0 auto;
-            color: #a0aaba !important;
+            color: #f8fafc !important;
             font-size: 1.05rem;
             line-height: 1.8;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .editor-content {
+                padding: 0 1rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .editor-content {
+                padding: 0 0.75rem;
+            }
         }
 
         .editor-content h2 {
             margin: 42px 0 14px;
-            color: #fff;
+            color: #ffffff !important;
             font-size: 28px;
             line-height: 1.25;
             font-weight: 800;
@@ -723,7 +738,7 @@
 
         .editor-content h3 {
             margin: 32px 0 14px;
-            color: #fff;
+            color: #ffffff !important;
             font-size: 22px;
             line-height: 1.3;
             font-weight: 700;
@@ -731,7 +746,7 @@
 
         .editor-content p {
             margin: 0 0 20px;
-            color: #a0aaba;
+            color: #e2e8f0 !important;
         }
 
         .editor-content ul, .editor-content ol {
@@ -889,8 +904,8 @@
             .format-badge { grid-column:1; grid-row:1; min-width:auto; padding:4px 8px; color:#03140f; background:#39e1b6; border-radius:6px; font-size:12px; }
             .format-quality { grid-column:2; grid-row:1; color:#f8fafc; font-size:14px; text-align:left; }
             .format-size { grid-column:3; grid-row:1; padding-right:4px; color:#9da8b7; font-size:12px; text-align:right; }
-            .download-link { grid-column:4; grid-row:1; width:auto; min-width:0; min-height:32px; padding:0 12px; color:#39e1b6; background:transparent; border:1px solid #39e1b6; border-radius:6px; font-size:12px; }
-            .download-arrow { display:inline-block; margin-right:4px; font-size:14px; }
+            .download-link { grid-column:4; grid-row:1; width:auto; min-width:130px; min-height:46px; padding:0 16px; color:#34d399; background:#0d1418; border:2px solid #24c98f; border-radius:10px; font-size:16px; font-weight:800; display:inline-flex; align-items:center; justify-content:center; gap:6px; }
+            .download-arrow { display:inline-block; margin-right:4px; font-size:18px; line-height:1; }
             .result-note { padding:14px 18px; text-align:center; }
 
             .why-choose-section {
@@ -1070,6 +1085,20 @@
                         });
                     }
                 }
+
+                // Platform FAQ Accordion (same logic as home page)
+                const platformFaqs = document.querySelectorAll('.platform-faq-item');
+                platformFaqs.forEach(faq => {
+                    faq.addEventListener('toggle', function(e) {
+                        if (this.open) {
+                            platformFaqs.forEach(otherFaq => {
+                                if (otherFaq !== this) {
+                                    otherFaq.removeAttribute('open');
+                                }
+                            });
+                        }
+                    });
+                });
             });
         </script>
     @endif
@@ -1089,10 +1118,7 @@
                     @foreach ($faqs as $faq)
                     <details class="platform-faq-item" name="platform_faq">
                         <summary class="platform-faq-question">
-                            <span>{{ $faq->question }}</span>
-                            <div class="faq-toggle-icon">
-                                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                            </div>
+                            {{ $faq->question }}
                         </summary>
                         <div class="platform-faq-answer">
                             <p>{{ $faq->answer }}</p>
@@ -1103,114 +1129,118 @@
             </div>
         </section>
         <style>
+            /* ── Platform FAQ Section (Home Page Style) ── */
             .platform-faq-section {
-                background: #090c11;
-                padding: 80px 0 100px;
-                border-top: 1px solid rgba(255,255,255,0.05);
+                padding: 48px 0 64px;
+                background: #0d1117;
+                border-top: 1px solid #202832;
             }
             .platform-faq-wrap {
-                max-width: 820px;
+                max-width: 880px;
                 margin: 0 auto;
-                padding: 0 2rem;
+                padding: 0 18px;
             }
             .platform-faq-header {
                 text-align: center;
-                margin-bottom: 3rem;
+                margin-bottom: 32px;
             }
             .platform-faq-header h2 {
                 font-size: clamp(28px, 4vw, 40px);
                 font-weight: 800;
-                color: #fff;
-                margin-bottom: 12px;
-                line-height: 1.2;
+                color: #f8fafc;
+                margin: 0 0 8px;
             }
-            .platform-faq-header h2 span { color: #39e1b6; }
+            .platform-faq-header h2 span { 
+                color: #39e1b6; 
+            }
             .platform-faq-header p {
-                color: #a0aaba;
-                font-size: 1rem;
+                color: #9da8b8;
+                font-size: 16px;
+                margin: 0;
             }
             .platform-faq-list {
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
+                gap: 10px;
             }
             .platform-faq-item {
-                background: rgba(255,255,255,0.03);
-                border: 1px solid rgba(255,255,255,0.07);
-                border-radius: 16px;
+                margin-bottom: 0;
                 overflow: hidden;
-                transition: border-color 0.25s ease, background 0.25s ease;
+                background: #121820;
+                border: 1px solid #293341;
+                border-radius: 12px;
+                transition: border-color .2s ease, background .2s ease;
             }
-            .platform-faq-item:hover {
-                border-color: rgba(57,225,182,0.2);
-                background: rgba(57,225,182,0.03);
-            }
+            .platform-faq-item:hover,
             .platform-faq-item[open] {
-                border-color: rgba(57,225,182,0.3);
-                background: rgba(57,225,182,0.04);
+                background: #151d26;
+                border-color: rgba(57,225,182,.38);
             }
             .platform-faq-question {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 1rem;
-                padding: 1.25rem 1.5rem;
+                padding: 16px 18px;
+                color: #edf2f7;
+                text-align: left;
                 cursor: pointer;
                 list-style: none;
-                color: #e2e8f0;
                 font-weight: 700;
-                font-size: 1rem;
-                user-select: none;
-            }
-            .platform-faq-question::-webkit-details-marker { display: none; }
-            .platform-faq-item[open] .platform-faq-question { color: #39e1b6; }
-            .faq-toggle-icon {
-                width: 28px;
-                height: 28px;
-                border-radius: 8px;
-                background: rgba(255,255,255,0.05);
-                border: 1px solid rgba(255,255,255,0.08);
+                font-size: 16px;
                 display: flex;
                 align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-                transition: all 0.25s ease;
+                justify-content: space-between;
             }
-            .faq-toggle-icon svg {
-                width: 14px;
-                height: 14px;
-                stroke: #a0aaba;
-                fill: none;
-                stroke-width: 2.5;
-                stroke-linecap: round;
-                stroke-linejoin: round;
-                transition: transform 0.25s ease, stroke 0.25s ease;
+            .platform-faq-question::-webkit-details-marker { 
+                display: none; 
             }
-            .platform-faq-item[open] .faq-toggle-icon {
-                background: rgba(57,225,182,0.12);
-                border-color: rgba(57,225,182,0.3);
+            .platform-faq-question::after {
+                content: '+';
+                color: #39e1b6;
+                font-size: 22px;
+                margin-left: 18px;
+                font-weight: 700;
             }
-            .platform-faq-item[open] .faq-toggle-icon svg {
-                transform: rotate(180deg);
-                stroke: #39e1b6;
+            .platform-faq-item[open] .platform-faq-question::after {
+                content: '−';
             }
             .platform-faq-answer {
-                padding: 0 1.5rem 1.5rem;
-                color: #a0aaba;
-                font-size: 0.95rem;
-                line-height: 1.75;
+                padding: 0 52px 16px 18px;
+                text-align: left;
             }
-            .platform-faq-answer p { margin: 0; }
+            .platform-faq-answer p {
+                margin: 0;
+                color: #9da8b8;
+                line-height: 1.7;
+                font-size: 14px;
+            }
+            .faq-toggle-icon {
+                display: none;
+            }
 
             @media (max-width: 768px) {
-                .platform-faq-section { padding: 32px 0 12px; }
-                .platform-faq-wrap { padding: 0 16px; }
-                .platform-faq-header { margin-bottom: 22px; }
-                .platform-faq-header h2 { margin: 0 0 8px; font-size: 28px !important; line-height: 1.15; }
-                .platform-faq-header p { margin: 0; font-size: 14px !important; line-height: 1.5; }
-                .platform-faq-list { gap: 10px; }
-                .platform-faq-question { padding: 16px; font-size: 15px; }
-                .platform-faq-answer { padding: 0 16px 16px; font-size: 14px; }
+                .platform-faq-section { 
+                    padding: 32px 0 48px; 
+                }
+                .platform-faq-wrap { 
+                    padding: 0 12px; 
+                }
+                .platform-faq-header { 
+                    margin-bottom: 16px; 
+                }
+                .platform-faq-header h2 { 
+                    font-size: 28px; 
+                }
+                .platform-faq-header p { 
+                    font-size: 14px; 
+                }
+                .platform-faq-question { 
+                    padding: 14px 15px; 
+                    font-size: 14px; 
+                }
+                .platform-faq-answer { 
+                    padding: 0 40px 14px 15px; 
+                }
+                .platform-faq-answer p { 
+                    font-size: 13px; 
+                }
             }
         </style>
     @endif
