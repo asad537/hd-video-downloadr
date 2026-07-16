@@ -624,6 +624,7 @@
         }
     </style>
 
+    @include('partials.adsense-head')
 </head>
 <body class="has-fixed-header">
     @include('partials.navbar')
@@ -874,5 +875,4 @@
 
 </body>
 </html>
-
 

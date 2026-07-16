@@ -1,7 +1,18 @@
 <div class="result">
     @php
-        $videoFormats = collect($result['resources'] ?? [])->where('category', 'video');
-        $audioFormats = collect($result['resources'] ?? [])->where('category', 'audio');
+        $qualityNumber = function ($format) {
+            $quality = (string) ($format['quality'] ?? '');
+            preg_match('/\d+(?:\.\d+)?/', $quality, $matches);
+            return isset($matches[0]) ? (float) $matches[0] : 0;
+        };
+        $videoFormats = collect($result['resources'] ?? [])
+            ->where('category', 'video')
+            ->sortByDesc($qualityNumber)
+            ->values();
+        $audioFormats = collect($result['resources'] ?? [])
+            ->where('category', 'audio')
+            ->sortByDesc($qualityNumber)
+            ->values();
         $duration = (int) ($result['duration'] ?? 0);
     @endphp
     <div class="result-layout">
@@ -34,9 +45,9 @@
                             <span class="format-quality">{{ strtoupper($format['quality']) }}</span>
                             <span class="format-size">{{ $format['size'] }}</span>
                             @if($downloadUrl)
-                                <a class="download-link direct-download" href="{{ $downloadUrl }}"><span class="download-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg></span>Download</a>
+                                <a class="download-link direct-download" href="{{ $downloadUrl }}"><svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span class="download-label">Download</span></a>
                             @elseif($prepareUrl)
-                                <button class="download-link prepare-download" type="button" data-prepare-url="{{ $prepareUrl }}"><span class="download-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg></span>Download</button>
+                                <button class="download-link prepare-download" type="button" data-prepare-url="{{ $prepareUrl }}"><svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span class="download-label">Download</span></button>
                             @endif
                         </div>
                     @endforeach
@@ -58,9 +69,9 @@
                             <span class="format-quality">{{ strtoupper($format['quality']) }}</span>
                             <span class="format-size">{{ $format['size'] }}</span>
                             @if($downloadUrl)
-                                <a class="download-link direct-download" href="{{ $downloadUrl }}"><span class="download-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg></span>Download</a>
+                                <a class="download-link direct-download" href="{{ $downloadUrl }}"><svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span class="download-label">Download</span></a>
                             @elseif($prepareUrl)
-                                <button class="download-link prepare-download" type="button" data-prepare-url="{{ $prepareUrl }}"><span class="download-arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"></line><polyline points="18 14 12 20 6 14"></polyline></svg></span>Download</button>
+                                <button class="download-link prepare-download" type="button" data-prepare-url="{{ $prepareUrl }}"><svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span class="download-label">Download</span></button>
                             @endif
                         </div>
                     @endforeach
