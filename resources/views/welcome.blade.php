@@ -443,7 +443,7 @@
         .media-platform { margin:18px 0 8px; color:var(--teal); font-size:12px; font-weight:800; text-transform:uppercase; }
         .media-title {
             margin:0;
-            color:#111827;
+            color:#fff;
             font-size:18px !important;
             line-height:1.45;
             display:-webkit-box;
@@ -629,7 +629,7 @@
         .seo-content-section { padding:0px 0 24px; background:transparent; color:#a0aaba; border-top:1px solid rgba(255,255,255,0.05); }
         .seo-content-wrap { max-width:930px; margin:0 auto; padding:0 20px; text-align:left; }
         .seo-heading { font-size:clamp(26px, 4vw, 36px); font-weight:900; color:#fff; margin-bottom:24px; line-height:1.3; }
-        .seo-text-container { position:relative; color:#a0aaba; line-height:1.85; font-size:16px; }
+        .seo-text-container { position:relative; color:#a0aaba; line-height:1.85; font-size:16px; text-align:justify; }
         .seo-text-content p { margin-bottom:18px; }
         .seo-text-content p:last-child { margin-bottom:0; }
         .seo-text-content:not(.expanded) > *:nth-child(n+3) { display:none; }
