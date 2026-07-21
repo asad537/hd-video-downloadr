@@ -404,10 +404,11 @@
         .format-badge { justify-self:start; min-width:58px; padding:8px 9px; color:#251702; background:linear-gradient(135deg,#ffc45b,#f09b27); border-radius:8px; text-align:center; font-weight:800; }
         .format-quality { color:#edf1f6; font-weight:800; }
         .format-size { color:#9aa5b5; font-weight:800; }
-        .download-link { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:142px; min-height:48px; padding:0 16px; color:#34d399; background:#0d1418; border:2px solid #24c98f; border-radius:10px; font-weight:800; text-decoration:none; cursor:pointer; }
+        .download-link { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:142px; min-height:48px; padding:0 16px; color:#34d399; background:#0d1418; border:2px solid #24c98f; border-radius:10px; font-weight:800; font:inherit; line-height:1; white-space:nowrap; flex-shrink:0; text-decoration:none; cursor:pointer; }
         .download-link:hover { color:#03140f; background:#34d399; }
         .download-link.is-loading { color:#7d8796; background:#171c23; border-color:#36404d; cursor:wait; }
-        .download-arrow { font-size:20px; line-height:1; }
+        .download-link svg, .download-link .download-icon { width:20px; height:20px; flex:0 0 20px; }
+        .download-label { font:inherit; font-weight:inherit; line-height:1; display:inline-block; }
         .empty-formats { padding:24px; color:#9aa5b5; }
         .result-note { margin:0; padding:14px 24px; color:#7e899a; background:#10161d; border-top:1px solid #29323e; font-size:12px !important; }
         @media (max-width:860px) { .result-layout{grid-template-columns:1fr;} .media-summary{border-right:0;border-bottom:1px solid #29323e;} }
@@ -417,7 +418,7 @@
             .format-quality{grid-column:2; grid-row:1; min-width:0; line-height:1.05; text-align:center; justify-self:center; font-size:15px; font-weight:800;}
             .format-size{grid-column:3; grid-row:1; min-width:max-content; white-space:nowrap; font-size:12px; line-height:1; overflow-wrap:normal; text-align:center; justify-self:center; color:#9aa6b4;}
             .download-link{grid-column:1 / -1; grid-row:2; min-width:0; width:100%; height:42px; padding:0 12px; font-size:0; white-space:nowrap; justify-self:stretch; justify-content:center; margin-top:6px; border-radius:10px;}
-            .download-arrow{font-size:22px;}
+            .download-link svg, .download-link .download-icon{width:20px;height:20px;flex-basis:20px;}
             .format-heading{padding:17px 14px;}
         }
         .button {
