@@ -19,3 +19,16 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# Serve crawler files directly without starting Laravel sessions.
+<IfModule mod_mime.c>
+    AddType application/xml .xml
+</IfModule>
+
+<IfModule mod_headers.c>
+    <Files "sitemap.xml">
+        Header always set Cache-Control "public, max-age=3600"
+        Header always set X-Content-Type-Options "nosniff"
+        Header always unset Set-Cookie
+    </Files>
+</IfModule>
