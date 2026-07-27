@@ -6,3 +6,4 @@ Disallow: /download-file
 Disallow: /prepare-plugin-download
 
 Sitemap: https://hdvideodownloader.online/sitemap.xml
+Sitemap: https://hdvideodownloader.online/pages-sitemap.xml

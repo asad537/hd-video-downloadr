@@ -34,9 +34,9 @@
 </IfModule>
 
 <IfModule mod_headers.c>
-    <Files "sitemap.xml">
+    <FilesMatch "^(?:pages-)?sitemap\.xml$">
         Header always set Cache-Control "public, max-age=3600"
         Header always set X-Content-Type-Options "nosniff"
         Header always unset Set-Cookie
-    </Files>
+    </FilesMatch>
 </IfModule>
