@@ -19,7 +19,6 @@
 @foreach ($blogs as $blog)
     <url>
         <loc>{{ route('blog.show', $blog->slug) }}</loc>
-        @if($blog->updated_at)<lastmod>{{ $blog->updated_at->toAtomString() }}</lastmod>@endif
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -27,7 +26,6 @@
 @foreach ($legacyBlogs as $blog)
     <url>
         <loc>{{ route('blog.show', $blog->slug) }}</loc>
-        @if($blog->updated_at)<lastmod>{{ $blog->updated_at->toAtomString() }}</lastmod>@endif
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
