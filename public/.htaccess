@@ -5,6 +5,14 @@
 
     RewriteEngine On
 
+    # Canonicalize direct requests that expose Laravel's public directory.
+    # Internal rewrites retain the original clean THE_REQUEST and are unaffected.
+    RewriteCond %{THE_REQUEST} \s/+public/index\.php(?:[?\s]) [NC]
+    RewriteRule ^index\.php$ https://hdvideodownloader.online/ [R=301,L,NE]
+
+    RewriteCond %{THE_REQUEST} \s/+public(?:/([^?\s]*))?[?\s] [NC]
+    RewriteRule ^ https://hdvideodownloader.online/%1 [R=301,L,NE]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
