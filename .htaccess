@@ -1,6 +1,14 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Use one canonical hostname everywhere.
+    RewriteCond %{HTTP_HOST} !^hdvideodownloader\.online$ [NC]
+    RewriteRule ^ https://hdvideodownloader.online%{REQUEST_URI} [R=301,L,NE]
+
+    # Keep front-controller filenames out of browser-facing URLs.
+    RewriteCond %{THE_REQUEST} \s/+((?:public/)?index\.php)(?:[?\s]) [NC]
+    RewriteRule ^(?:public/)?index\.php$ https://hdvideodownloader.online/ [R=301,L,NE]
+
     # Keep Laravel's public directory out of browser-facing URLs.
     # THE_REQUEST ensures this only redirects direct client requests and does
     # not interfere with the internal rewrite to public/ below.
