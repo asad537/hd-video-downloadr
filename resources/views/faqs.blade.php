@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    @include('partials.google-tag')
     <!-- Preload hero image for instant LCP -->
     <link rel="preload" as="image" href="/images/faqs.webp" type="image/webp" fetchpriority="high">
     <link rel="icon" type="image/webp" href="/images/Fav-logo.webp">

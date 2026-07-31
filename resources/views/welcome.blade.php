@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    @include('partials.google-tag')
     <style>iframe.goog-te-banner-frame{display:none!important}body{top:0!important;position:static!important}.goog-te-banner-frame{display:none!important}.skiptranslate{display:none!important}#google_translate_element{display:none!important}.goog-tooltip{display:none!important}.goog-tooltip:hover{display:none!important}.goog-text-highlight{background:none!important;box-shadow:none!important}</style>
     @php
         $siteName = $siteSettings['site_name'] ?? 'HDVideoDownloader';

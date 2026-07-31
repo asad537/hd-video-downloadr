@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    @include('partials.google-tag')
     <link rel="icon" type="image/webp" href="/images/Fav-logo.webp">
     <link rel="apple-touch-icon" href="/images/logofinal.png">
     <meta charset="UTF-8">
