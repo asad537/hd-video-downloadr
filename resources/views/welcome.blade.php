@@ -1336,14 +1336,10 @@
                             }
                         @endphp
                         <h1>{{ $titleFirst }} @if($titleLast)<span>{{ $titleLast }}</span>@endif</h1>
-                        <div class="hero-copy">{!! $parsedDesc !!}</div>
-                        <div class="hero-features-checklist" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 0 auto 26px; max-width: 780px;">
-                            <div class="hero-feature-badge" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: rgba(57, 225, 182, 0.12); border: 1px solid rgba(57, 225, 182, 0.35); border-radius: 999px; color: #f8fafc; font-size: clamp(13px, 3.5vw, 15px); font-weight: 700; box-shadow: 0 4px 14px rgba(0,0,0,0.2);">
-                                <span style="color: #39e1b6;">✅</span> No software installation required
-                            </div>
-                            <div class="hero-feature-badge" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: rgba(57, 225, 182, 0.12); border: 1px solid rgba(57, 225, 182, 0.35); border-radius: 999px; color: #f8fafc; font-size: clamp(13px, 3.5vw, 15px); font-weight: 700; box-shadow: 0 4px 14px rgba(0,0,0,0.2);">
-                                <span style="color: #39e1b6;">✅</span> Browser-based tool — works on mobile &amp; desktop
-                            </div>
+                        <div class="hero-copy">
+                            {!! $parsedDesc !!}<br>
+                            <span style="display: inline-block; margin-top: 6px;">✅ No software installation required</span><br>
+                            <span>✅ Browser-based tool — works on mobile &amp; desktop</span>
                         </div>
                         <div class="download-panel {{ $result ? 'has-result' : '' }}">
                             <form class="url-form" method="POST" action="{{ route('analyze') }}" id="analyze-form">
