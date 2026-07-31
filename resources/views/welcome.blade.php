@@ -1303,7 +1303,7 @@
                 <div class="wrap hero-center">
                         <span class="eyebrow">Free online tool</span>
                         @php 
-                            $heroTitle = !empty($homeSettings->hero_heading) ? $homeSettings->hero_heading : ($siteSettings['hero_title'] ?? 'Free All Video Downloader'); 
+                            $heroTitle = !empty($homeSettings->hero_heading) ? $homeSettings->hero_heading : ($siteSettings['hero_title'] ?? 'Free & Fast HD Video Downloader'); 
                             $lastSpace = strrpos($heroTitle, ' ');
                             if ($lastSpace !== false) {
                                 $titleFirst = substr($heroTitle, 0, $lastSpace);
@@ -1313,7 +1313,7 @@
                                 $titleLast = '';
                             }
                             
-                            $heroDesc = !empty($homeSettings->hero_description) ? $homeSettings->hero_description : ($siteSettings['hero_subtitle'] ?? 'Download videos, reels, shorts, and audio from your favorite platforms. Paste a public video link below to get started.');
+                            $heroDesc = !empty($homeSettings->hero_description) ? $homeSettings->hero_description : ($siteSettings['hero_subtitle'] ?? 'Download videos online instantly.');
                             $parsedDesc = $heroDesc;
                             if (strpos(trim($heroDesc), '{') === 0 && strpos($heroDesc, '"blocks"') !== false) {
                                 $descData = json_decode($heroDesc, true);
@@ -1337,6 +1337,14 @@
                         @endphp
                         <h1>{{ $titleFirst }} @if($titleLast)<span>{{ $titleLast }}</span>@endif</h1>
                         <div class="hero-copy">{!! $parsedDesc !!}</div>
+                        <div class="hero-features-checklist" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 0 auto 26px; max-width: 780px;">
+                            <div class="hero-feature-badge" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: rgba(57, 225, 182, 0.12); border: 1px solid rgba(57, 225, 182, 0.35); border-radius: 999px; color: #f8fafc; font-size: clamp(13px, 3.5vw, 15px); font-weight: 700; box-shadow: 0 4px 14px rgba(0,0,0,0.2);">
+                                <span style="color: #39e1b6;">✅</span> No software installation required
+                            </div>
+                            <div class="hero-feature-badge" style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: rgba(57, 225, 182, 0.12); border: 1px solid rgba(57, 225, 182, 0.35); border-radius: 999px; color: #f8fafc; font-size: clamp(13px, 3.5vw, 15px); font-weight: 700; box-shadow: 0 4px 14px rgba(0,0,0,0.2);">
+                                <span style="color: #39e1b6;">✅</span> Browser-based tool — works on mobile &amp; desktop
+                            </div>
+                        </div>
                         <div class="download-panel {{ $result ? 'has-result' : '' }}">
                             <form class="url-form" method="POST" action="{{ route('analyze') }}" id="analyze-form">
                                 @csrf
