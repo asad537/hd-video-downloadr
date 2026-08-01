@@ -176,35 +176,7 @@
     }
 </style>
 
-<div class="footer-leaderboard-slot" aria-label="Advertisement">
-    <div class="footer-leaderboard-inner">
-        <script>
-            atOptions = {
-                'key': '61069575affe36a186c916ada795d73d',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/61069575affe36a186c916ada795d73d/invoke.js"></script>
-    </div>
-</div>
 
-<div class="footer-ad-slot" aria-label="Advertisement">
-    <div class="footer-ad-slot-inner">
-        <script>
-            atOptions = {
-                'key': '853eebcb6629195c170f6c33e296c986',
-                'format': 'iframe',
-                'height': 250,
-                'width': 300,
-                'params': {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/853eebcb6629195c170f6c33e296c986/invoke.js"></script>
-    </div>
-</div>
 
 <footer class="site-footer">
     <div class="footer-inner">
