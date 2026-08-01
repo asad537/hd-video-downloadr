@@ -13,3 +13,7 @@
 
   gtag('config', 'AW-18325274942');
 </script>
+<!-- Event snippet for Page view conversion page -->
+<script>
+  gtag('event', 'conversion', {'send_to': 'AW-18325274942/DRyCCP3OntocEL6ClqJE'});
+</script>
