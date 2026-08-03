@@ -113,7 +113,7 @@
             "@type": "ImageObject",
             "url": "https://hdvideodownloader.online/images/Logo_Website.png"
           },
-          "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more."
+          "description": "HD Video Downloader is a browser-based utility that analyzes supported public media links and displays formats made available by the source."
         }
         </script>
         <script type="application/ld+json">
@@ -127,7 +127,7 @@
             "HDVDownloader"
           ],
           "url": "https://hdvideodownloader.online/",
-          "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more.",
+          "description": "HD Video Downloader is a browser-based utility that analyzes supported public media links and displays formats made available by the source.",
           "publisher": {
             "@id": "https://hdvideodownloader.online/#organization"
           }
@@ -145,30 +145,6 @@
               "item": "https://hdvideodownloader.online/"
             }
           ]
-        }
-        </script>
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "WebApplication",
-          "name": "HD Video Downloader",
-          "alternateName": [
-            "HDVideoDownloader",
-            "HD Video DL",
-            "HDVDownloader"
-          ],
-          "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more.",
-          "operatingSystem": "Windows, macOS, Linux, Android, iOS",
-          "applicationCategory": "MultimediaApplication",
-          "url": "https://hdvideodownloader.online/",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          },
-          "publisher": {
-            "@id": "https://hdvideodownloader.online/#organization"
-          }
         }
         </script>
         <script type="application/ld+json">{!! json_encode([
@@ -1301,9 +1277,9 @@
         <main>
             <div class="hero">
                 <div class="wrap hero-center">
-                        <span class="eyebrow">Free online tool</span>
+                        <span class="eyebrow">Browser-based public-link tool</span>
                         @php 
-                            $heroTitle = !empty($homeSettings->hero_heading) ? $homeSettings->hero_heading : ($siteSettings['hero_title'] ?? 'Free & Fast HD Video Downloader'); 
+                            $heroTitle = !empty($homeSettings->hero_heading) ? $homeSettings->hero_heading : ($siteSettings['hero_title'] ?? 'Analyze Public Media Links');
                             $lastSpace = strrpos($heroTitle, ' ');
                             if ($lastSpace !== false) {
                                 $titleFirst = substr($heroTitle, 0, $lastSpace);
@@ -1313,7 +1289,7 @@
                                 $titleLast = '';
                             }
                             
-                            $heroDesc = !empty($homeSettings->hero_description) ? $homeSettings->hero_description : ($siteSettings['hero_subtitle'] ?? 'Download videos online instantly.');
+                            $heroDesc = !empty($homeSettings->hero_description) ? $homeSettings->hero_description : ($siteSettings['hero_subtitle'] ?? 'Review formats made available by supported public sources. Use this tool only for content you own or have permission to save.');
                             $parsedDesc = $heroDesc;
                             if (strpos(trim($heroDesc), '{') === 0 && strpos($heroDesc, '"blocks"') !== false) {
                                 $descData = json_decode($heroDesc, true);
@@ -1338,8 +1314,8 @@
                         <h1>{{ $titleFirst }} @if($titleLast)<span>{{ $titleLast }}</span>@endif</h1>
                         <div class="hero-copy">
                             {!! $parsedDesc !!}<br>
-                            <span style="display: inline-block; margin-top: 6px;">✅ No software installation required</span><br>
-                            <span>✅ Browser-based tool — works on mobile &amp; desktop</span>
+                            <span style="display: inline-block; margin-top: 6px;">Browser-based tool for supported public links</span><br>
+                            <span>Available formats and quality depend on the source</span>
                         </div>
                         <div class="download-panel {{ $result ? 'has-result' : '' }}">
                             <form class="url-form" method="POST" action="{{ route('analyze') }}" id="analyze-form">
@@ -1369,13 +1345,13 @@
             <div class="trust-bar">
                 <div class="wrap trust-grid">
                     <div class="trust-item"><strong>Fast link analysis</strong><span>Get available formats in seconds</span></div>
-                    <div class="trust-item"><strong>No installation</strong><span>Works directly in your browser</span></div>
-                    <div class="trust-item"><strong>HD quality</strong><span>Choose the best available resolution</span></div>
+                    <div class="trust-item"><strong>Clear format details</strong><span>Review format and quality before continuing</span></div>
+                    <div class="trust-item"><strong>Source-dependent quality</strong><span>Availability varies by the original source</span></div>
                 </div>
             </div>
             <section>
                 <div class="wrap">
-                    <div class="section-head"><h2>Why choose HDVideoDownloader?</h2><p>A simple, fast, and private way to save public videos across mobile, tablet, and desktop browsers.</p></div>
+                    <div class="section-head"><h2>How HDVideoDownloader works</h2><p>Analyze supported public links and review the formats reported by their source. Only save media you own or are authorized to use.</p></div>
 
                     <!-- Row 1 -->
                     <div class="bento-grid">
@@ -1399,12 +1375,12 @@
                                     <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
                                 </div>
                                 <h3>High Quality</h3>
-                                <p>Get full resolution support up to 4K UHD with lossless audio extraction features.</p>
+                                <p>View the resolutions and audio options actually reported by the source. Specific formats are not guaranteed.</p>
                             </div>
                             <div class="bento-chips">
                                 <span class="bento-chip">1080p</span>
-                                <span class="bento-chip">4K UHD</span>
-                                <span class="bento-chip">Source quality</span>
+                                <span class="bento-chip">Available HD</span>
+                                <span class="bento-chip">Source dependent</span>
                             </div>
                         </div>
 
