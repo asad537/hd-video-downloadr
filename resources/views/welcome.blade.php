@@ -202,7 +202,7 @@
             "@type": "ImageObject",
             "url": "https://hdvideodownloader.online/images/Logo_Website.png"
           },
-          "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more."
+          "description": "HD Video Downloader is a browser-based public media link analyzer for reviewing source-dependent formats from supported public links."
         }
         </script>
         <script type="application/ld+json">
@@ -216,7 +216,7 @@
             "HDVDownloader"
           ],
           "url": "https://hdvideodownloader.online/",
-          "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more.",
+          "description": "HD Video Downloader is a browser-based public media link analyzer for reviewing source-dependent formats from supported public links.",
           "publisher": {
             "@id": "https://hdvideodownloader.online/#organization"
           }
@@ -1424,7 +1424,7 @@
             </section>
             <section class="steps-section">
                 <div class="wrap">
-                    <div class="section-head"><h2>Download in 3 simple steps</h2><p>No account, complicated settings, or software installation required.</p></div>
+                    <div class="section-head"><h2>Analyze links in 3 simple steps</h2><p>No account, complicated settings, or software installation required.</p></div>
                     <div class="steps-flow">
 
                         <!-- Step 1: Copy Link -->
@@ -1450,8 +1450,8 @@
                             <div class="step-icon-box" aria-hidden="true">
                                 <svg class="download-icon" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
                             </div>
-                            <h3>3. Download</h3>
-                            <p>Choose your preferred resolution and format, then click download to save it to your device.</p>
+                            <h3>3. Review formats</h3>
+                            <p>Choose a detected resolution or format only for media you own or have permission to use.</p>
                         </div>
 
                     </div>
@@ -1525,8 +1525,8 @@
                         <a href="{{ route('home') }}">Home</a><span class="breadcrumb-separator">/</span><span>Supported Platforms</span>
                     </nav>
                     <span class="blog-badge">Integrations</span>
-                    <h1>Download From <span>Anywhere</span></h1>
-                    <p>HDVideoDownloader supports saving media from all your favorite social networks and video platforms. Paste a link and we'll handle the rest.</p>
+                    <h1>Analyze Public <span>Media Links</span></h1>
+                    <p>HDVideoDownloader helps review source-dependent formats from supported public social networks and video platforms.</p>
                 </div>
             </div>
             @include('partials.platforms')
@@ -1539,8 +1539,8 @@
                         <a href="{{ route('home') }}">Home</a><span class="breadcrumb-separator">/</span><span>Blog</span>
                     </nav>
                     <span class="blog-badge">Blogs</span>
-                    <h1>Insights, <span>Trends</span> &<br><span>Downloading</span> Inspiration</h1>
-                    <p>Explore expert insights, industry trends, and downloading guides to help you get the best media quality across all platforms.</p>
+                    <h1>Insights, <span>Formats</span> &<br><span>Responsible Use</span></h1>
+                    <p>Explore practical guides about public links, media formats, compatibility, quality, and responsible use.</p>
                 </div>
             </div>
             @include('partials.blog')
@@ -1565,10 +1565,10 @@
                 <div class="wrap article-layout">
                     <div class="article-body">
                         <div class="article-content">{!! $post['content'] !!}</div>
-                        <div class="article-callout"><strong>Important:</strong> Download only content you own or have permission to save. Public availability does not automatically grant permission to republish or redistribute a video.</div>
+                        <div class="article-callout"><strong>Important:</strong> Use only content you own or have permission to save. Public availability does not automatically grant permission to republish or redistribute a video.</div>
                         <h2>Use HDVideoDownloader</h2>
-                        <p>Paste a supported public link into the downloader, review the direct formats detected from the source, and choose the option that fits your device. HDVideoDownloader does not require an account for the basic link-analysis flow.</p>
-                        <a class="article-cta" href="{{ route('home') }}">Open video downloader →</a>
+                        <p>Paste a supported public link into the analyzer, review the formats detected from the source, and choose the option that fits your device. HDVideoDownloader does not require an account for the basic link-analysis flow.</p>
+                        <a class="article-cta" href="{{ route('home') }}">Open link analyzer -></a>
                     </div>
                     <aside class="article-aside">
                         <strong>In this guide</strong>

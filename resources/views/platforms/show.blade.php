@@ -14,13 +14,13 @@
     <link rel="canonical" href="{{ route('platforms.show', $platform->slug) }}">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="HDVideoDownloader">
-    <meta property="og:title" content="{{ $platform->meta_title ?: $platform->name . ' Video Downloader | HDVideoDownloader' }}">
-    <meta property="og:description" content="{{ $platform->meta_description ?: 'Download public ' . $platform->name . ' videos in available formats and quality.' }}">
+    <meta property="og:title" content="{{ $platform->meta_title ?: $platform->name . ' Public Link Format Guide | HDVideoDownloader' }}">
+    <meta property="og:description" content="{{ $platform->meta_description ?: 'Analyze public ' . $platform->name . ' links and review source-dependent media formats.' }}">
     <meta property="og:url" content="{{ route('platforms.show', $platform->slug) }}">
     <meta property="og:image" content="{{ asset('images/Logo_Website.png') }}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $platform->meta_title ?: $platform->name . ' Video Downloader' }}">
-    <meta name="twitter:description" content="{{ $platform->meta_description ?: 'Download public ' . $platform->name . ' videos in available formats and quality.' }}">
+    <meta name="twitter:title" content="{{ $platform->meta_title ?: $platform->name . ' Public Link Format Guide' }}">
+    <meta name="twitter:description" content="{{ $platform->meta_description ?: 'Analyze public ' . $platform->name . ' links and review source-dependent media formats.' }}">
     <meta name="twitter:image" content="{{ asset('images/Logo_Website.png') }}">
     @if($platform->meta_keywords)
     <meta name="keywords" content="{{ $platform->meta_keywords }}">
@@ -48,7 +48,7 @@
         "@type": "ImageObject",
         "url": "https://hdvideodownloader.online/images/Logo_Website.png"
       },
-      "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more."
+      "description": "HD Video Downloader is a browser-based public media link analyzer that helps users review source-dependent formats for links they own or have permission to use."
     }
     </script>
     <script type="application/ld+json">
@@ -62,7 +62,7 @@
         "HDVDownloader"
       ],
       "url": "https://hdvideodownloader.online/",
-      "description": "HD Video Downloader is a free online video downloader that lets users download videos, reels, shorts, and audio clips in MP4 or MP3 format from platforms like YouTube, TikTok, Facebook, Instagram, and more.",
+      "description": "HD Video Downloader is a browser-based public media link analyzer that helps users review source-dependent formats for links they own or have permission to use.",
       "publisher": {
         "@id": "https://hdvideodownloader.online/#organization"
       }
@@ -82,7 +82,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "{{ $platform->name }} Video Downloader",
+          "name": "{{ $platform->name }} Public Link Guide",
           "item": "{{ route('platforms.show', $platform->slug) }}"
         }
       ]
@@ -91,21 +91,19 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "{{ $platform->name }} Video Downloader",
+      "@type": "WebPage",
+      "name": "{{ $platform->name }} Public Link Format Guide",
       "alternateName": [
         "HDVideoDownloader",
         "HD Video DL",
         "HDVDownloader"
       ],
-      "description": "Analyze supported public {{ $platform->name }} video links and review available media formats.",
-      "operatingSystem": "Windows, macOS, Linux, Android, iOS",
-      "applicationCategory": "MultimediaApplication",
+      "description": "Analyze supported public {{ $platform->name }} links and review media formats made available by the source.",
       "url": "{{ route('platforms.show', $platform->slug) }}",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://hdvideodownloader.online/#website",
+        "url": "https://hdvideodownloader.online/"
       },
       "publisher": {
         "@id": "https://hdvideodownloader.online/#organization"

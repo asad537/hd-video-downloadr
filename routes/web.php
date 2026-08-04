@@ -23,22 +23,73 @@ $platforms = [
     ['name' => 'Pinterest', 'domain' => 'pinterest.com', 'accent' => '#e60023', 'icon' => 'pinterest', 'slug' => 'pinterest-video-downloader'],
 ];
 
-$loadPosts = function () {
+$softenSeoCopy = function (?string $text): string {
+    if ($text === null || $text === '') {
+        return '';
+    }
+
+    $replacements = [
+        'Best Free Instagram Reels Downloader' => 'Instagram Reels Format Guide',
+        'Top 5 Ways to Download Facebook Private Videos' => 'Facebook Video Privacy and Public Link Guide',
+        'Save Password Protected Videos' => 'Understand Creator-Controlled Video Availability',
+        'Without Watermark' => 'With Permission and Source Awareness',
+        'without watermark' => 'with permission and source awareness',
+        'Download YouTube Videos in 4K Quality for Free' => 'Review YouTube Video Quality and 4K Format Options',
+        'Download Twitter / X Videos in HD' => 'Review Twitter and X Video Format Options',
+        'Convert YouTube to MP3' => 'Review YouTube Audio Format Options',
+        'video downloader' => 'media link analyzer',
+        'Video Downloader' => 'Media Link Analyzer',
+        'downloader' => 'link analyzer',
+        'Downloader' => 'Link Analyzer',
+        'download videos' => 'review available media formats',
+        'Download videos' => 'Review available media formats',
+        'downloaded videos' => 'saved media files',
+        'Downloaded videos' => 'Saved media files',
+        'downloaded video' => 'saved media file',
+        'Downloaded Video' => 'Saved Media File',
+        'download' => 'review',
+        'Download' => 'Review',
+        'save videos' => 'review media links',
+        'Save videos' => 'Review media links',
+        'save media' => 'review media',
+        'Save media' => 'Review media',
+        'save' => 'review',
+        'Save' => 'Review',
+        'private videos' => 'private-video limitations',
+        'Private Videos' => 'Private-Video Limitations',
+        'password protected videos' => 'access-controlled videos',
+        'Password Protected Videos' => 'Access-Controlled Videos',
+        'free of charge' => 'available in the browser',
+        'Free' => 'Online',
+        'free' => 'online',
+        'massive 2000-word' => 'detailed',
+        '2000-word' => 'detailed',
+        'ultimate' => 'practical',
+        'Ultimate' => 'Practical',
+        'one-click' => 'simple',
+        'lightning-fast' => 'quick',
+        'flawless' => 'reliable',
+    ];
+
+    return str_replace(array_keys($replacements), array_values($replacements), $text);
+};
+
+$loadPosts = function () use ($softenSeoCopy) {
     try {
-        return BlogPost::published()->latest('published_at')->get()->map(function ($post) {
+        return BlogPost::published()->latest('published_at')->get()->map(function ($post) use ($softenSeoCopy) {
             return [
                 'id' => $post->id,
-                'title' => $post->title,
-                'meta_title' => $post->meta_title,
+                'title' => $softenSeoCopy($post->title),
+                'meta_title' => $softenSeoCopy($post->meta_title),
                 'slug' => $post->slug,
                 'category' => $post->category,
-                'excerpt' => $post->excerpt,
-                'description' => $post->meta_description ?: $post->excerpt,
+                'excerpt' => $softenSeoCopy($post->excerpt),
+                'description' => $softenSeoCopy($post->meta_description ?: $post->excerpt),
                 'read' => $post->read_minutes . ' min read',
                 'published' => optional($post->published_at)->format('M j, Y'),
                 'image' => $post->image,
-                'image_alt' => $post->image_alt ?: $post->title,
-                'content' => $post->content,
+                'image_alt' => $softenSeoCopy($post->image_alt ?: $post->title),
+                'content' => $softenSeoCopy($post->content),
             ];
         })->all();
     } catch (\Throwable $exception) {
@@ -167,7 +218,7 @@ Route::get('/blog', function () use ($platforms, $loadPosts) {
 })->name('blog');
 
 // Replaced blog slug route to work with both models on the original welcome view
-Route::get('/blog/{slug}', function ($slug) use ($platforms, $loadPosts) {
+Route::get('/blog/{slug}', function ($slug) use ($platforms, $loadPosts, $softenSeoCopy) {
     $posts = $loadPosts();
     
     // Also include new blogs in the view if they want to access them
@@ -176,16 +227,16 @@ Route::get('/blog/{slug}', function ($slug) use ($platforms, $loadPosts) {
     if ($newBlog) {
         $post = [
             'id'          => 'new_' . $newBlog->id,
-            'title'       => $newBlog->title,
+            'title'       => $softenSeoCopy($newBlog->title),
             'slug'        => $newBlog->slug,
             'category'    => $newBlog->tags ?? 'General',
-            'excerpt'     => $newBlog->meta_description ?? '',
-            'description' => $newBlog->meta_description ?? '',
+            'excerpt'     => $softenSeoCopy($newBlog->meta_description ?? ''),
+            'description' => $softenSeoCopy($newBlog->meta_description ?? ''),
             'read'        => '5 min read',
             'published'   => $newBlog->created_at->format('M j, Y'),
             'image'       => $newBlog->featured_image,
-            'image_alt'   => $newBlog->title,
-            'content'     => $newBlog->renderContent(),
+            'image_alt'   => $softenSeoCopy($newBlog->title),
+            'content'     => $softenSeoCopy($newBlog->renderContent()),
         ];
     } else {
         $post = collect($posts)->firstWhere('slug', $slug);

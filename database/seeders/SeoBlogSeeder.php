@@ -12,13 +12,13 @@ class SeoBlogSeeder extends Seeder
     public function run()
     {
         $targets = [
-            ['title' => 'How to Download YouTube Videos in 4K Quality for Free', 'cat' => 'YouTube', 'focus' => '4K YouTube Videos'],
-            ['title' => 'The Best Free Instagram Reels Downloader in 2026', 'cat' => 'Instagram', 'focus' => 'Instagram Reels'],
-            ['title' => 'How to Save TikTok Videos Without Watermark Easily', 'cat' => 'TikTok', 'focus' => 'TikTok Without Watermark'],
-            ['title' => 'Top 5 Ways to Download Facebook Private Videos', 'cat' => 'Facebook', 'focus' => 'Facebook Private Videos'],
-            ['title' => 'Download Twitter / X Videos in HD: A Complete Guide', 'cat' => 'Twitter', 'focus' => 'Twitter HD Videos'],
-            ['title' => 'Vimeo Video Downloader: How to Save Password Protected Videos', 'cat' => 'Vimeo', 'focus' => 'Vimeo Protected Videos'],
-            ['title' => 'How to Convert YouTube to MP3 Safely and Quickly', 'cat' => 'Formats', 'focus' => 'YouTube to MP3'],
+            ['title' => 'How to Review YouTube Video Quality and 4K Format Options', 'cat' => 'YouTube', 'focus' => '4K YouTube Formats'],
+            ['title' => 'Instagram Reels Public Link Format Guide for 2026', 'cat' => 'Instagram', 'focus' => 'Instagram Reels Formats'],
+            ['title' => 'TikTok Public Link Quality and Permission Guide', 'cat' => 'TikTok', 'focus' => 'TikTok Public Links'],
+            ['title' => 'Facebook Video Privacy and Public Link Guide', 'cat' => 'Facebook', 'focus' => 'Facebook Public Link Limits'],
+            ['title' => 'Twitter and X Video Format Options: A Complete Guide', 'cat' => 'Twitter', 'focus' => 'Twitter Video Formats'],
+            ['title' => 'Vimeo Creator Settings and Format Availability Guide', 'cat' => 'Vimeo', 'focus' => 'Vimeo Creator Settings'],
+            ['title' => 'How to Review YouTube Audio Format Options Safely', 'cat' => 'Formats', 'focus' => 'YouTube Audio Formats'],
             ['title' => 'Is it Legal to Download YouTube Videos? Copyright Explained', 'cat' => 'Legal', 'focus' => 'Copyright Laws'],
             ['title' => 'Best Video Downloaders for iPhone and iPad (2026)', 'cat' => 'Mobile', 'focus' => 'iPhone Video Downloader'],
             ['title' => 'How to Save Android Videos Directly to Gallery', 'cat' => 'Mobile', 'focus' => 'Android Video Saver'],
