@@ -80,7 +80,7 @@
             
             <div class="form-group">
                 <label>Description Paragraph</label>
-                <textarea name="description" rows="4" required>{{ optional($settings)->description ?? 'Download videos, audios and reels from your favourite platforms in high quality for free. No login required. Works on all devices. Fast, safe and 100% free to use.' }}</textarea>
+                <textarea name="description" rows="4" required>{{ optional($settings)->description ?? 'Analyze supported public media links and review source-dependent formats. No login required for the basic browser workflow. Works on modern mobile and desktop browsers.' }}</textarea>
             </div>
         </div>
 
@@ -110,4 +110,3 @@
         </div>
     </form>
 @endsection
-

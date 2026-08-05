@@ -777,7 +777,7 @@
                         <div class="tutorial-thumb-ui"></div>
                     </div>
                     <span class="tutorial-step-title">Open hdvideodownloader.online</span>
-                    <p style="line-height: 1.45;">Launch your browser and go to VidsSaver.com the fastest online video downloader.</p>
+                    <p style="line-height: 1.45;">Launch your browser and open the public media link analyzer.</p>
                 </div>
             </div>
 

@@ -28,12 +28,12 @@
         $pageTitle = $page === 'blog-post'
             ? ($post['meta_title'] ?? (($post['title'] ?? 'Guide') . ' | ' . $siteName))
             : ($page === 'home'
-                ? (!empty($homeSeo->meta_title) ? $homeSeo->meta_title : 'HD Video Downloader - All in One Video Saver')
+                ? (!empty($homeSeo->meta_title) ? $homeSeo->meta_title : 'HDVideoDownloader - Public Media Link Analyzer')
                 : ($staticTitles[$page] ?? ucwords(str_replace('-', ' ', $page)) . ' | HDVideoDownloader'));
         $pageDescription = $page === 'blog-post'
             ? ($post['description'] ?? $post['excerpt'] ?? '')
             : ($page === 'home'
-                ? (!empty($homeSeo->meta_description) ? $homeSeo->meta_description : ($siteSettings['default_meta_description'] ?? 'HDVideoDownloader is an all-in-one video downloader interface.'))
+                ? (!empty($homeSeo->meta_description) ? $homeSeo->meta_description : ($siteSettings['default_meta_description'] ?? 'HDVideoDownloader is a public media link analyzer.'))
                 : ($staticDescriptions[$page] ?? ($siteSettings['default_meta_description'] ?? 'Analyze supported public video links and review available media formats.')));
         $pageUrl = $page === 'blog-post' ? route('blog.show', $post['slug']) : url()->current();
         $pageImage = $page === 'blog-post' ? asset($post['image']) : asset('/images/blog/generated/001-youtube-video-downloader-safe-hd-mp4-guide.svg');
@@ -65,7 +65,7 @@
             'mainEntity' => [
                 '@type' => 'Organization',
                 '@id' => 'https://hdvideodownloader.online/#organization',
-                'name' => 'HD Video Downloader',
+                'name' => 'HDVideoDownloader',
                 'email' => 'support@hdvideodownloader.online',
                 'telephone' => '+44 7308 208926',
                 'contactPoint' => [
@@ -102,7 +102,7 @@
           "@context": "https://schema.org",
           "@type": "Organization",
           "@id": "https://hdvideodownloader.online/#organization",
-          "name": "HD Video Downloader",
+          "name": "HDVideoDownloader",
           "alternateName": [
             "HDVideoDownloader",
             "HD Video DL",
@@ -113,21 +113,21 @@
             "@type": "ImageObject",
             "url": "https://hdvideodownloader.online/images/Logo_Website.png"
           },
-          "description": "HD Video Downloader is a browser-based utility that analyzes supported public media links and displays formats made available by the source."
+          "description": "HDVideoDownloader is a browser-based utility that analyzes supported public media links and displays formats made available by the source."
         }
         </script>
         <script type="application/ld+json">
         {
           "@context": "https://schema.org",
           "@type": "WebSite",
-          "name": "HD Video Downloader",
+          "name": "HDVideoDownloader",
           "alternateName": [
             "HDVideoDownloader",
             "HD Video DL",
             "HDVDownloader"
           ],
           "url": "https://hdvideodownloader.online/",
-          "description": "HD Video Downloader is a browser-based utility that analyzes supported public media links and displays formats made available by the source.",
+          "description": "HDVideoDownloader is a browser-based utility that analyzes supported public media links and displays formats made available by the source.",
           "publisher": {
             "@id": "https://hdvideodownloader.online/#organization"
           }
@@ -156,7 +156,7 @@
                     'name' => 'Do I need to install an app?',
                     'acceptedAnswer' => [
                         '@type' => 'Answer',
-                        'text' => 'No. The downloader runs in your browser on mobile and desktop devices.'
+                        'text' => 'No. The analyzer runs in your browser on mobile and desktop devices.'
                     ]
                 ],
                 [
@@ -172,15 +172,15 @@
                     'name' => 'Is HDVideoDownloader free?',
                     'acceptedAnswer' => [
                         '@type' => 'Answer',
-                        'text' => 'Yes, the basic public-link downloader experience is free to use.'
+                        'text' => 'Yes, the basic public-link analysis experience runs in the browser.'
                     ]
                 ],
                 [
                     '@type' => 'Question',
-                    'name' => 'Can I download any video?',
+                    'name' => 'Can I use any video?',
                     'acceptedAnswer' => [
                         '@type' => 'Answer',
-                        'text' => 'Only download content you own or have permission to save, and follow the source platform\'s terms.'
+                        'text' => 'Only use content you own or have permission to save, and follow the source platform\'s terms.'
                     ]
                 ]
             ]
@@ -191,7 +191,7 @@
           "@context": "https://schema.org",
           "@type": "Organization",
           "@id": "https://hdvideodownloader.online/#organization",
-          "name": "HD Video Downloader",
+          "name": "HDVideoDownloader",
           "alternateName": [
             "HDVideoDownloader",
             "HD Video DL",
@@ -202,21 +202,21 @@
             "@type": "ImageObject",
             "url": "https://hdvideodownloader.online/images/Logo_Website.png"
           },
-          "description": "HD Video Downloader is a browser-based public media link analyzer for reviewing source-dependent formats from supported public links."
+          "description": "HDVideoDownloader is a browser-based public media link analyzer for reviewing source-dependent formats from supported public links."
         }
         </script>
         <script type="application/ld+json">
         {
           "@context": "https://schema.org",
           "@type": "WebSite",
-          "name": "HD Video Downloader",
+          "name": "HDVideoDownloader",
           "alternateName": [
             "HDVideoDownloader",
             "HD Video DL",
             "HDVDownloader"
           ],
           "url": "https://hdvideodownloader.online/",
-          "description": "HD Video Downloader is a browser-based public media link analyzer for reviewing source-dependent formats from supported public links.",
+          "description": "HDVideoDownloader is a browser-based public media link analyzer for reviewing source-dependent formats from supported public links.",
           "publisher": {
             "@id": "https://hdvideodownloader.online/#organization"
           }
@@ -247,13 +247,13 @@
           "@context": "https://schema.org",
           "@type": "Blog",
           "@id": "https://hdvideodownloader.online/blog#blog",
-          "name": "HD Video Downloader Blog",
+          "name": "HDVideoDownloader Blog",
           "url": "https://hdvideodownloader.online/blog",
           "description": "Browse all video download guides, how-to tutorials, and tips for downloading videos from YouTube, TikTok, Facebook, Instagram, and more.",
           "inLanguage": "en",
           "publisher": {
             "@type": "Organization",
-            "name": "HD Video Downloader",
+            "name": "HDVideoDownloader",
             "@id": "https://hdvideodownloader.online/#organization",
             "logo": {
               "@type": "ImageObject",
@@ -1323,7 +1323,7 @@
                                 <input id="video-url-input" name="video_url" type="url" value="{{ old('video_url') }}" placeholder="Paste a video URL here" aria-label="Video URL" required>
                                 <button id="analyze-btn" class="button" type="submit">
                                     <svg class="download-icon" style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
-                                    <span class="download-label">{{ !empty($homeSettings->hero_button_text) ? $homeSettings->hero_button_text : 'Download' }}</span>
+                                    <span class="download-label">{{ !empty($homeSettings->hero_button_text) ? $homeSettings->hero_button_text : 'Analyze' }}</span>
                                 </button>
                             </form>
                             @error('video_url')<div class="error" id="error-container">{{ $message }}</div>@else<div id="error-container" class="error" style="display:none;"></div>@enderror
@@ -1433,7 +1433,7 @@
                                 <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                             </div>
                             <h3>1. Copy Link</h3>
-                            <p>Find the video you want to download and copy its URL from the browser's address bar.</p>
+                            <p>Find the public media page you want to review and copy its URL from the browser's address bar.</p>
                         </div>
 
                         <!-- Step 2: Paste URL -->
@@ -1507,10 +1507,10 @@
                                 <details name="faq_accordion"><summary>{{ $faq->question }}</summary><p>{!! nl2br(e($faq->answer)) !!}</p></details>
                             @endforeach
                         @else
-                            <details name="faq_accordion"><summary>Do I need to install an app?</summary><p>No. The downloader runs in your browser on mobile and desktop devices.</p></details>
+                            <details name="faq_accordion"><summary>Do I need to install an app?</summary><p>No. The analyzer runs in your browser on mobile and desktop devices.</p></details>
                             <details name="faq_accordion"><summary>Which video qualities are available?</summary><p>Available formats depend on the source and may include SD, 720p, 1080p, and audio-only options.</p></details>
-                            <details name="faq_accordion"><summary>Is HDVideoDownloader free?</summary><p>Yes, the basic public-link downloader experience is free to use.</p></details>
-                            <details name="faq_accordion"><summary>Can I download any video?</summary><p>Only download content you own or have permission to save, and follow the source platform's terms.</p></details>
+                            <details name="faq_accordion"><summary>Is HDVideoDownloader available online?</summary><p>Yes, the basic public-link analysis experience runs in the browser.</p></details>
+                            <details name="faq_accordion"><summary>Can I use any video?</summary><p>Only use content you own or have permission to save, and follow the source platform's terms.</p></details>
                         @endif
                     </div>
                 </div>
@@ -1575,7 +1575,7 @@
                         <a href="#">What you should know</a>
                         <a href="#">Practical recommendations</a>
                         <a href="#">Quality and formats</a>
-                        <a href="{{ route('home') }}">Try the downloader</a>
+                        <a href="{{ route('home') }}">Try the analyzer</a>
                     </aside>
                 </div>
             </article>
@@ -1599,16 +1599,16 @@
                     <p>HDVideoDownloader is designed as a link analysis and download interface. We do not ask users to create an account for the basic paste-link flow, ensuring your activity remains mostly anonymous.</p>
                     
                     <h2>Data Processing</h2>
-                    <p>Submitted URLs may be processed temporarily to detect the platform and available formats. Do not paste private, sensitive, or unauthorized links. We do not store or keep records of the specific videos you download.</p>
+                    <p>Submitted URLs may be processed temporarily to detect the platform and available formats. Do not paste private, sensitive, or unauthorized links. We do not store or keep records of the specific media links you review.</p>
                     
                     <h2>User Responsibilities</h2>
                     <p>By using our service, you agree to the following:</p>
                     <ul>
-                        <li>Respect the terms of service of the respective platforms you download from.</li>
+                        <li>Respect the terms of service of the respective platforms you use.</li>
                         <li>Acknowledge and respect the rights of content creators.</li>
                         <li>Abide by the copyright laws applicable in your country.</li>
                     </ul>
-                    <p>We provide the tool; you are responsible for how you use the downloaded content.</p>
+                    <p>We provide the tool; you are responsible for how you use any media or format information.</p>
                 </div>
             </section>
         </main>
@@ -1630,7 +1630,7 @@
                     <p>By accessing and using HDVideoDownloader, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use our service.</p>
                     
                     <h2>Use of Service</h2>
-                    <p>Our service is provided "as is" and allows you to download videos for personal, non-commercial use only. You are solely responsible for the media you download and how it is used.</p>
+                    <p>Our service is provided "as is" and helps you analyze supported public media links. You are solely responsible for the media you access and how it is used.</p>
                     <ul>
                         <li>You may not use our service for any illegal or unauthorized purpose.</li>
                         <li>You must not transmit any worms, viruses, or any code of a destructive nature.</li>
@@ -1638,7 +1638,7 @@
                     </ul>
                     
                     <h2>Intellectual Property Rights</h2>
-                    <p>We do not host any of the media downloaded through our service. All rights to the videos, music, and images belong to their respective owners. Users must obtain permission from the copyright holder before downloading or distributing copyrighted material.</p>
+                    <p>We do not host third-party media through our service. All rights to videos, audio, and images belong to their respective owners. Users must obtain permission from the copyright holder before saving or distributing copyrighted material.</p>
                 </div>
             </section>
         </main>
@@ -1657,14 +1657,14 @@
             <section class="privacy-content-wrap">
                 <div class="privacy-box">
                     <h2>General Disclaimer</h2>
-                    <p>HDVideoDownloader is a utility tool designed to help users download publicly available media. We do not host, store, or distribute any copyrighted material on our servers.</p>
+                    <p>HDVideoDownloader is a utility tool designed to help users analyze supported public media links. We do not host, store, or distribute copyrighted third-party material on our servers.</p>
                     
                     <h2>No Affiliation</h2>
                     <p>HDVideoDownloader is an independent service and is not affiliated, associated, authorized, endorsed by, or in any way officially connected with any of the social media platforms (such as YouTube, Facebook, Instagram, TikTok, etc.) whose links are processed by our tool.</p>
                     
                     <h2>Limitation of Liability</h2>
                     <p>Under no circumstances shall HDVideoDownloader be liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising out of or in connection with your access or use of or inability to access or use the application and any third-party content and services.</p>
-                    <p>Use this service at your own risk. It is the user's responsibility to ensure that downloading content does not violate any local laws or the terms of service of the host platform.</p>
+                    <p>Use this service at your own risk. It is the user's responsibility to ensure that any saved or reused content complies with local laws and the terms of service of the host platform.</p>
                 </div>
             </section>
         </main>
@@ -1696,9 +1696,9 @@
                         <h2>Our Purpose</h2>
                         <p>HDVideoDownloader provides a browser-based interface for analyzing supported public media links and showing formats made available by the source. The basic tool does not require an account or software installation.</p>
                         <h2>Responsible Use</h2>
-                        <p>We encourage people to save only content they own, content for which they have permission, or content whose license permits downloading. Public availability does not by itself grant permission to copy or redistribute a work.</p>
+                        <p>We encourage people to use only content they own, content for which they have permission, or content whose license permits saving. Public availability does not by itself grant permission to copy or redistribute a work.</p>
                         <h2>Our Standards</h2>
-                        <ul><li>Clear information about supported sources and available formats.</li><li>No fake download buttons or forced browser notifications.</li><li>Privacy-conscious processing over encrypted HTTPS connections.</li><li>A published process for copyright and legal concerns.</li></ul>
+                        <ul><li>Clear information about supported sources and available formats.</li><li>No misleading action buttons or forced browser notifications.</li><li>Privacy-conscious processing over encrypted HTTPS connections.</li><li>A published process for copyright and legal concerns.</li></ul>
                     @elseif($page === 'contact')
                         <div class="contact-intro">
                             <span class="contact-kicker">Talk to our team</span>
@@ -1783,7 +1783,7 @@
                 });
                 if (!response.ok) throw new Error('Preparation failed');
                 var data = await response.json();
-                if (!data.download_url) throw new Error('Download unavailable');
+                if (!data.download_url) throw new Error('Format unavailable');
                 startFileDownload(data.download_url);
                 prepareButton.innerHTML = 'Started';
             } catch (error) {
@@ -1860,7 +1860,7 @@
             } finally {
                 if (analyzeBtn) {
                     analyzeBtn.disabled = false;
-                    analyzeBtn.innerHTML = '<svg class="download-icon" style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Download</span>';
+                    analyzeBtn.innerHTML = '<svg class="download-icon" style="display:inline-block;vertical-align:middle;margin-right:8px;flex-shrink:0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Analyze</span>';
                 }
             }
         }

@@ -49,9 +49,9 @@ class DatabaseSeeder extends Seeder
 
         foreach ([
             'site_name' => 'HDVideoDownloader',
-            'hero_title' => 'Free All Video Downloader',
-            'hero_subtitle' => 'Download videos, reels, shorts, and audio from your favorite platforms. Paste a public video link below to get started.',
-            'default_meta_description' => 'Download public videos in available HD formats with HDVideoDownloader.',
+            'hero_title' => 'Public Media Link Analyzer',
+            'hero_subtitle' => 'Review source-dependent video and audio formats from supported public links. Use the tool only for content you own or have permission to save.',
+            'default_meta_description' => 'Analyze supported public media links and review available HD formats with HDVideoDownloader.',
         ] as $key => $value) SiteSetting::updateOrCreate(['key' => $key], ['value' => $value]);
     }
 

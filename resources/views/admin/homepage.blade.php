@@ -130,21 +130,21 @@
             <div class="form-row full">
                 <div class="form-group">
                     <label>Meta Title</label>
-                    <input type="text" name="meta_title" value="{{ optional($seo)->meta_title ?? '' }}" placeholder="e.g. Download HD Videos Free - HD Video Downloader">
+                    <input type="text" name="meta_title" value="{{ optional($seo)->meta_title ?? '' }}" placeholder="e.g. Public Media Link Analyzer - HDVideoDownloader">
                 </div>
             </div>
 
             <div class="form-row full">
                 <div class="form-group">
                     <label>Meta Description</label>
-                    <textarea name="meta_description" rows="3" placeholder="e.g. Free online video downloader...">{{ optional($seo)->meta_description ?? '' }}</textarea>
+                    <textarea name="meta_description" rows="3" placeholder="e.g. Analyze supported public media links and review available formats.">{{ optional($seo)->meta_description ?? '' }}</textarea>
                 </div>
             </div>
 
             <div class="form-row full">
                 <div class="form-group">
                     <label>Meta Keywords</label>
-                    <textarea name="meta_keywords" rows="2" placeholder="e.g. video downloader, free HD Video Downloader...">{{ optional($seo)->meta_keywords ?? '' }}</textarea>
+                    <textarea name="meta_keywords" rows="2" placeholder="e.g. public media link analyzer, format guide, supported public links">{{ optional($seo)->meta_keywords ?? '' }}</textarea>
                     <p class="hint">Separate keywords with commas.</p>
                 </div>
             </div>
@@ -351,4 +351,3 @@
         document.getElementById('heroBtnText').oninput = function() { document.querySelector('.preview-btn-el').textContent = this.value; };
     </script>
 @endpush
-

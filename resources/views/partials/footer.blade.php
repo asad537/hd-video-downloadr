@@ -188,14 +188,14 @@
                 } catch (\Throwable $exception) {
                     $footerSettings = null;
                 }
-                $footerDescription = optional($footerSettings)->description ?? 'Download videos, audios and reels from your favourite platforms in high quality for free. No login required. Works on all devices. Fast, safe and 100% free to use.';
+                $footerDescription = optional($footerSettings)->description ?? 'Analyze supported public media links and review source-dependent formats. No login is required for the basic browser workflow, and available quality depends on the source.';
                 $selectedPlatformIds = optional($footerSettings)->platforms ?? [];
             @endphp
 
             <!-- Brand -->
             <div>
                 <a href="/" class="footer-logo-link">
-                    <img src="/images/Logo_Website.png" alt="HD Video Downloader" width="190" height="60">
+                    <img src="/images/Logo_Website.png" alt="HDVideoDownloader" width="190" height="60">
                 </a>
                 <p class="footer-desc" style="line-height: 1.6;">
                     {{ $footerDescription }}
@@ -261,7 +261,7 @@
     <!-- Copyright -->
     <div class="footer-copyright">
         <div class="footer-inner">
-            <p style="line-height: 1.45;">© {{ date('Y') }} HD Video Downloader. All rights reserved.</p>
+            <p style="line-height: 1.45;">© {{ date('Y') }} HDVideoDownloader. All rights reserved.</p>
         </div>
     </div>
 </footer>

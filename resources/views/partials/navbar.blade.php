@@ -2,7 +2,7 @@
 <header class="topbar">
     <nav class="wrap nav">
         <a class="brand" href="{{ route('home') }}" aria-label="HDVideoDownloader home">
-            <img src="/images/Logo_Website.png" alt="HD Video Downloader" width="190" height="60" style="height:75px;width:auto;object-fit:contain;">
+            <img src="/images/Logo_Website.png" alt="HDVideoDownloader" width="190" height="60" style="height:75px;width:auto;object-fit:contain;">
         </a>
         <button class="menu-toggle" aria-label="Toggle menu"><span></span></button>
         <div class="nav-links">

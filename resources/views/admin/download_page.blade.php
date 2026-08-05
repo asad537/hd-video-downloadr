@@ -48,13 +48,13 @@
             
             <div class="form-group">
                 <label>Description Paragraph</label>
-                <textarea name="description" rows="3" required>{{ optional($settings)->description ?? 'Follow these simple steps to download and install the app from Google Play Store.' }}</textarea>
+                <textarea name="description" rows="3" required>{{ optional($settings)->description ?? 'Review supported public media links in the browser. No separate app or extension is required for the basic workflow.' }}</textarea>
             </div>
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
                 <div class="form-group">
                     <label>Button Text</label>
-                    <input type="text" name="btn_text" value="{{ optional($settings)->btn_text ?? 'Download HD Video Downloader' }}" required>
+                    <input type="text" name="btn_text" value="{{ optional($settings)->btn_text ?? 'Open Link Analyzer' }}" required>
                 </div>
                 <div class="form-group">
                     <label>Button Link</label>
@@ -99,5 +99,3 @@
         </div>
     </form>
 @endsection
-
-

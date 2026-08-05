@@ -37,7 +37,7 @@
       "@context": "https://schema.org",
       "@type": "Organization",
       "@id": "https://hdvideodownloader.online/#organization",
-      "name": "HD Video Downloader",
+      "name": "HDVideoDownloader",
       "alternateName": [
         "HDVideoDownloader",
         "HD Video DL",
@@ -48,21 +48,21 @@
         "@type": "ImageObject",
         "url": "https://hdvideodownloader.online/images/Logo_Website.png"
       },
-      "description": "HD Video Downloader is a browser-based public media link analyzer that helps users review source-dependent formats for links they own or have permission to use."
+      "description": "HDVideoDownloader is a browser-based public media link analyzer that helps users review source-dependent formats for links they own or have permission to use."
     }
     </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "HD Video Downloader",
+      "name": "HDVideoDownloader",
       "alternateName": [
         "HDVideoDownloader",
         "HD Video DL",
         "HDVDownloader"
       ],
       "url": "https://hdvideodownloader.online/",
-      "description": "HD Video Downloader is a browser-based public media link analyzer that helps users review source-dependent formats for links they own or have permission to use.",
+      "description": "HDVideoDownloader is a browser-based public media link analyzer that helps users review source-dependent formats for links they own or have permission to use.",
       "publisher": {
         "@id": "https://hdvideodownloader.online/#organization"
       }
@@ -981,8 +981,8 @@
     <section class="platform-hero">
         <div class="platform-hero-wrap">
             <span class="platform-hero-badge"><i class="fas fa-rocket"></i> Supported Platforms</span>
-            <h1>{{ $platform->h1 ?: $platform->name . ' Video Downloader' }}</h1>
-            <p>{{ $platform->description ?: 'Download ' . $platform->name . ' videos, reels and audio clips in HD quality — fast, free and easy.' }}</p>
+            <h1>{{ $platform->h1 ?: $platform->name . ' Public Link Format Guide' }}</h1>
+            <p>{{ $platform->description ?: 'Analyze supported public ' . $platform->name . ' links and review source-dependent video and audio formats.' }}</p>
         </div>
     </section>
     <div class="download-panel-wrap">

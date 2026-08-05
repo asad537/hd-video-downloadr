@@ -136,17 +136,17 @@
 
                 <div class="form-group">
                     <label>Meta Title</label>
-                    <input type="text" name="meta_title" value="{{ $seo->meta_title }}" placeholder="e.g. Download HD Videos Free - HD Video Downloader">
+                    <input type="text" name="meta_title" value="{{ $seo->meta_title }}" placeholder="e.g. Public Media Link Analyzer - HDVideoDownloader">
                 </div>
 
                 <div class="form-group">
                     <label>Meta Description</label>
-                    <textarea name="meta_description" placeholder="e.g. Free online video downloader to save videos from YouTube, TikTok, Facebook...">{{ $seo->meta_description }}</textarea>
+                    <textarea name="meta_description" placeholder="e.g. Analyze supported public media links and review source-dependent formats.">{{ $seo->meta_description }}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label>Meta Keywords</label>
-                    <textarea name="meta_keywords" placeholder="e.g. video downloader, free HD Video Downloader, download mp4...">{{ $seo->meta_keywords }}</textarea>
+                    <textarea name="meta_keywords" placeholder="e.g. public media link analyzer, media format guide, supported public links">{{ $seo->meta_keywords }}</textarea>
                     <small style="color: rgba(255,255,255,0.4); display: block; margin-top: 0.4rem;">Separate keywords with commas.</small>
                 </div>
 
@@ -182,5 +182,4 @@
     }
 </script>
 @endpush
-
 
