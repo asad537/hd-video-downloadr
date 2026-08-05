@@ -151,7 +151,7 @@ Route::post('/admin/guides', [GuideController::class, 'store'])->name('admin.gui
 Route::get('/admin/guides/{id}/edit', [GuideController::class, 'edit'])->name('admin.guides.edit');
 Route::post('/admin/guides/{id}', [GuideController::class, 'update'])->name('admin.guides.update');
 Route::delete('/admin/guides/{id}', [GuideController::class, 'destroy'])->name('admin.guides.delete');
-Route::get('/guide/{slug}/', [GuideController::class, 'publicShow'])->name('guide.show');
+Route::get('/guide/{slug}', [GuideController::class, 'publicShow'])->name('guide.show');
 
 // Platform Admin Routes
 Route::get('/admin/platforms', [PlatformController::class, 'index'])->name('admin.platforms.index');
@@ -164,7 +164,7 @@ Route::post('/admin/platforms/{id}/faqs', [PlatformController::class, 'faqStore'
 Route::delete('/admin/platforms/faqs/{faq_id}', [PlatformController::class, 'faqDelete'])->name('admin.platforms.faqs.delete');
 
 // Public FAQs
-Route::get('/faqs/', [AdminController::class, 'publicFaqs'])->name('public.faqs');
+Route::get('/faqs', [AdminController::class, 'publicFaqs'])->name('public.faqs');
 
 // CKEditor image upload
 Route::post('/admin/cms/upload-editor-image', [AdminController::class, 'uploadEditorImage'])->name('admin.cms.upload-editor-image');
@@ -674,4 +674,4 @@ Route::get('/llms.txt', function () {
 })->name('llms');
 
 // ── Catch-all Public Platform Route (Must be last) ────────────────────────────
-Route::get('/{slug}/', [PlatformController::class, 'show'])->name('platforms.show');
+Route::get('/{slug}', [PlatformController::class, 'show'])->name('platforms.show');

@@ -14,6 +14,8 @@ class SeoHeaders
 
         if ($request->is('admin', 'admin/*', 'analyze', 'download-file', 'prepare-plugin-download')) {
             $response->headers->set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+        } else {
+            $response->headers->set('X-Robots-Tag', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
         }
 
         if ($path === 'sitemap.xml') {
