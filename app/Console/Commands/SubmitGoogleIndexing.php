@@ -30,7 +30,7 @@ class SubmitGoogleIndexing extends Command
 
         $clientEmail = $config['client_email'];
         $rawKey = $config['private_key'];
-        $privateKeyStr = str_replace(["\\n", "\r"], ["\n", ""], $rawKey);
+        $privateKeyStr = str_replace(['\n', "\\n", "\r"], ["\n", "\n", ""], $rawKey);
         $pkey = openssl_pkey_get_private($privateKeyStr);
 
         if (!$pkey) {
