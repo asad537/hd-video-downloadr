@@ -29,7 +29,7 @@ class SubmitGoogleIndexing extends Command
         }
 
         $clientEmail = $config['client_email'];
-        $privateKey = $config['private_key'];
+        $privateKey = str_replace('\n', "\n", $config['private_key']);
 
         $this->info("Service Account Email: {$clientEmail}");
 
