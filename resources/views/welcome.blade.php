@@ -39,8 +39,7 @@
         $pageImage = $page === 'blog-post' ? asset($post['image']) : asset('/images/blog/generated/001-youtube-video-downloader-safe-hd-mp4-guide.svg');
     @endphp
     <meta charset="utf-8">
-    <link rel="icon" type="image/svg+xml" href="/images/home/Favicon.svg">
-    <link rel="apple-touch-icon" href="/images/home/Favicon.svg">
+    @include('partials.favicons')
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ $pageDescription }}">
     <meta name="robots" content="{{ $page === 'home' && !empty($homeSeo->meta_robots) ? $homeSeo->meta_robots : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' }}">

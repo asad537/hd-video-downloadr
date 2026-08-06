@@ -5,8 +5,7 @@
     @include('partials.google-tag')
     <!-- Preload hero image for instant LCP -->
     <link rel="preload" as="image" href="/images/supporteds.webp" type="image/webp" fetchpriority="high">
-    <link rel="icon" type="image/svg+xml" href="/images/home/Favicon.svg">
-    <link rel="apple-touch-icon" href="/images/home/Favicon.svg">
+    @include('partials.favicons')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $platform->meta_title ?: $platform->name . ' - Video Saver' }}</title>
