@@ -27,7 +27,7 @@
  ['today_downloads','Today','fa-calendar-day','#60a5fa','rgba(96,165,250,.18)','Successful today'],
  ['week_downloads','This week','fa-calendar-week','#a78bfa','rgba(167,139,250,.18)','Successful this week'],
  ['active_users','Active users','fa-users','#fbbf24','rgba(251,191,36,.18)','Last 5 minutes'],
- ['today_visitors','Visitors today','fa-user-group','#22d3ee','rgba(34,211,238,.18)','Unique sessions'],
+ ['today_visitors','Visitors today','fa-user-group','#22d3ee','rgba(34,211,238,.18)','Total visits today'],
  ['page_views','Page views','fa-eye','#f472b6','rgba(244,114,182,.18)','All tracked views'],
  ['success_rate','Success rate','fa-chart-pie','#4ade80','rgba(74,222,128,.18)','Download completion'],
 ]; @endphp
