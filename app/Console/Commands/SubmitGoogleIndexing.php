@@ -29,7 +29,14 @@ class SubmitGoogleIndexing extends Command
         }
 
         $clientEmail = $config['client_email'];
-        $privateKey = str_replace('\n', "\n", $config['private_key']);
+        $rawKey = $config['private_key'];
+        $privateKeyStr = str_replace(["\\n", "\r"], ["\n", ""], $rawKey);
+        $pkey = openssl_pkey_get_private($privateKeyStr);
+
+        if (!$pkey) {
+            $this->error("Failed to parse private key: " . openssl_error_string());
+            return 1;
+        }
 
         $this->info("Service Account Email: {$clientEmail}");
 
@@ -49,8 +56,8 @@ class SubmitGoogleIndexing extends Command
 
         $toSign = $header . '.' . $payload;
         $signature = '';
-        if (!openssl_sign($toSign, $signature, $privateKey, OPENSSL_ALGO_SHA256)) {
-            $this->error("Failed to sign JWT with private key.");
+        if (!openssl_sign($toSign, $signature, $pkey, OPENSSL_ALGO_SHA256)) {
+            $this->error("Failed to sign JWT with private key: " . openssl_error_string());
             return 1;
         }
         $jwtSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
