@@ -227,16 +227,17 @@ Route::get('/blog/{slug}', function ($slug) use ($platforms, $loadPosts, $soften
     if ($newBlog) {
         $post = [
             'id'          => 'new_' . $newBlog->id,
-            'title'       => $softenSeoCopy($newBlog->title),
+            'title'       => $newBlog->title,
             'slug'        => $newBlog->slug,
-            'category'    => $newBlog->tags ?? 'General',
-            'excerpt'     => $softenSeoCopy($newBlog->meta_description ?? ''),
-            'description' => $softenSeoCopy($newBlog->meta_description ?? ''),
-            'read'        => '5 min read',
-            'published'   => $newBlog->created_at->format('M j, Y'),
-            'image'       => $newBlog->featured_image,
-            'image_alt'   => $softenSeoCopy($newBlog->title),
-            'content'     => $softenSeoCopy($newBlog->renderContent()),
+            'category'    => $newBlog->tags ?? 'WhatsApp',
+            'excerpt'     => $newBlog->meta_description ?? '',
+            'description' => $newBlog->meta_description ?? '',
+            'meta_title'  => $newBlog->meta_title ?: $newBlog->title . ' | HDVideoDownloader',
+            'read'        => $newBlog->reading_time ?: '6 min read',
+            'published'   => $newBlog->created_at ? $newBlog->created_at->format('M j, Y') : now()->format('M j, Y'),
+            'image'       => $newBlog->featured_image ?: '/images/custom_blogs/img_1.png',
+            'image_alt'   => $newBlog->image_alt ?: $newBlog->title,
+            'content'     => $newBlog->renderContent(),
         ];
     } else {
         $post = collect($posts)->firstWhere('slug', $slug);
