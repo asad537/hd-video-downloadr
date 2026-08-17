@@ -1253,7 +1253,150 @@
         </style>
     @endif
 
-
+    @if(isset($blogs) && count($blogs) > 0)
+        <section class="platform-guides-section">
+            <div class="platform-guides-wrap">
+                <div class="platform-guides-header">
+                    <h2>Related Guides & <span>Tutorials</span></h2>
+                    <p>Learn how to download videos, reels, and stories with original audio and HD quality</p>
+                </div>
+                <div class="platform-guides-grid">
+                    @foreach ($blogs as $guide)
+                    <article class="platform-guide-card">
+                        <a href="{{ route('blog.show', $guide->slug) }}" class="platform-guide-img-link">
+                            <img src="{{ $guide->featured_image ?: '/images/custom_blogs/img_1.png' }}" alt="{{ $guide->title }}" loading="lazy">
+                        </a>
+                        <div class="platform-guide-body">
+                            <span class="platform-guide-tag">{{ $guide->tags ?: 'Guide' }}</span>
+                            <h3><a href="{{ route('blog.show', $guide->slug) }}">{{ Str::limit($guide->title, 60) }}</a></h3>
+                            <p>{{ Str::limit($guide->description ?: $guide->meta_description, 95) }}</p>
+                            <a href="{{ route('blog.show', $guide->slug) }}" class="platform-guide-read">Read Full Guide →</a>
+                        </div>
+                    </article>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+        <style>
+            .platform-guides-section {
+                padding: 48px 0 64px;
+                background: #090c11;
+                border-top: 1px solid #1a222d;
+            }
+            .platform-guides-wrap {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            .platform-guides-header {
+                text-align: center;
+                margin-bottom: 36px;
+            }
+            .platform-guides-header h2 {
+                font-size: 32px;
+                font-weight: 800;
+                color: #fff;
+                margin: 0 0 8px;
+            }
+            .platform-guides-header h2 span {
+                color: #39e1b6;
+            }
+            .platform-guides-header p {
+                color: #94a3b8;
+                font-size: 15px;
+                margin: 0;
+            }
+            .platform-guides-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 22px;
+            }
+            .platform-guide-card {
+                background: #111720;
+                border: 1px solid #202b38;
+                border-radius: 14px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            }
+            .platform-guide-card:hover {
+                transform: translateY(-4px);
+                border-color: #39e1b6;
+                box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            }
+            .platform-guide-img-link {
+                display: block;
+                aspect-ratio: 16/9;
+                overflow: hidden;
+                background: #161f2b;
+            }
+            .platform-guide-img-link img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+            .platform-guide-card:hover .platform-guide-img-link img {
+                transform: scale(1.05);
+            }
+            .platform-guide-body {
+                padding: 16px 18px 20px;
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+            .platform-guide-tag {
+                display: inline-block;
+                color: #39e1b6;
+                font-size: 11px;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 8px;
+            }
+            .platform-guide-body h3 {
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 1.35;
+                margin: 0 0 8px;
+                color: #fff;
+            }
+            .platform-guide-body h3 a {
+                color: #fff;
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+            .platform-guide-body h3 a:hover {
+                color: #39e1b6;
+            }
+            .platform-guide-body p {
+                font-size: 13px;
+                color: #8b99aa;
+                line-height: 1.5;
+                margin: 0 0 14px;
+                flex: 1;
+            }
+            .platform-guide-read {
+                font-size: 13px;
+                font-weight: 700;
+                color: #39e1b6;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                transition: gap 0.2s;
+            }
+            .platform-guide-read:hover {
+                gap: 8px;
+            }
+            @media (max-width: 768px) {
+                .platform-guides-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    @endif
 
     @include('partials.footer')
 
